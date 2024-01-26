@@ -1,6 +1,8 @@
-﻿namespace Backend.Configurations
+﻿using AutoMapper;
+
+namespace Backend.Configurations
 {
-    public class AutoMapperProfile
+    public class AutoMapperProfile : Profile
     {
     }
 }
