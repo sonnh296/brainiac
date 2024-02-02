@@ -5,7 +5,7 @@ using Backend.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PRN231_V2Context>();
 
@@ -32,5 +32,10 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors(builder => {
+    builder.WithOrigins("*")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+});
 
 app.Run();
