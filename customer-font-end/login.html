@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Weekly Coding Challenge #1 -  Double slider Sign in/up Form - Desktop Only</title>
+  
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./stylelogin.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h2>Welcome to Braniac</h2>
+<div class="container" id="container">
+	<div class="form-container sign-up-container">
+		<form action="#">
+			<h1>Create Account</h1>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>or use your email for registration</span>
+			<input type="text" placeholder="Name" />
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			<button>Sign Up</button>
+		</form>
+	</div>
+	<div class="form-container sign-in-container">
+		<form action="#">
+			<h1>Sign in</h1>
+			<div class="social-container">
+				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+			</div>
+			<span>or use your account</span>
+			<input type="email" placeholder="Email" />
+			<input type="password" placeholder="Password" />
+			<button id="forGot">Forgot your password?</button>
+			
+			<button>Sign In</button>
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Enter your personal details and start journey with us</p>
+				<button class="ghost" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer>
+	<p>
+		Created with <i class="fa fa-heart"></i> by
+		<a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+		- Read how I created this and how you can join the challenge
+		<a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+	</p>
+</footer>
+<div id="popup1" class="overlay2">
+	<div class="popup" style="margin:auto;">
+<div class="form-gap"></div>
+<div class="container">
+	<div style="width: 300px;" class="row">
+		<div style="width: 300px;" class="col-md-4 col-md-offset-4">
+			<button class="close" id="close">&times;</button>
+            <div style="width: 500px;" class="panel panel-default">
+              <div class="panel-body">
+                <div class="text-center">
+                  <h3><i class="fa fa-lock fa-4x"></i></h3>
+                  <h2 class="text-center">Forgot Password?</h2>
+                  <p>You can reset your password here.</p>
+                  <div class="panel-body">
+    
+                    <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+    
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                          <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <a href="#"> <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit"> <a/>
+                      </div>
+                      
+                      <input type="hidden" class="hide" name="token" id="token" value=""> 
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+	</div>
+</div>
+	</div>
+</div>
+<!-- partial -->
+  <script  src="./js/scriptlogin.js"></script>
+
+</body>
+</html>
