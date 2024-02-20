@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - PRN231_LIST OBJECT</title>
+  
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+.glyphicon { margin-right:5px; }
+.list{
+  margin-left:5%;
+}
+.thumbnail
+{
+    margin-bottom: 20px;
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.item.list-group-item
+{
+    float: none;
+    width: 100%;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+.item.list-group-item:nth-of-type(odd):hover,.item.list-group-item:hover
+{
+    background: #428bca;
+}
+
+.item.list-group-item .list-group-image
+{
+    margin-right: 10px;
+}
+.item.list-group-item .thumbnail
+{
+    margin-bottom: 0px;
+}
+.item.list-group-item .caption
+{
+    padding: 9px 9px 0px 9px;
+}
+.item.list-group-item:nth-of-type(odd)
+{
+    background: #eeeeee;
+}
+
+.item.list-group-item:before, .item.list-group-item:after
+{
+    display: table;
+    content: " ";
+}
+
+.item.list-group-item img
+{
+    float: left;
+}
+.item.list-group-item:after
+{
+    clear: both;
+}
+.list-group-item-text
+{
+    margin: 0 0 11px;
+}
+.lead{
+  margin-left:3%;
+}
+
+
+:root {
+	--crimson: crimson;
+	--black: #333;
+	--white: #fff;
+	--light-black: #666;
+	--light-bg: #eee;
+	--dark-bg: rgba(0, 0, 0, .7);
+	--border: 1px solid #999;
+	--box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+}
+
+* {
+	font-family: 'Poppins', sans-serif;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	border: none;
+	text-decoration: none;
+	transition: all .2s linear;
+}
+
+body {
+	background-color: var(--light-bg);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--black);
+}
+
+.heading {
+	margin-bottom: 20px;
+	font-size: 30px;
+	color: var(--black);
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.btn {
+	margin-top: 10px;
+	display: inline-block;
+	padding: 10px 30px;
+  padding-left: 30px;
+	cursor: pointer;
+	font-size: 17px;
+	background-color: var(--light-bg);
+	color: var(--black);
+	text-transform: capitalize;
+	text-align: center;
+}
+
+.btn:hover {
+	background-color: var(--crimson);
+	color: var(--white);
+}
+
+.side-bar {
+	height: 100vh;
+	width: 300px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	background-color: var(--white);
+	padding: 20px;
+	border-right: var(--border);
+	overflow-y: scroll;
+}
+
+.side-bar::-webkit-scrollbar {
+	width: 5px;
+}
+
+.side-bar .box {
+	border-bottom: var(--border);
+	padding: 20px 0;
+}
+
+.side-bar .box .title {
+	margin-bottom: 10px;
+	color: var(--black);
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+.side-bar .btn {
+	margin-left: 5px;
+}
+
+.side-bar .btn.active {
+	background-color: var(--crimson);
+	color: var(--white);
+}
+
+.side-bar .box #search-box {
+	border: var(--border);
+	padding: 12px;
+	text-transform: none;
+	color: var(--light-black);
+	width: 100%;
+	font-size: 17px;
+}
+
+.side-bar .reset-btn .btn {
+	margin-top: 20px;
+	width: 100%;
+}
+
+#side-menu {
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	height: 50px;
+	width: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: var(--white);
+	color: var(--black);
+	cursor: pointer;
+	font-size: 25px;
+	z-index: 1100;
+	box-shadow: var(--box-shadow);
+	border: var(--border);
+	display: none;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<body>
+  <div class="container-fluid">
+    <div class="row">
+               <div class="col-lg-3 col-md-3 col-sm-4">
+                <!-- Bootstrap Sidebar -->
+                <div id="sidebar" class="side-bar">
+                    <h1 class="heading">filter images</h1>
+                    <div class="box">
+                        <h3 class="title">search image :</h3>
+                        <input type="text" placeholder="search image..." id="search-box" class="form-control">
+                    </div>
+                    <div class="box">
+                        <h3 class="title">category :</h3>
+                        <div class="category">
+                            <button class="btn active" data-category="all"> all </button>
+                            <button class="btn" data-category="animal">animals</button>
+                            <button class="btn" data-category="food">food</button>
+                            <button class="btn" data-category="fish">fish</button>
+                            <button class="btn" data-category="flower">flower</button>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <h3 class="title">type :</h3>
+                        <div class="type">
+                            <button class="btn active" data-type="all">all type</button>
+                            <button class="btn" data-type="jpg">jpg</button>
+                            <button class="btn" data-type="png">png</button>
+                            <button class="btn" data-type="svg">svg</button>
+                        </div>
+                    </div>
+                    <div class="reset-btn">
+                        <button class="btn">reset all</button>
+                    </div>
+                </div>
+                <!-- End Bootstrap Sidebar -->
+            </div>
+        <div class="col-lg-9 col-md-9 col-sm-7">
+<div class="list container">
+    <div class="well well-sm">
+        <strong>Display</strong>
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>List</a> 
+            <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
+        </div>
+    </div>
+    <div id="products" class=" row">
+      <div class="item col-lg-3 col-md-5 col-sm-11">
+            <div class="thumbnail">
+                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        Product title</h4>
+                    <p class="group inner list-group-item-text">
+                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="lead">
+                                $21.000</p>
+                        </div>
+                        <div class="col-6">
+                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class="item col-lg-3 col-md-5 col-sm-11">
+            <div class="thumbnail">
+                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        Product title</h4>
+                    <p class="group inner list-group-item-text">
+                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="lead">
+                                $21.000</p>
+                        </div>
+                        <div class="col-6">
+                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item col-lg-3 col-md-5 col-sm-11">
+            <div class="thumbnail">
+                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        Product title</h4>
+                    <p class="group inner list-group-item-text">
+                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="lead">
+                                $21.000</p>
+                        </div>
+                        <div class="col-6">
+                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+             <div class="item col-lg-3 col-md-5 col-sm-11">
+            <div class="thumbnail">
+                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        Product title</h4>
+                    <p class="group inner list-group-item-text">
+                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="lead">
+                                $21.000</p>
+                        </div>
+                        <div class="col-6">
+                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          </div>
+          </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+});
+
+</script>
+</html>
