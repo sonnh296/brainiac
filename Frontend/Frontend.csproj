@@ -9,8 +9,11 @@
   <ItemGroup>
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Guest\" />
-    <Folder Include="Views\Teacher\" />
     <Folder Include="Views\Student\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\imgs\terraform.png" />
   </ItemGroup>
 
 </Project>
