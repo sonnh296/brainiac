@@ -1,0 +1,29 @@
+﻿body {
+    position: relative;
+}
+
+.read-more-content {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.read-more-btn {
+    cursor: pointer;
+    color: blue;
+    display: none;
+}
+
+@media (max-width: 770px) {
+    .rating-comment {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .rating,
+    .comment {
+        width: 100%;
+    }
+}
