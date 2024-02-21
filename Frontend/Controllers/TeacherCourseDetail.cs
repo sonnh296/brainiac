@@ -5,5 +5,9 @@ namespace Frontend.Controllers {
         public IActionResult Index() {
             return View("Views/Teacher/CourseDetail/Index.cshtml");
         }
+        public IActionResult CreateLesson()
+        {
+            return View("Views/Teacher/CourseDetail/Create.cshtml");
+        }
     }
 }
