@@ -8,7 +8,10 @@ namespace Backend.Models
         public User()
         {
             Comments = new HashSet<Comment>();
+            OrderDetails = new HashSet<OrderDetail>();
             Ratings = new HashSet<Rating>();
+            ReportedCommentUserComments = new HashSet<ReportedComment>();
+            ReportedCommentUserReports = new HashSet<ReportedComment>();
             ResourceUsers = new HashSet<ResourceUser>();
             UserCourses = new HashSet<UserCourse>();
             UserTests = new HashSet<UserTest>();
@@ -22,7 +25,10 @@ namespace Backend.Models
 
         public virtual Role Role { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<ReportedComment> ReportedCommentUserComments { get; set; }
+        public virtual ICollection<ReportedComment> ReportedCommentUserReports { get; set; }
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
         public virtual ICollection<UserCourse> UserCourses { get; set; }
         public virtual ICollection<UserTest> UserTests { get; set; }
