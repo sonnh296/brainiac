@@ -21,8 +21,10 @@ namespace Backend.Models
         public virtual DbSet<CategoryCourse> CategoryCourses { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<ReportedComment> ReportedComments { get; set; }
         public virtual DbSet<Resource> Resources { get; set; }
         public virtual DbSet<ResourceUser> ResourceUsers { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -35,8 +37,8 @@ namespace Backend.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
-                optionsBuilder.UseSqlServer(ConnectionString);
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("server=TRONGHOA\\SQLEXPRESS;database=PRN231_V2;uid=sa;pwd=1;Trusted_Connection=True;Encrypt=False");
             }
         }
 
@@ -116,6 +118,31 @@ namespace Backend.Models
                     .HasMaxLength(255);
             });
 
+            modelBuilder.Entity<OrderDetail>(entity =>
+            {
+                entity.HasKey(e => e.OrderId);
+
+                entity.ToTable("OrderDetail");
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.PaymentMethod)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.Course)
+                    .WithMany(p => p.OrderDetails)
+                    .HasForeignKey(d => d.CourseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OrderDetail_Course");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.OrderDetails)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OrderDetail_User");
+            });
+
             modelBuilder.Entity<Question>(entity =>
             {
                 entity.ToTable("Question");
@@ -139,6 +166,31 @@ namespace Backend.Models
                     .WithMany(p => p.Ratings)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_Rating_User");
+            });
+
+            modelBuilder.Entity<ReportedComment>(entity =>
+            {
+                entity.ToTable("ReportedComment");
+
+                entity.Property(e => e.DateTime).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Comment)
+                    .WithMany(p => p.ReportedComments)
+                    .HasForeignKey(d => d.CommentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReportedComment_Comment");
+
+                entity.HasOne(d => d.UserComment)
+                    .WithMany(p => p.ReportedCommentUserComments)
+                    .HasForeignKey(d => d.UserCommentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReportedComment_UserComment");
+
+                entity.HasOne(d => d.UserReport)
+                    .WithMany(p => p.ReportedCommentUserReports)
+                    .HasForeignKey(d => d.UserReportId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ReportedComment_UserReport");
             });
 
             modelBuilder.Entity<Resource>(entity =>

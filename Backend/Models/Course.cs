@@ -9,6 +9,7 @@ namespace Backend.Models
         {
             CategoryCourses = new HashSet<CategoryCourse>();
             Comments = new HashSet<Comment>();
+            OrderDetails = new HashSet<OrderDetail>();
             Ratings = new HashSet<Rating>();
             Resources = new HashSet<Resource>();
             Tests = new HashSet<Test>();
@@ -23,6 +24,7 @@ namespace Backend.Models
 
         public virtual ICollection<CategoryCourse> CategoryCourses { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Resource> Resources { get; set; }
         public virtual ICollection<Test> Tests { get; set; }
