@@ -199,6 +199,10 @@ namespace Backend.Models
 
                 entity.Property(e => e.Description).HasMaxLength(255);
 
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Resources)
                     .HasForeignKey(d => d.CourseId)
