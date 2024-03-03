@@ -1,5 +1,4 @@
 ﻿using Backend.Models;
-using Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Sudent
@@ -19,14 +18,11 @@ namespace Backend.Controllers.Sudent
             _reportedCommentRepository = new GenericRepository<ReportedComment>(_context);
             _userCourseRepository = new GenericRepository<UserCourse>(_context);
         }
-
         // GET: /Student/CourseDetail/5
         [HttpGet("GetCourseDetail/{id}")]
-        public async Task<IActionResult> GetCourseDetailById(int id)
-        {
+        public async Task<IActionResult> GetCourseDetailById(int id) {
             Course course = await _courseRepository.GetByIdAsync(id);
-            if(course != null)
-            {
+            if (course != null) {
                 //int lessonCount = course.Resources.Count;
                 //User author = course.UserCourses.FirstOrDefault(c => c.IsStudent == true).User;
                 //var categories = course.CategoryCourses.ToList();
@@ -43,21 +39,17 @@ namespace Backend.Controllers.Sudent
                 //    Enrolled = countEnrolled
                 //});
                 return Ok(course);
-            }
-            else
-            {
+            } else {
                 return NotFound();
             }
         }
-        
+
         //Get list related courses
         // GET: /Student/CourseDetail/5
         [HttpGet("GetRelatedCourse/{id}")]
-        public async Task<ActionResult<IEnumerable<Course>>> GetRelatedCourses(int id)
-        {
+        public async Task<ActionResult<IEnumerable<Course>>> GetRelatedCourses(int id) {
             Course course = await _courseRepository.GetByIdAsync(id);
-            if(course != null)
-            {
+            if (course != null) {
                 var categoryIds = course.CategoryCourses.Select(c => c.CategoryId).ToList();
 
                 var relatedCourses = await _courseRepository.GetAllAsync();
@@ -67,42 +59,32 @@ namespace Backend.Controllers.Sudent
                     .ToList();
 
                 return Ok(relatedCourses);
-            }
-            else
-            {
+            } else {
                 return NotFound();
             }
         }
 
         // POST: /Student/CourseDetail/ReportComment
         [HttpPost("ReportComment")]
-        public async Task<IActionResult> ReportComment(ReportedComment reportedComment)
-        {
-            if(ModelState.IsValid)
-            {
+        public async Task<IActionResult> ReportComment(ReportedComment reportedComment) {
+            if (ModelState.IsValid) {
                 _reportedCommentRepository.Add(reportedComment);
                 await _reportedCommentRepository.SaveAsync();
                 return Ok();
-            }
-            else
-            {
+            } else {
                 return BadRequest();
             }
         }
 
         [HttpPost("EnrollCourse")]
-        public async Task<IActionResult> EnrollCourse(UserCourse userCourse)
-        {
-            if(ModelState.IsValid)
-            {
+        public async Task<IActionResult> EnrollCourse(UserCourse userCourse) {
+            if (ModelState.IsValid) {
                 _userCourseRepository.Add(userCourse);
                 await _userCourseRepository.SaveAsync();
                 return Ok();
-            }
-            else
-            {
+            } else {
                 return BadRequest();
             }
-        }   
+        }
     }
 }

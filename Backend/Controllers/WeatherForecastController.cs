@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers {
@@ -15,6 +16,7 @@ namespace Backend.Controllers {
             _logger = logger;
         }
 
+        [Authorize(Roles = "teacher")]
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get() {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast {
