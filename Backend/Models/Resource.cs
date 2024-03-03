@@ -16,6 +16,7 @@ namespace Backend.Models
         public int? CourseId { get; set; }
         public bool? IsFree { get; set; }
         public int? OrdinalNumber { get; set; }
+        public string Type { get; set; }
 
         public virtual Course Course { get; set; }
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
