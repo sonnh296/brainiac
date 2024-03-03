@@ -8,6 +8,7 @@ namespace Frontend.Controllers {
         public IActionResult CreateLesson()
         {
             return View("Views/Teacher/CourseDetail/Create.cshtml");
+
         }
     }
 }
