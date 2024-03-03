@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Sudent
 {
-    [Route("[Student]/[controller]")]
+    [Route("Student/[controller]")]
     [ApiController]
     public class CourseDetailController : Controller
     {
