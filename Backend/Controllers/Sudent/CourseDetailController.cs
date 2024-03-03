@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Backend.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Sudent

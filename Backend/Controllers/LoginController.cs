@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Composition;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Backend.Controllers {
@@ -18,13 +20,19 @@ namespace Backend.Controllers {
             _configuration = configuration;
         }
 
+        User _user = new User();
+        private string reftk = "";
+        private DateTime exprs = DateTime.MinValue;
+
         private User Authenticate(LoginRequest loginRequest) {
             if(loginRequest != null) {
                 var _context = new PRN231_V2Context();
                 var user = _context.Users.Include(u => u.Role)
                     .FirstOrDefault(u => u.UserName == loginRequest.UserName && u.Password==loginRequest.Password);
 
-                if(user != null) {
+                if (user != null) {
+                    _user.UserName = user.UserName;
+                    _user.Password = user.Password;
                     return user;
                 }
             }
@@ -36,8 +44,6 @@ namespace Backend.Controllers {
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.Role.RoleName),
             };
 
@@ -46,21 +52,64 @@ namespace Backend.Controllers {
                 signingCredentials: credentials
                 );
 
+
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        private RefreshToken GetRefreshToken() {
+            var refreshToken = new RefreshToken() {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
+                Expires = DateTime.Now.AddDays(2),
+                Created = DateTime.Now
+            };
+
+            return refreshToken;
+        }
+
+        private void SetRefreshToken(RefreshToken newRefreshToken) {
+            var cookieOptions = new CookieOptions {
+                HttpOnly = true,
+                Expires = newRefreshToken.Expires
+            };
+
+            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
+
+            reftk = newRefreshToken.Token;
+            exprs = newRefreshToken.Expires;
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<string>> RefreshToken() {
+            var refreshToken = Request.Cookies["refreshToken"];
+
+            if(!reftk.Equals(refreshToken)) {
+                return Unauthorized("Invalid refresh token");
+            }else if(exprs < DateTime.Now) {
+                return Unauthorized("Token exprierd");
+            }
+
+            string token = GenerateToken(_user);
+            var newRefreshToken = GetRefreshToken();
+            SetRefreshToken(newRefreshToken);
+
+            return Ok( token);
+        }
+
         [AllowAnonymous]
-        [HttpPost]
-        public IActionResult Login(LoginRequest loginRequest) {
-            IActionResult response = Unauthorized();
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login(LoginRequest loginRequest) {
+
             var user = Authenticate(loginRequest);
 
             if (user != null) {
                 var token = GenerateToken(user);
-                response = Ok(new {token = token});
+                return Ok(token);
             }
 
-            return response;
+            var refreshToken = GetRefreshToken();
+            SetRefreshToken(refreshToken);
+
+            return BadRequest("User not found.");
         }
     }
 }
