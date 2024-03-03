@@ -7,6 +7,6 @@
         void Add(T obj);
         void Update(T obj);
         void Delete(object id);
-        Task<T> GetByIdAsync();
+        Task SaveAsync();
     }
 }
