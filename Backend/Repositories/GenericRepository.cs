@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Backend.Repositories
 {
@@ -42,6 +43,11 @@ namespace Backend.Repositories
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> condition)
+        {
+            throw new NotImplementedException();
         }
     }
 }

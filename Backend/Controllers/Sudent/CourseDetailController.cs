@@ -24,21 +24,7 @@ namespace Backend.Controllers.Sudent
         public async Task<IActionResult> GetCourseDetailById(int id) {
             Course course = await _courseRepository.GetByIdAsync(id);
             if (course != null) {
-                //int lessonCount = course.Resources.Count;
-                //User author = course.UserCourses.FirstOrDefault(c => c.IsStudent == true).User;
-                //var categories = course.CategoryCourses.ToList();
-                //int countEnrolled = course.UserCourses.Count - 1;
-                //return Ok(new
-                //{
-                //    CourseId = course.CourseId,
-                //    CourseName = course.CourseName,
-                //    Title = course.Title,
-                //    Price = course.Price,
-                //    Lessons = lessonCount,
-                //    Author = author,
-                //    Categories = categories,
-                //    Enrolled = countEnrolled
-                //});
+               
                 return Ok(course);
             } else {
                 return NotFound();
