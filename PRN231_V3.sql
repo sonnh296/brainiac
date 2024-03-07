@@ -1,6 +1,6 @@
-﻿USE [master]
+USE [master]
 GO
-/****** Object:  Database [PRN231_V2]    Script Date: 3/3/2024 8:26:19 PM ******/
+/****** Object:  Database [PRN231_V2]    Script Date: 3/7/2024 7:40:01 PM ******/
 CREATE DATABASE [PRN231_V2]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,7 +82,7 @@ ALTER DATABASE [PRN231_V2] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP
 GO
 USE [PRN231_V2]
 GO
-/****** Object:  Table [dbo].[Answer]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Answer]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -98,7 +98,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Category]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Category]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,7 +112,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CategoryCourse]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[CategoryCourse]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -127,7 +127,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Comment]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Comment]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -145,7 +145,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Course]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Course]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -162,7 +162,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderDetail]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[OrderDetail]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -179,7 +179,7 @@ CREATE TABLE [dbo].[OrderDetail](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Question]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Question]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,7 +194,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Rating]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Rating]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -210,7 +210,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ReportedComment]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[ReportedComment]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -227,7 +227,7 @@ CREATE TABLE [dbo].[ReportedComment](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Resource]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Resource]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -246,7 +246,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ResourceUser]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[ResourceUser]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -262,7 +262,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Role]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Role]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -276,7 +276,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Test]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[Test]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -294,7 +294,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -305,13 +305,14 @@ CREATE TABLE [dbo].[User](
 	[Password] [nvarchar](255) NOT NULL,
 	[Email] [nvarchar](255) NOT NULL,
 	[RoleId] [int] NULL,
+	[Balance] [money] NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[UserId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserCourse]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[UserCourse]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -328,7 +329,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserTest]    Script Date: 3/3/2024 8:26:20 PM ******/
+/****** Object:  Table [dbo].[UserTest]    Script Date: 3/7/2024 7:40:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -345,6 +346,54 @@ PRIMARY KEY CLUSTERED
 	[UserTestId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Category] ON 
+
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (1, N'Html')
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (2, N'Css')
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (3, N'JavaScript')
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (4, N'C#')
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (5, N'MVC')
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (6, N'Razor')
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (7, N'Google')
+INSERT [dbo].[Category] ([CategoryId], [CategoryName]) VALUES (8, N'Software')
+SET IDENTITY_INSERT [dbo].[Category] OFF
+GO
+SET IDENTITY_INSERT [dbo].[CategoryCourse] ON 
+
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (1, 8, 1)
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (2, 7, 2)
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (3, 3, 3)
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (4, 1, 5)
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (5, 3, 6)
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (6, 3, 9)
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (10, 2, 5)
+SET IDENTITY_INSERT [dbo].[CategoryCourse] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Course] ON 
+
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (1, N'Software Enginering', N'The tutorial of developing software', CAST(112.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (2, N'Google Analysis', N'Work with data of Google', CAST(3221.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (3, N'JavaScript Tutorial', N'Basic Java ', CAST(11.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (4, N'Font-End Basic', N'Html, Css Basic', CAST(44.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (5, N'Font-End Normal', N'Start with JavaScript', CAST(332.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (6, N'Font-End High Level', N'Work with React', CAST(1643.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (7, N'Back-End C Sharp', N'Get start with Repository Pattern', CAST(163.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (8, N'Back-End C Sharp Version 2', N'Project MVC', CAST(43.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (9, N'Back-End C Sharp', N'Project Razor', CAST(132.00 AS Decimal(18, 2)), N' ')
+SET IDENTITY_INSERT [dbo].[Course] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Role] ON 
+
+INSERT [dbo].[Role] ([RoleId], [RoleName]) VALUES (1, N'Student')
+INSERT [dbo].[Role] ([RoleId], [RoleName]) VALUES (2, N'Teacher')
+INSERT [dbo].[Role] ([RoleId], [RoleName]) VALUES (3, N'Admin')
+SET IDENTITY_INSERT [dbo].[Role] OFF
+GO
+SET IDENTITY_INSERT [dbo].[User] ON 
+
+INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance]) VALUES (1, N'DungND', N'123456', N'dacdung@gmail.com', 1, NULL)
+SET IDENTITY_INSERT [dbo].[User] OFF
 GO
 ALTER TABLE [dbo].[Answer]  WITH CHECK ADD  CONSTRAINT [FK_Answer_Question] FOREIGN KEY([QuestionId])
 REFERENCES [dbo].[Question] ([QuestionId])
@@ -465,78 +514,4 @@ GO
 USE [master]
 GO
 ALTER DATABASE [PRN231_V2] SET  READ_WRITE 
-GO
-USE [PRN231_V2]
-GO
-
-
-INSERT [dbo].[Category] ( [CategoryName]) VALUES ( N'Html')
-INSERT [dbo].[Category] ( [CategoryName]) VALUES ( N'Css')
-INSERT [dbo].[Category] ( [CategoryName]) VALUES ( N'JavaScript')
-INSERT [dbo].[Category] ( [CategoryName]) VALUES ( N'C#')
-INSERT [dbo].[Category] ([CategoryName]) VALUES ( N'MVC')
-INSERT [dbo].[Category] ( [CategoryName]) VALUES ( N'Razor')
-INSERT [dbo].[Category] ( [CategoryName]) VALUES ( N'Google')
-INSERT [dbo].[Category] ( [CategoryName]) VALUES ( N'Software')
-
-GO
-
-
-INSERT [dbo].[Course] ( [CourseName], [Title], [Price], [Status]) VALUES ( N'Software Enginering', N'The tutorial of developing software', CAST(112.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ([CourseName], [Title], [Price], [Status]) VALUES ( N'Google Analysis', N'Work with data of Google', CAST(3221.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ( [CourseName], [Title], [Price], [Status]) VALUES ( N'JavaScript Tutorial', N'Basic Java ', CAST(11.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ([CourseName], [Title], [Price], [Status]) VALUES ( N'Font-End Basic', N'Html, Css Basic', CAST(44.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ( [CourseName], [Title], [Price], [Status]) VALUES ( N'Font-End Normal', N'Start with JavaScript', CAST(332.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ( [CourseName], [Title], [Price], [Status]) VALUES ( N'Font-End High Level', N'Work with React', CAST(1643.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ( [CourseName], [Title], [Price], [Status]) VALUES ( N'Back-End C Sharp', N'Get start with Repository Pattern', CAST(163.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ( [CourseName], [Title], [Price], [Status]) VALUES ( N'Back-End C Sharp Version 2', N'Project MVC', CAST(43.00 AS Decimal(18, 2)), N'1')
-INSERT [dbo].[Course] ( [CourseName], [Title], [Price], [Status]) VALUES (N'Back-End C Sharp', N'Project Razor', CAST(132.00 AS Decimal(18, 2)), N' ')
-
-go
-
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 8, 1)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 7, 2)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 3, 3)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 1, 5)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 3, 6)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 3, 9)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 4, 10)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 4, 11)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 4, 12)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 2, 5)
-INSERT [dbo].[CategoryCourse] ([CategoryId], [CourseId]) VALUES ( 5, 11)
-INSERT [dbo].[CategoryCourse] ( [CategoryId], [CourseId]) VALUES ( 6, 12)
-
-GO
- 
-
-INSERT [dbo].[Role] ([RoleName]) VALUES ( N'Student')
-INSERT [dbo].[Role] ([RoleName]) VALUES ( N'Teacher')
-INSERT [dbo].[Role] ( [RoleName]) VALUES ( N'Admin')
-
-GO
-
-
-INSERT [dbo].[User] ( [UserName], [Password], [Email], [RoleId]) VALUES ( N'DungND', N'123456', N'dacdung@gmail.com', 1)
-
-GO
-
-
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 1, 1)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 2, 4)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 1, 3)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 3, 5)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 5, 5)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 6, 1)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 9, 3)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 10, 4)
-INSERT [dbo].[Rating] ([UserId], [CourseId], [Point]) VALUES ( 3, 11, 2)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 12, 5)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 1, 1)
-INSERT [dbo].[Rating] ([UserId], [CourseId], [Point]) VALUES ( 3, 2, 1)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 3, 2)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 5, 4)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 10, 5)
-INSERT [dbo].[Rating] ( [UserId], [CourseId], [Point]) VALUES ( 3, 12, 1)
-
 GO
