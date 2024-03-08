@@ -1,6 +1,10 @@
 using AutoMapper;
+using Backend.App.Extensions;
 using Backend.Configurations;
 using Backend.Models;
+using Backend.Repositories;
+using Backend.Service;
+using Backend.Service.Implement;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -11,6 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PRN231_V2Context>();
+//builder.Services.AddScoped<ITeacherService, TeacherServiceImpl>();
+//builder.Services.AddScoped<TeacherRepository>();
+builder.Services.AddAppServices();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(option => 
         option.TokenValidationParameters = new TokenValidationParameters {
