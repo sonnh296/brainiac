@@ -36,7 +36,7 @@ namespace Backend.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured) {
-                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
+                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings-dev.json").Build().GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(ConnectionString);
             }
         }
