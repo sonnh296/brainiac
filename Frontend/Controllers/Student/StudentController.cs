@@ -2,9 +2,9 @@
 
 namespace Frontend.Controllers.Student
 {
-    public class CourseDetail : Controller
+    public class StudentController : Controller
     {
-        public IActionResult Index()
+        public IActionResult CourseDetail()
         {
             return View("Views/Student/CourseDetail.cshtml");
         }
