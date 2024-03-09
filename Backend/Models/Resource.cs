@@ -11,6 +11,7 @@ namespace Backend.Models
         }
 
         public int ResourceId { get; set; }
+        public string Name { get; set; }
         public string Content { get; set; }
         public string Description { get; set; }
         public int? CourseId { get; set; }
