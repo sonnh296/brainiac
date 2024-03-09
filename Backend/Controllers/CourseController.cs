@@ -1,8 +1,10 @@
 ﻿using Backend.Models;
 using Backend.Services;
 using Backend.Services.Implement;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Backend.Controllers
 {
@@ -16,10 +18,21 @@ namespace Backend.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = ("Teacher"))]
         // GET: api/Course/CourseDetail/5
         [HttpGet("CourseDetail/{id}")]
         public async Task<IActionResult> GetCourseDetailAsync(int id)
         {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = -1;
+            if (identity != null) {
+                IEnumerable<Claim> claims = identity.Claims;
+                // or
+                id = Int32.Parse(identity.FindFirst("ID").Value);
+            }
+
+            Console.WriteLine(userID);
+
             var course = _context.Courses.FirstOrDefault(x => x.CourseId == id);
             if(course == null)
             {

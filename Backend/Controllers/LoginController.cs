@@ -45,6 +45,7 @@ namespace Backend.Controllers {
 
             var claims = new[] {
                 new Claim(ClaimTypes.Role, user.Role.RoleName),
+                new Claim("ID", user.UserId + ""),
             };
 
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims,
