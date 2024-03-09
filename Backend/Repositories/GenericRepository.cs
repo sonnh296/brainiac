@@ -36,18 +36,15 @@ namespace Backend.Repositories
             T existing = table.Find(id);
             table.Remove(existing);
         }
-        public async Task<T> GetByIdAsync()
-        {
-            return await table.FirstOrDefaultAsync();
-        }
+
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>> condition)
+        public async Task<IEnumerable<T>> GetListByConditionAsync(Expression<Func<T, bool>> condition)
         {
-            throw new NotImplementedException();
+            return await table.Where(condition).ToListAsync();
         }
     }
 }

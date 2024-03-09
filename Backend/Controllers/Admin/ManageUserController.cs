@@ -76,7 +76,7 @@ namespace Backend.Controllers.Admin
             if (role != null)
             {
                 // Lấy danh sách người dùng thuộc vai trò
-                IEnumerable<User> users = await _userRepository.GetListAsync(u => u.RoleId == roleId);
+                IEnumerable<User> users = await _userRepository.GetListByConditionAsync(u => u.RoleId == roleId);
                 return Ok(users);
             }
             else
