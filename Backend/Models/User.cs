@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Backend.Models
 {
@@ -25,8 +26,10 @@ namespace Backend.Models
         public decimal? Balance { get; set; }
 
         public virtual Role Role { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<ReportedComment> ReportedCommentUserComments { get; set; }
         public virtual ICollection<ReportedComment> ReportedCommentUserReports { get; set; }

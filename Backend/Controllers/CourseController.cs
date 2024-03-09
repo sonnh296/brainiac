@@ -47,17 +47,6 @@ namespace Backend.Controllers
             return Ok(obj);
         }
 
-        // GET: api/Course/MyCourses/5
-        //[HttpGet("MyCourses/{userId}")]
-        //public async Task<IActionResult> GetCoursesOfUserAsync(int userId)
-        //{
-        //    var courses = await _courseService.GetCoursesOfUserAsync(userId);
-        //    if(courses == null)
-        //    {
-        //        return NoContent();
-        //    }
-        //    return Ok(courses);
-        //}
         [HttpGet("Related/{id}")]
         public async Task<IActionResult> GetRelatedCoursesAsync(int id)
         {
@@ -70,7 +59,15 @@ namespace Backend.Controllers
                 .Where(x => x.Course.CourseId == id).Select(x => x.Category);
             var listCourse = _context.CategoryCourses
                 .Where(x => listCategory.Any(c => c.CategoryId == x.CategoryId) && x.CourseId != id)
-                .Select(x => x.Course);
+                .Select(x => new
+                {
+                    CourseId = x.CourseId,
+                    Name = x.Course.CourseName,
+                    Description = x.Course.Title,
+                    Author = x.Course.UserCourses.FirstOrDefault(x => x.IsStudent == false).User,
+                    Categories = x.Course.CategoryCourses.Select(c => c.Category),
+                    Price = x.Course.Price
+                });
             return Ok(listCourse);
         }
     }

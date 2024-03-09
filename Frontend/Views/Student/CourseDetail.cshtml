@@ -5,3 +5,178 @@
 }
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Detail</title>
+</head>
+<body>
+    <div class="course-detail">
+        <div class="course-name"></div>
+        <div class="course-title"></div>
+        <div class="number-lesson"></div>
+        <div class="author"></div>
+        <div class="category"></div>
+        <button>Enroll course</button>
+        <div class="enrolled"></div>
+    </div>
+
+    <div class="lessons">
+        <h3>Lessons</h3>
+        <div class="lesson-list">
+            <div class="lesson">
+                <div class="lesson-name"></div>
+                <div class="lesson-description"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rating">
+        <h3>Rating</h3>
+        <div class="rating-detail">
+            <div class="rating-star"></div>
+            <div class="rating-number"></div>
+            <div class="point5"></div>
+            <div class="point4"></div>
+            <div class="point3"></div>
+            <div class="point2"></div>
+            <div class="point1"></div>
+        </div>
+    </div>
+
+    <div class="comments">
+        <h3>Comments</h3>
+        <div class="comment-list">
+            <div class="user"></div>
+            <div class="date"></div>
+            <div class="content"></div>
+        </div>
+    </div>
+
+    <div class="related-courses">
+        <h3>Related Courses</h3>
+        <div class="related-course-list">
+            <div class="course-name"></div>
+            <div class="course-title"></div>
+            <div class="author"></div>
+            <div class="category"></div>
+            <div class="Price"></div>
+        </div>
+    </div>
+    </div>
+    <script>
+        const urlParam = new URLSearchParams(window.location.search);
+        const courseId = urlParam.get("courseId");
+        courseDetail();
+        lessonList();
+        commentList();
+        ratingDetail();
+          relatedCourses();
+        function courseDetail() {
+          fetch(`http://localhost:5020/api/Course/CourseDetail/${courseId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              var courseName = document.querySelector(".course-name");
+              var courseTitle = document.querySelector(".course-title");
+              var numberLesson = document.querySelector(".number-lesson");
+              var author = document.querySelector(".author");
+              var category = document.querySelector(".category");
+              var enrolled = document.querySelector(".enrolled");
+
+              courseName.innerHTML = `<h3>Course Name: ${data.name}</h3>`;
+              courseTitle.innerHTML = `<p>${data.description}</p>`;
+              numberLesson.innerHTML = `<p>Number of lessons: ${data.lessons}</p>`;
+              var auth = `<a href="TeacherCourse.cshtml?userId=${data.author.userId}">${data.author.userName}</a>`;
+              author.innerHTML = `<p>Author: ${auth}</p>`;
+              var categories = "";
+              data.categories.forEach((element) => {
+                categories += `<a href="CateCourse.cshtml?cateId=${element.categoryId}">${element.categoryName}</a>  `;
+              });
+              category.innerHTML = `<p>Category: ${categories}</p>`;
+              enrolled.innerHTML = `<p>${data.enrolled} already enrolled</p>`;
+            });
+        }
+        function lessonList() {
+          fetch(`http://localhost:5020/api/Lesson/Course/${courseId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              var lessonList = document.querySelector(".lesson-list");
+              var lesson = "";
+              data.forEach((element) => {
+                lesson += `<div class="lesson">
+                <div class="lesson-name">${element.name}</div>
+                <div class="lesson-description">${element.description}</div>
+              </div>----------------------`;
+              });
+              lessonList.innerHTML = lesson;
+            });
+        }
+        function commentList() {
+          fetch(`http://localhost:5020/api/Comment/Course/${courseId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              var commentList = document.querySelector(".comment-list");
+              var comment = "";
+              data.forEach((element) => {
+                comment += `<div class="comment">
+                <div class="user"><h4>${element.user.userName}</h4></div>
+                <div class="date">${element.commentDate}</div>
+                <div class="content">${element.content}</div>
+                <form>
+                  <p>Reason report</p>
+                  <input type="text" placeholder="Write a comment" />
+                  <div class ="report"><button type="submit">Report</button>
+                </form>
+              </div>------------------------------`;
+              });
+              commentList.innerHTML = comment;
+            });
+        }
+        function ratingDetail() {
+          fetch(`http://localhost:5020/api/Rating/Course/${courseId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              var ratingStar = document.querySelector(".rating-star");
+              var ratingNumber = document.querySelector(".rating-number");
+              var point5 = document.querySelector(".point5");
+              var point4 = document.querySelector(".point4");
+              var point3 = document.querySelector(".point3");
+              var point2 = document.querySelector(".point2");
+              var point1 = document.querySelector(".point1");
+
+              ratingStar.innerHTML = `<p>${data.avg} *</p>`;
+              ratingNumber.innerHTML = `<p>${data.totalReview} reviews</p>`;
+              point5.innerHTML = `<p>5 stars ${data.count5}</p>`;
+              point4.innerHTML = `<p>4 stars ${data.count4}</p>`;
+              point3.innerHTML = `<p>3 stars ${data.count3}</p>`;
+              point2.innerHTML = `<p>2 stars ${data.count2}</p>`;
+              point1.innerHTML = `<p>1 stars ${data.count1}</p>`;
+            });
+        }
+        function relatedCourses() {
+          fetch(`http://localhost:5020/api/Course/Related/${courseId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              var relatedCourseList = document.querySelector(".related-course-list");
+              var relatedCourse = "";
+              data.forEach((element) => {
+                  var categoriesString = "";
+                  element.categories.forEach((cate) => {
+                      categoriesString += `${cate.categoryName}  `;
+                  });
+                relatedCourse += `<div class="related-course">
+                <div class="course-name">${element.name}</div>
+                <div class="course-title">${element.description}</div>
+                <div class="author">${element.author.userName}</div>
+                  <div class="category">${categoriesString}</div>
+                  <div class="Price">${element.price}</div>
+              </div>----------------------`;
+              });
+              relatedCourseList.innerHTML = relatedCourse;
+              });
+          }
+    </script>
+</body>
+</html>
