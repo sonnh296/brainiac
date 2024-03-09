@@ -195,6 +195,7 @@ namespace Backend.Models
             {
                 entity.ToTable("Resource");
 
+                entity.Property(e => e.Name).HasMaxLength(255);
                 entity.Property(e => e.Description).HasMaxLength(255);
 
                 entity.Property(e => e.Type)
