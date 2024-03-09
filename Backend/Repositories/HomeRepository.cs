@@ -208,7 +208,7 @@ namespace Backend.Repositories
                 {
                     if (rating.Point != null)
                     {
-                        totalrate += rating.Point;
+                        //totalrate += rating.Point;
                     }
 
                 }
@@ -267,7 +267,7 @@ namespace Backend.Repositories
                 {
                     if (rating.Point != null)
                     {
-                        totalrate += rating.Point;
+                        //totalrate += rating.Point;
                     }
 
                 }

@@ -36,9 +36,10 @@ namespace Backend.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured) {
-                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
+                var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings-dev.json").Build().GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(ConnectionString);
             }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -125,9 +126,7 @@ namespace Backend.Models
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
-                entity.Property(e => e.PaymentMethod)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Total).HasColumnType("money");
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.OrderDetails)
@@ -255,6 +254,8 @@ namespace Backend.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
+
+                entity.Property(e => e.Balance).HasColumnType("money");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
