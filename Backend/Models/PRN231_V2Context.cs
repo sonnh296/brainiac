@@ -126,9 +126,7 @@ namespace Backend.Models
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
-                entity.Property(e => e.PaymentMethod)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Total).HasColumnType("money");
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.OrderDetails)
