@@ -39,6 +39,7 @@ namespace Backend.Models
                 var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings-dev.json").Build().GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(ConnectionString);
             }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -255,6 +256,8 @@ namespace Backend.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
+
+                entity.Property(e => e.Balance).HasColumnType("money");
 
                 entity.Property(e => e.Email)
                     .IsRequired()

@@ -22,6 +22,7 @@ namespace Backend.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public int? RoleId { get; set; }
+        public decimal? Balance { get; set; }
 
         public virtual Role Role { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

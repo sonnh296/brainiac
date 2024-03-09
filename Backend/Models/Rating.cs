@@ -8,7 +8,7 @@ namespace Backend.Models
         public int RatingId { get; set; }
         public int? UserId { get; set; }
         public int? CourseId { get; set; }
-        public int Point { get; set; }
+        public int? Point { get; set; }
 
         public virtual Course Course { get; set; }
         public virtual User User { get; set; }
