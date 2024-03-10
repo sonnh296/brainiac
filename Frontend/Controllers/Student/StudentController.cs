@@ -4,9 +4,16 @@ namespace Frontend.Controllers.Student
 {
     public class StudentController : Controller
     {
-        public IActionResult CourseDetail()
+        public IActionResult CourseDetail(string courseId)
         {
-            return View("Views/Student/CourseDetail.cshtml");
+            return View();
+        }
+        public IActionResult CategoryCourse(string categoryId) {
+            return View();
+        }
+        public IActionResult TeacherCourse(string teacherId)
+        {
+            return View();
         }
     }
 }

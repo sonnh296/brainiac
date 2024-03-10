@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="teacher-courses">
+        <h3></h3>
+        <div class="teacher-course-list">
+            <div class="course-name"></div>
+            <div class="course-title"></div>
+            <div class="category"></div>
+            <div class="Price"></div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const urlParam = new URLSearchParams(window.location.search);
+        const teacherId = urlParam.get("teacherId");
+        fetch(`http://localhost:5020/api/Course/CourseByTeacher/${teacherId}`)
+            .then((response) => response.json())
+            .then((data) => {
+                var h3 = document.querySelector(".teacher-courses h3");
+                h3.innerHTML = `All courses of teacher ${data[0].teacherName}`;
+                var relatedCourseList = document.querySelector(".teacher-course-list");
+                var relatedCourse = "";
+                data.forEach((element) => {
+                    var categoriesString = "";
+                    element.categories.forEach((cate) => {
+                        categoriesString += `${cate.categoryName}  `;
+                    });
+                    relatedCourse += `<a href="Student/CourseDetail?courseId=${element.courseId}">
+                      <div class="related-course">
+                      <div class="course-name">${element.name}</div>
+                      <div class="course-title">${element.description}</div>
+                        <div class="category">${categoriesString}</div>
+                        <div class="Price">${element.price}</div>
+                    </div></a>----------------------`;
+                });
+                relatedCourseList.innerHTML = relatedCourse;
+            });
+    </script>
+</body>
+</html>

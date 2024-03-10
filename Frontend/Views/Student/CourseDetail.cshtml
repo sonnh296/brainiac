@@ -88,11 +88,11 @@
               courseName.innerHTML = `<h3>Course Name: ${data.name}</h3>`;
               courseTitle.innerHTML = `<p>${data.description}</p>`;
               numberLesson.innerHTML = `<p>Number of lessons: ${data.lessons}</p>`;
-              var auth = `<a href="TeacherCourse.cshtml?userId=${data.author.userId}">${data.author.userName}</a>`;
+                    var auth = `<a href="Student/TeacherCourse?teacherId=${data.author.userId}">${data.author.userName}</a>`;
               author.innerHTML = `<p>Author: ${auth}</p>`;
               var categories = "";
               data.categories.forEach((element) => {
-                categories += `<a href="CateCourse.cshtml?cateId=${element.categoryId}">${element.categoryName}</a>  `;
+                        categories += `<a href="Student/CategoryCourse?categoryId=${element.categoryId}">${element.categoryName}</a>  `;
               });
               category.innerHTML = `<p>Category: ${categories}</p>`;
               enrolled.innerHTML = `<p>${data.enrolled} already enrolled</p>`;
