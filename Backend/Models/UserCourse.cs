@@ -9,9 +9,9 @@ namespace Backend.Models
         public int? UserId { get; set; }
         public int? CourseId { get; set; }
         public bool? IsStudent { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = null!;
 
-        public virtual Course Course { get; set; }
-        public virtual User User { get; set; }
+        public virtual Course? Course { get; set; }
+        public virtual User? User { get; set; }
     }
 }
