@@ -1,10 +1,12 @@
 ﻿using Backend.DTOs;
+using Backend.DTOs.Auth;
 using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Common;
 using System.Composition;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -98,19 +100,26 @@ namespace Backend.Controllers {
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(LoginRequest loginRequest) {
+        public async Task<ActionResult<LoginResponse>> Login(LoginRequest loginRequest) {
 
             var user = Authenticate(loginRequest);
 
             if (user != null) {
                 var token = GenerateToken(user);
-                return Ok(token);
+                return Ok(new LoginResponse {
+                    id = user.UserId,
+                    Role = user.Role.RoleName,
+                    Token = token,
+                    Error = ""
+                });
             }
 
             var refreshToken = GetRefreshToken();
             SetRefreshToken(refreshToken);
 
-            return BadRequest("User not found.");
+            return Ok(new LoginResponse {
+                Error = "Wrong username or passworrd"
+            });
         }
     }
 }
