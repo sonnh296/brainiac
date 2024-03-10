@@ -21,9 +21,10 @@
     <link rel="stylesheet" href="./css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/elegant-icon.css">
 
-    <link rel="stylesheet" href="./css/sliders2.css">
+    
     <link rel="stylesheet" href="./css/sliders.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/sliders2.css">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -264,7 +265,7 @@
         <div id="carousel" class="flexslider thumbe-slider">
             <ul style="width: 100%;" class="slides">
                 <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid imagestyle" />
+                    <img src="./img/bg-img/2.jpkg" class="img-fluid imagestyle" />
                 </li>
                 <li>
                     <img src="./img/bg-img/2.jpg" class="img-fluid" />
@@ -583,39 +584,10 @@
     <!-- Active js -->
     <script src="./js/active.js"></script>
     <script src="./js/active.js"></script>
+    <script src="./js/slider.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
     <script>
-        $(window).load(function () {
-            $('#carousel').flexslider({
-                animation: "slide",
-                controlNav: false,
-                animationLoop: true,
-                slideshow: false,
-                itemWidth: 210,
-                itemMargin: 5,
-                asNavFor: '#slider'
-            });
-
-            $('#carousel2').flexslider({
-                animation: "slide",
-                controlNav: false,
-                animationLoop: true,
-                slideshow: false,
-                itemWidth: 210,
-                itemMargin: 5,
-                asNavFor: '#slider'
-            });
-            $('#slider').flexslider({
-                animation: "fade",
-                controlNav: false,
-                animationLoop: true,
-                slideshow: false,
-                sync: "#carousel",
-                start: function (slider) {
-                    $('body').removeClass('loading');
-                }
-            });
-        });
+        
         function openPopup() {
             document.getElementById("popup").style.display = "block";
             document.getElementById("overlay").style.display = "block";

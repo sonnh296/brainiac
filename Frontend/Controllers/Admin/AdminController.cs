@@ -8,6 +8,10 @@ namespace Frontend.Controllers.Admin
         {
             return View();
         }
+        public IActionResult DashBoard()
+        {
+            return View("DashBoard");
+        }
         public IActionResult ManageCourse()
         {
             return View("managecourse");
