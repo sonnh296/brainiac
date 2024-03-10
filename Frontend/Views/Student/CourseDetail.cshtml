@@ -1,83 +1,870 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+
 @{
+    Layout = "_LayoutHome";
 }
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Course Detail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/stylecoursedetail.css">
+    <title>Education Course Detail</title>
+  <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .course-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .course-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .rating {
+            margin-right: 20px;
+        }
+
+        .stars {
+            color: #f0ad4e;
+        }
+
+        .course-detail {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+            .course-detail > div {
+                margin-bottom: 10px;
+            }
+
+        .course-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .course-title {
+            color: #555;
+        }
+
+        .number-lesson {
+            font-style: italic;
+        }
+
+        .author,
+        .category,
+        .enrolled {
+            color: #777;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+
+        .enroll-btn button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            .enroll-btn button:hover {
+                background-color: #0056b3;
+            }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .content-list li {
+            margin-bottom: 10px;
+        }
+
+        .comments-section textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+            .comment-btn:hover {
+                background-color: #0056b3;
+            }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        /* Existing CSS styles remain unchanged */
+
+        .lesson-header {
+            cursor: pointer;
+        }
+
+        .lesson-details {
+            display: none;
+            padding-left: 20px;
+        }
+
+            .lesson-details.show {
+                display: block;
+            }
+        /* Existing CSS styles remain unchanged */
+
+        .course-content {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+            .course-content h2 {
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+        .lesson {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        .lesson-header {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .lesson-details {
+            display: none;
+            padding-left: 20px;
+            color: #666;
+        }
+
+            .lesson-details p {
+                margin: 0;
+            }
+
+            .lesson-details.show {
+                display: block;
+            }
+
+        /* Hover effect on lesson header */
+        .lesson-header:hover {
+            background-color: #f0f0f0;
+        }
+
+        body {
+            margin-top: 20px;
+        }
+
+        .content-item {
+        }
+
+            .content-item.grey {
+                background-color: #F0F0F0;
+                padding: 50px 0;
+                height: 100%;
+            }
+
+            .content-item h2 {
+                font-weight: 700;
+                font-size: 35px;
+                line-height: 45px;
+                text-transform: uppercase;
+                margin: 20px 0;
+            }
+
+            .content-item h3 {
+                font-weight: 400;
+                font-size: 20px;
+                color: #555555;
+                margin: 10px 0 15px;
+                padding: 0;
+            }
+
+        .content-headline {
+            height: 1px;
+            text-align: center;
+            margin: 20px 0 70px;
+        }
+
+            .content-headline h2 {
+                background-color: #FFFFFF;
+                display: inline-block;
+                margin: -20px auto 0;
+                padding: 0 20px;
+            }
+
+        .grey .content-headline h2 {
+            background-color: #F0F0F0;
+        }
+
+        .content-headline h3 {
+            font-size: 14px;
+            color: #AAAAAA;
+            display: block;
+        }
+
+
+        #comments {
+            box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
+            background-color: #FFFFFF;
+        }
+
+            #comments form {
+                margin-bottom: 30px;
+            }
+
+            #comments .btn {
+                margin-top: 7px;
+            }
+
+            #comments form fieldset {
+                clear: both;
+            }
+
+            #comments form textarea {
+                height: 100px;
+            }
+
+            #comments .media {
+                border-top: 1px dashed #DDDDDD;
+                padding: 20px 0;
+                margin: 0;
+            }
+
+                #comments .media > .pull-left {
+                    margin-right: 20px;
+                }
+
+                #comments .media img {
+                    max-width: 100px;
+                }
+
+                #comments .media h4 {
+                    margin: 0 0 10px;
+                }
+
+                    #comments .media h4 span {
+                        font-size: 14px;
+                        float: right;
+                        color: #999999;
+                    }
+
+                #comments .media p {
+                    margin-bottom: 15px;
+                    text-align: justify;
+                }
+
+            #comments .media-detail {
+                margin: 0;
+            }
+
+                #comments .media-detail li {
+                    color: #AAAAAA;
+                    font-size: 12px;
+                    padding-right: 10px;
+                    font-weight: 600;
+                }
+
+                #comments .media-detail a:hover {
+                    text-decoration: underline;
+                }
+
+                #comments .media-detail li:last-child {
+                    padding-right: 0;
+                }
+
+                #comments .media-detail li i {
+                    color: #666666;
+                    font-size: 15px;
+                    margin-right: 10px;
+                }
+
+        /* CSS Document */
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        article, aside, details, figcaption, figure, footer, header, nav, section, summary {
+            display: block;
+        }
+
+        audio, canvas, video {
+            display: inline-block;
+        }
+
+            audio:not([controls]) {
+                display: none;
+                height: 0;
+            }
+
+        [hidden] {
+            display: none;
+        }
+
+        a {
+            color: #231F40;
+            text-decoration: none;
+            outline: none;
+        }
+
+            a:hover, a:focus, a:active {
+                text-decoration: none;
+                outline: none;
+                color: #525FE1;
+            }
+
+            a:focus {
+                outline: none;
+            }
+
+        address {
+            margin: 0 0 24px;
+        }
+
+        abbr[title] {
+            border-bottom: 1px dotted;
+        }
+
+        b, strong {
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.63;
+            font-weight: 500;
+            color: #6F6B80;
+            margin: 0 0 30px;
+        }
+
+        h5, .h5 {
+            font-weight: 700;
+        }
+
+        .mt--40 {
+            margin-top: 40px !important;
+        }
+
+        .mb--20 {
+            margin-bottom: 20px !important;
+        }
+
+        .pt--40 {
+            padding-top: 40px !important;
+        }
+
+        .mb--25 {
+            margin-bottom: 25px !important;
+        }
+
+        .fa-star {
+            color: #ffa41b;
+        }
+
+        .course-details-card {
+            border-radius: 8px;
+            border: 1px solid #EEEEEE;
+            padding: 30px;
+        }
+
+            .course-details-card .course-details-two-content p:last-child {
+                margin-bottom: 0;
+            }
+
+        .row--30 {
+            margin-left: -30px;
+            margin-right: -30px;
+        }
+
+        @@media only screen and (min-width: 1200px) and (max-width: 1599px) {
+            .row--30 {
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+        }
+
+        @@media only screen and (min-width: 992px) and (max-width: 1199px) {
+            .row--30 {
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+        }
+
+        @@media only screen and (max-width: 991px) {
+            .row--30 {
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+        }
+
+        @@media only screen and (max-width: 767px) {
+            .row--30 {
+                margin-left: -15px !important;
+                margin-right: -15px !important;
+            }
+        }
+
+        .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        @@media only screen and (min-width: 1200px) and (max-width: 1599px) {
+            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        @@media only screen and (min-width: 992px) and (max-width: 1199px) {
+            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        @@media only screen and (min-width: 768px) and (max-width: 991px) {
+            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+        }
+
+        @@media only screen and (max-width: 767px) {
+            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+        }
+
+        .course-details-content .rating-box {
+            background: #FFFFFF;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.07);
+            border-radius: 5px;
+            text-align: center;
+            min-width: 200px;
+            padding: 29px 10px;
+        }
+
+            .course-details-content .rating-box .rating-number {
+                font-weight: 800;
+                font-size: 72px;
+                line-height: 90px;
+                color: #231F40;
+            }
+
+            .course-details-content .rating-box span {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+        .course-details-content .course-tab-content {
+            margin-top: 40px;
+        }
+
+        .course-details-content .rating-box {
+            background: #FFFFFF;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.07);
+            border-radius: 5px;
+            text-align: center;
+            min-width: 200px;
+            padding: 29px 10px;
+        }
+
+            .course-details-content .rating-box .rating-number {
+                font-weight: 800;
+                font-size: 72px;
+                line-height: 90px;
+                color: #231F40;
+            }
+
+            .course-details-content .rating-box span {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 26px;
+            }
+
+        .review-wrapper .single-progress-bar {
+            position: relative;
+        }
+
+        .review-wrapper .rating-text {
+            display: inline-block;
+            position: relative;
+            top: 19px;
+        }
+
+        .review-wrapper .progress {
+            max-width: 83%;
+            margin-left: 38px;
+            height: 12px;
+            background: #EEEEEE;
+        }
+
+        @@media only screen and (min-width: 992px) and (max-width: 1199px) {
+            .review-wrapper .progress {
+                max-width: 80%;
+            }
+        }
+
+        .review-wrapper .progress .progress-bar {
+            background-color: #FFA41B;
+        }
+
+        .review-wrapper span.rating-value {
+            position: absolute;
+            right: 0;
+            top: 50%;
+        }
+
+        .edu-comment {
+            display: flex;
+        }
+
+        @@media only screen and (max-width: 575px) {
+            .edu-comment {
+                flex-direction: column;
+            }
+        }
+
+        .edu-comment .thumbnail {
+            min-width: 70px;
+            width: 70px;
+            max-height: 70px;
+            border-radius: 100%;
+            margin-right: 25px;
+        }
+
+            .edu-comment .thumbnail img {
+                border-radius: 100%;
+                width: 100%;
+            }
+
+        .edu-comment .comment-content .comment-top {
+            display: flex;
+            align-items: center;
+        }
+
+        .edu-comment .comment-content .title {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 32px;
+            margin-bottom: 10px;
+            margin-right: 15px;
+        }
+
+        .edu-comment .comment-content .subtitle {
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 26px;
+            display: block;
+            margin-bottom: 10px;
+            color: #231F40;
+        }
+
+        @@media only screen and (max-width: 575px) {
+            .edu-comment .comment-content {
+                margin-top: 20px;
+            }
+        }
+
+        .edu-comment + .edu-comment {
+            border-top: 1px solid #EEEEEE;
+            padding-top: 30px;
+            margin-top: 30px;
+        }
+
+  </style>
+  <style>
+    .slider {
+        margin-top: 20px;
+        overflow: hidden;
+    }
+
+    .slider-content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .slider-item {
+        display: none;
+        flex: 0 0 auto;
+        margin-right: 20px;
+        text-align: center;
+    }
+
+    .slider-item img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .slider-item h3 {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+
+    .slider-item p {
+        color: #666;
+    }
+</style>
+<style>
+  image{
+      max-height: 1920px;
+      max-width: 930px;
+  }
+  .flex-container a:hover,
+.flex-slider a:hover {outline: none; }
+.slides, .slides > li, .flex-control-nav, .flex-direction-nav {margin: 0; padding: 0; list-style: none; }
+.flex-pauseplay span {text-transform: capitalize; } 
+.flexslider {margin: 0; padding: 0; }
+.flexslider .slides > li {display: none; -webkit-backface-visibility: hidden; }
+.flexslider .slides img {width: 100%; display: block; }
+.flexslider .slides:after {content: "\0020"; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+html[xmlns] .flexslider .slides {display: block; }
+* html .flexslider .slides {height: 1%; }
+.no-js .flexslider .slides > li:first-child {display: block; }
+.flexslider {background: #fff; position: relative; zoom: 3; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); -moz-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); -o-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); }
+
+.flex-viewport {max-height: 2000px; -webkit-transition: all 1s ease; -moz-transition: all 1s ease; -ms-transition: all 1s ease; -o-transition: all 1s ease; transition: all 1s ease; }
+.loading .flex-viewport {max-height: 300px; }
+.carousel li {margin-right: 5px; }
+.flex-direction-nav a {text-decoration: none; display: block; width: 55px; height: 60px; margin: -20px 0 0; position: absolute; top: 40%; z-index: 10; overflow: hidden; opacity: 0; cursor: pointer; color: #fff; /*text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/ -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
+.flex-direction-nav a:before {font-family: "FontAwesome"; font-size: 40px; display: inline-block; content: '\f104'; /*color: rgba(0, 0, 0, 0.8); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/ }
+.flex-direction-nav a.flex-next:before {content: "\f105"; }
+.flex-direction-nav .flex-prev {left: 00px; }
+.flex-direction-nav .flex-next {right: 00px; text-align: right; }
+.flexslider:hover .flex-direction-nav .flex-prev {opacity: 0.7; left: 10px; }
+.flexslider:hover .flex-direction-nav .flex-prev:hover {opacity: 1; }
+.flexslider:hover .flex-direction-nav .flex-next {opacity: 0.7; right: 10px; }
+.flexslider:hover .flex-direction-nav .flex-next:hover {opacity: 1; }
+
+.flexslider.thumbe-slider{ bottom: 0; z-index: 9; ;height:130px; width: 100%; margin:  auto; left: 0; right: 0;} 
+.slider{position: relative;}
+.flexslider.thumbe-slider img{cursor: pointer;border: 4px solid #fff;}
+
+        .imagecontainer {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .centeredimage {
+            position: absolute;
+            left: 10%;
+            top: 10%;
+        }
+
+        .bottomimage {
+            font-size: 10px;
+            position: absolute;
+            left: 10%;
+            top: 25%;
+        }
+}
+
+</style>
 </head>
 <body>
-    <div class="course-detail">
-        <div class="course-name"></div>
-        <div class="course-title"></div>
-        <div class="number-lesson"></div>
-        <div class="author"></div>
-        <div class="category"></div>
-        <button>Enroll course</button>
-        <div class="enrolled"></div>
-    </div>
-
-    <div class="lessons">
-        <h3>Lessons</h3>
-        <div class="lesson-list">
-            <div class="lesson">
-                <div class="lesson-name"></div>
-                <div class="lesson-description"></div>
+    <header>
+        <div class="course-detail">
+            <div class="course-name">Introduction to Web Development</div>
+            <div class="course-title">Learn the basics of HTML, CSS, and JavaScript</div>
+            <div class="number-lesson">10 Lessons</div>
+            <div class="author">Author: John Doe</div>
+            <div class="category">Category: Web Development</div>
+            <button class="btn btn-primary">Enroll Course</button>
+            <div class="enrolled">Enrolled: 1500 students</div>
+        </div>
+    </header>
+    <main>
+      <section class="course-content">
+        <h2>Course Content</h2>
+        <ul class="content-list">
+            <li class="lesson">
+                <div class="lesson-header ">Introduce1111111</div>
+                <div class="lesson-details">  <p>Des 4</p></div>
+            </li>
+        </ul>
+    </section>
+    <section class="content-item" id="comments">
+   
+        <div class="container row col-md-12">
+            <div class="row col-md-12">
+                <div class="col-md-5 course-details-content">
+                    <div class="course-details-card mt--40">
+                        <div class="course-content">
+                            <h5 class="mb--20">Review</h5>
+                            <div class="row row--30">
+                                <div class="col-lg-4">
+                                    <div class="rating-box">
+                                        <div class="rating-number">5.0</div>
+                                        <div class="rating">  </div>
+                                        <span class="rating-number"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="review-wrapper point">
+                                       
+                                    </div>
+                                </div>
+                            </div>
+   
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <form>
+                        <h3 class="pull-left">New Comment</h3>
+                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-sm-3 col-lg-2 hidden-xs">
+                                    <img class="img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+   
+                    <h3>4 Comments</h3>
+                    <div class="comments">
+                     
+                    </div>
+                
+                 
+   
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="rating">
-        <h3>Rating</h3>
-        <div class="rating-detail">
-            <div class="rating-star"></div>
-            <div class="rating-number"></div>
-            <div class="point5"></div>
-            <div class="point4"></div>
-            <div class="point3"></div>
-            <div class="point2"></div>
-            <div class="point1"></div>
+    </section>
+    <section class="slider" style=" width: 100%;">
+   
+        <div id="carousel" class="flexslider thumbe-slider">
+                <ul style="width: 100%;" class="slides" id="slidessss">
+                   @*  <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Font-End High Level</div><div class="bottomimage">Work with React</div></div></li>
+                    <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Back-End C Sharp</div><div class="bottomimage">Project Razor</div></div></li>
+                    <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Font-End Normal</div><div class="bottomimage">Start with JavaScript</div></div></li> *@
+               asdfgh
+            </ul>
         </div>
-    </div>
-
-    <div class="comments">
-        <h3>Comments</h3>
-        <div class="comment-list">
-            <div class="user"></div>
-            <div class="date"></div>
-            <div class="content"></div>
-        </div>
-    </div>
-
-    <div class="related-courses">
-        <h3>Related Courses</h3>
-        <div class="related-course-list">
-            <div class="course-name"></div>
-            <div class="course-title"></div>
-            <div class="author"></div>
-            <div class="category"></div>
-            <div class="Price"></div>
-        </div>
-    </div>
-    </div>
-    <script>
-        const urlParam = new URLSearchParams(window.location.search);
-        const courseId = urlParam.get("courseId");
-        courseDetail();
-        lessonList();
-        commentList();
-        ratingDetail();
-          relatedCourses();
-        function courseDetail() {
-          fetch(`http://localhost:5020/api/Course/CourseDetail/${courseId}`)
-            .then((response) => response.json())
-            .then((data) => {
+    </section>
+  
+    </main>
+    <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
+    <script  >
+    
+    $(window).load(function(){
+                    $('#carousel').flexslider({
+                        animation: "slide",
+                        controlNav: false,
+                        animationLoop: true,
+                        slideshow: false,
+                        itemWidth: 210,
+                        itemMargin: 5,
+                        asNavFor: '#slider'
+                    });
+    
+                    $('#slider').flexslider({
+                        animation: "fade",
+                        controlNav: false,
+                        animationLoop: true,
+                        slideshow: false,
+                        sync: "#carousel",
+                        start: function(slider){
+                            $('body').removeClass('loading');
+                        }
+                    });
+                });
+    </script>
+<script>
+  const urlParam = new URLSearchParams(window.location.search);
+  const courseId = urlParam.get("courseId");
+  
+  document.addEventListener("DOMContentLoaded", function () {
+ // courseDetail();
+      setTimeout(function () { lessonList(); }, 100);
+  commentList();
+  ratingDetail();
+      relatedCourses();
+  });
+  function courseDetail() {
+      fetch(`http://localhost:5020/api/Course/CourseDetail/${courseId}`)
+          .then((response) => response.json())
+          .then((data) => {
               var courseName = document.querySelector(".course-name");
               var courseTitle = document.querySelector(".course-title");
               var numberLesson = document.querySelector(".number-lesson");
@@ -85,6 +872,7 @@
               var category = document.querySelector(".category");
               var enrolled = document.querySelector(".enrolled");
 
+<<<<<<< Updated upstream
               courseName.innerHTML = `<h3>Course Name: ${data.name}</h3>`;
               courseTitle.innerHTML = `<p>${data.description}</p>`;
               numberLesson.innerHTML = `<p>Number of lessons: ${data.lessons}</p>`;
@@ -93,90 +881,155 @@
               var categories = "";
               data.categories.forEach((element) => {
                         categories += `<a href="Student/CategoryCourse?categoryId=${element.categoryId}">${element.categoryName}</a>  `;
+=======
+              courseName.empty().innerHTML = `<h3>Course Name: ${data.name}</h3>`;
+              courseTitle.empty().innerHTML = `<p>${data.description}</p>`;
+              numberLesson.empty().innerHTML = `<p>Number of lessons: ${data.lessons}</p>`;
+              var auth = `<a href="Student/TeacherCourse?teacherId=${data.author.userId}">${data.author.userName}</a>`;
+              author.empty().innerHTML = `<p>Author: ${auth}</p>`;
+              var categories = "";
+              data.categories.forEach((element) => {
+                  categories += `<a href="Student/CategoryCourse?categoryId=${element.categoryId}">${element.categoryName}</a>  `;
+>>>>>>> Stashed changes
               });
-              category.innerHTML = `<p>Category: ${categories}</p>`;
-              enrolled.innerHTML = `<p>${data.enrolled} already enrolled</p>`;
-            });
-        }
-        function lessonList() {
-          fetch(`http://localhost:5020/api/Lesson/Course/${courseId}`)
-            .then((response) => response.json())
-            .then((data) => {
-              var lessonList = document.querySelector(".lesson-list");
+              category.empty().innerHTML = `<p>Category: ${categories}</p>`;
+              enrolled.empty().innerHTML = `<p>${data.enrolled} already enrolled</p>`;
+          });
+  }
+  function lessonList() {
+      fetch(`http://localhost:5020/api/Lesson/Course/${courseId}`)
+          .then((response) => response.json())
+          .then((data) => {
+              var lessonList = document.querySelector(".content-list");
               var lesson = "";
               data.forEach((element) => {
-                lesson += `<div class="lesson">
-                <div class="lesson-name">${element.name}</div>
-                <div class="lesson-description">${element.description}</div>
-              </div>----------------------`;
+                  lesson += `<li class="lesson">
+                          <div class="lesson-header "'>${element.name}</div>
+                  <div class="lesson-details">  <p>${element.description}</p></div>
+                </li>`;
               });
+            
               lessonList.innerHTML = lesson;
-            });
-        }
-        function commentList() {
-          fetch(`http://localhost:5020/api/Comment/Course/${courseId}`)
-            .then((response) => response.json())
-            .then((data) => {
-              var commentList = document.querySelector(".comment-list");
+              var lessonHeaders = document.querySelectorAll('.lesson-header');
+              lessonHeaders.forEach(header => {
+
+                  header.addEventListener('click', function () {
+                      const details = this.nextElementSibling;
+                      details.classList.toggle('show');
+                  });
+
+              });
+          });
+      
+     
+  }
+  function commentList() {
+      fetch(`http://localhost:5020/api/Comment/Course/${courseId}`)
+          .then((response) => response.json())
+          .then((data) => {
+              var commentList = document.querySelector(".comments");
               var comment = "";
               data.forEach((element) => {
-                comment += `<div class="comment">
-                <div class="user"><h4>${element.user.userName}</h4></div>
-                <div class="date">${element.commentDate}</div>
-                <div class="content">${element.content}</div>
-                <form>
-                  <p>Reason report</p>
-                  <input type="text" placeholder="Write a comment" />
-                  <div class ="report"><button type="submit">Report</button>
-                </form>
-              </div>------------------------------`;
+                  comment +=
+                  "<div class='media'>" +
+                      "<a class='pull-left' href='#'><img class='media-object' src='https://bootdey.com/img/Content/avatar/avatar1.png' alt=''></a>" +
+                      "<div class='media-body'>" +
+                      `<h4 class='media-heading'>${element.user.userName}</h4>` +
+                      `<p>${element.content}</p>` +
+                      "<ul class='list-unstyled list-inline media-detail pull-left'>" +
+                      `<li><i class='fa fa-calendar'></i>${element.commentDate}</li>` +
+                      "</ul>" +
+                      "<ul class='list-unstyled list-inline media-detail pull-right'>" +
+                      "<li class=''><a href=''>Reply</a></li>" +
+                      "</ul>" +
+                      "</div>" +
+                      "</div> ";
               });
               commentList.innerHTML = comment;
-            });
-        }
-        function ratingDetail() {
-          fetch(`http://localhost:5020/api/Rating/Course/${courseId}`)
-            .then((response) => response.json())
-            .then((data) => {
-              var ratingStar = document.querySelector(".rating-star");
+          });
+  }
+  function ratingDetail() {
+      fetch(`http://localhost:5020/api/Rating/Course/${courseId}`)
+          .then((response) => response.json())
+          .then((data) => {
+              var ratingStar = document.querySelector(".rating");
               var ratingNumber = document.querySelector(".rating-number");
-              var point5 = document.querySelector(".point5");
-              var point4 = document.querySelector(".point4");
-              var point3 = document.querySelector(".point3");
-              var point2 = document.querySelector(".point2");
-              var point1 = document.querySelector(".point1");
+              var point5 = document.querySelector(".point");
+              for (let i = 0; i < data.avg; i++) {
+                  ratingStar.innerHTML += `<i class="fa fa-star" aria-hidden="true"></i>`;
+              }
+              var percent = 0;
 
-              ratingStar.innerHTML = `<p>${data.avg} *</p>`;
-              ratingNumber.innerHTML = `<p>${data.totalReview} reviews</p>`;
-              point5.innerHTML = `<p>5 stars ${data.count5}</p>`;
-              point4.innerHTML = `<p>4 stars ${data.count4}</p>`;
-              point3.innerHTML = `<p>3 stars ${data.count3}</p>`;
-              point2.innerHTML = `<p>2 stars ${data.count2}</p>`;
-              point1.innerHTML = `<p>1 stars ${data.count1}</p>`;
-            });
-        }
-        function relatedCourses() {
-          fetch(`http://localhost:5020/api/Course/Related/${courseId}`)
-            .then((response) => response.json())
-            .then((data) => {
-              var relatedCourseList = document.querySelector(".related-course-list");
+              ratingNumber.innerHTML = `<p>(${data.totalReview} reviews)</p>`;
+             
+              percent = data.count5 / data.totalReview;
+              point5.innerHTML += "<div class='single-progress-bar'>" +
+                  "<div class='rating-text'> 5 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                  "<div class='progress'>" +
+                  "<div class='progress-bar' role='progressbar' style='width: " + percent*100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                  "</div>" +
+                  `<span class='rating-value'>${data.count5}</span>` +
+                  "</div>";
+              percent = data.count4 / data.totalReview;
+                  point5.innerHTML += "<div class='single-progress-bar'>" +
+                  "<div class='rating-text'> 4 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                  "<div class='progress'>" +
+                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                  "</div>" +
+                  `<span class='rating-value'>${data.count4}</span>` +
+                  "</div>";
+              percent = data.count3 / data.totalReview;
+                  point5.innerHTML += "<div class='single-progress-bar'>" +
+                  "<div class='rating-text'> 3 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                  "<div class='progress'>" +
+                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                  "</div>" +
+                  `<span class='rating-value'>${data.count3}</span>` +
+                  "</div>";
+              percent = data.count2 / data.totalReview;
+                  point5.innerHTML += "<div class='single-progress-bar'>" +
+                  "<div class='rating-text'> 2 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                  "<div class='progress'>" +
+                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                  "</div>" +
+                  `<span class='rating-value'>${data.count2}</span>` +
+                  "</div>";
+              percent = data.count1 / data.totalReview;
+              point5.innerHTML += "<div class='single-progress-bar'>" +
+                  "<div class='rating-text'> 1 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                  "<div class='progress'>" +
+                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                  "</div>" +
+                  `<span class='rating-value'>${data.count1}</span>` +
+                  "</div>";
+             
+          });
+  }
+  function relatedCourses() {
+      fetch(`http://localhost:5020/api/Course/Related/${courseId}`)
+          .then((response) => response.json())
+          .then((data) => {
+                    var relatedCourseList = document.querySelector("#slidessss");
               var relatedCourse = "";
               data.forEach((element) => {
-                  var categoriesString = "";
-                  element.categories.forEach((cate) => {
-                      categoriesString += `${cate.categoryName}  `;
-                  });
-                relatedCourse += `<div class="related-course">
-                <div class="course-name">${element.name}</div>
-                <div class="course-title">${element.description}</div>
-                <div class="author">${element.author.userName}</div>
-                  <div class="category">${categoriesString}</div>
-                  <div class="Price">${element.price}</div>
-              </div>----------------------`;
+                        relatedCourse += "<li>" +
+                            "<div class='imagecontainer'>" +
+                            "<img  src='https://fakeimg.pl/1920x930/' class='img-fluid'/>" +
+                            "<div class='centeredimage'>"+element.name+"</div>" +
+                            "<div class='bottomimage'>" + element.description + "</div>" +
+                            "</div>" +
+                            "</li>";
               });
-              relatedCourseList.innerHTML = relatedCourse;
-              });
-          }
-    </script>
+                    console.log(relatedCourseList.innerHTML);
+                  console.log(relatedCourse);
+                    relatedCourseList.innerHTML = "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Font-End High Level</div><div class='bottomimage'>Work with React</div></div></li>" +
+                        "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Back-End C Sharp</div><div class='bottomimage'>Project Razor</div></div></li>" +
+                        "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Font-End Normal</div><div class='bottomimage'>Start with JavaScript</div></div></li>";
+                    console.log(relatedCourseList.innerHTML);
+          });
+  }
+</script>
 </body>
+
 </html>
+
