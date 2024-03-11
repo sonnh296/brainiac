@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="inforPayment">
+        <h1>Infor of order</h1>
+        <div class="course-name"></div>
+        <div class="course-price"></div>
+        <div class="balance"></div>
+        <form action="" id="form-payment">
+            <input type="hidden" name="" id="courseId" />
+            <input type="hidden" name="" id="userId" />
+            <input type="hidden" name="" id="price" />
+            <input type="hidden" name="" id="balance" />
+            <button type="submit">Checkout</button>
+        </form>
+    </div>
+
+    <script>
+        const token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEwNjg4MzQ3LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.JcUMGxhhKMNOb0qVpRPdqO-4VZzIREUJIgR0nln7-Zw";
+        const urlParam = new URLSearchParams(window.location.search);
+        const courseId = urlParam.get("courseId");
+        var userId = -1;
+        getUser();
+        function getUser() {
+            fetch("http://localhost:5020/api/User/CurrentUser", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    userId = data.userId;
+                    document.getElementById("userId").value = userId;
+                    document.getElementById("balance").value = data.balance;
+                    var divBalance = document.querySelector(".balance");
+                    divBalance.innerHTML = `Balance: ${data.balance}`;
+                    getCourse();
+                });
+        }
+        function getCourse() {
+            fetch(`http://localhost:5020/api/Course/CourseDetail/${courseId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    document.getElementById("courseId").value = data.courseId;
+                    document.getElementById("price").value = data.price;
+                    var divCourseName = document.querySelector(".course-name");
+                    var divCoursePrice = document.querySelector(".course-price");
+                    divCourseName.innerHTML = `Course: ${data.name}`;
+                    divCoursePrice.innerHTML = `Price: ${data.price}`;
+                });
+        }
+
+        document
+            .getElementById("form-payment")
+            .addEventListener("submit", function (e) {
+                e.preventDefault();
+                var courseId = document.getElementById("courseId").value;
+                var userId = document.getElementById("userId").value;
+                var price = document.getElementById("price").value;
+                var balance = document.getElementById("balance").value;
+                var price = parseFloat(document.getElementById("price").value); // Convert to number
+                var balance = parseFloat(document.getElementById("balance").value); // Convert to number
+
+                
+
+                if (balance < price) {
+                    var confirmation = confirm(
+                        "Not enough money!!! Add more money to balance? if yes, click OK, if no, click Cancel to back to Course Detail page"
+                    );
+                    if (confirmation) {
+                        window.location.href = "http://localhost:5020/Payment/AddMoney";
+                    } else {
+                        window.location.href = `/Student/CourseDetail?courseId=${courseId}`;
+                    }
+                } else {
+                    var confirmEnroll = confirm(
+                        `Are you sure to enroll this course with price: ${price}?`
+                    );
+                    if (!confirmEnroll) return;
+                    var data = {
+                        courseId: courseId,
+                        userId: userId,
+                    };
+                    fetch("http://localhost:5020/api/Course/EnrollCourse", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                alert("Course enrolled successfully!");
+                                fetchOrderDetail(userId, courseId, price);
+                                // Redirect to some success page or perform other actions
+                            } else {
+                                alert("Failed to enroll course. Please try again.");
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                            alert("An error occurred while enrolling the course.");
+                        });
+                }
+            });
+        function fetchOrderDetail(userId, courseId, price) {
+            var data = {
+                userId: userId,
+                courseId: courseId,
+                total: price,
+            };
+            fetch(`http://localhost:5020/api/Order/Payment`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        window.location.href = `/Student/CourseDetail?courseId=${courseId}`;
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert("An error occurred while fetching the order detail.");
+                });
+        }
+    </script>
+</body>
+</html>

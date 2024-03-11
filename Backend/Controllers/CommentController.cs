@@ -18,7 +18,8 @@ namespace Backend.Controllers
         [HttpGet("Course/{courseId}")]
         public async Task<IActionResult> GetCommentsOfCourseAsync(int courseId)
         {
-            var comments = _context.Comments.Where(x => x.CourseId == courseId)
+            var comments = _context.Comments.Where(x => x.CourseId == courseId && x.Status == "1")
+                .OrderByDescending(x => x.CommentDate)
                 .Include(c => c.User);
             if(comments == null)
             {
