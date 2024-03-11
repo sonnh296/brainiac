@@ -124,7 +124,7 @@ namespace Backend.Models
 
                 entity.ToTable("OrderDetail");
 
-                entity.Property(e => e.Date).HasColumnType("date");
+                entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.Total).HasColumnType("money");
 
