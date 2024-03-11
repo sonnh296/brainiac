@@ -32,7 +32,7 @@ namespace Backend.Controllers
                 userID = Int32.Parse(identity.FindFirst("ID").Value);
             }
 
-            //Console.WriteLine(userID);
+            bool isEnrolled = _context.UserCourses.Any(x => x.CourseId == id && x.UserId == userID && x.IsStudent == true);
 
             var course = _context.Courses
                 .Include(x => x.Resources)
@@ -59,8 +59,8 @@ namespace Backend.Controllers
                 Author = new {UserId = author.UserId, UserName = author.UserName},
                 Categories = listCategory,
                 Enrolled = countEnrolled,
-                UserId = userID,
-                UserRole = _context.Users.Include(u => u.Role).FirstOrDefault(x => x.UserId == userID).Role.RoleName
+                IsEnrolled = isEnrolled,
+                UserId = userID
             };
             return Ok(obj);
         }
