@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.DTOs;
+using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -39,6 +40,27 @@ namespace Backend.Controllers
                 Count1 = count1
             };
             return Ok(obj);
+        }
+
+        [HttpPost("PostRating")]
+        public async Task<IActionResult> PostRatingAsync(RatingDTO rating)
+        {
+            try
+            {
+                Rating r = new Rating
+                {
+                    UserId = rating.UserId,
+                    CourseId = rating.CourseId,
+                    Point = rating.Point
+                };
+                _context.Add(r);
+                await _context.SaveChangesAsync();
+                return Ok("Rated successfully!!!");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Rate failed!!!");
+            }
         }
     }
 }
