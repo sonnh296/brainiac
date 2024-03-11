@@ -49,6 +49,7 @@ namespace Backend.Controllers
             var listCategory = _context.CategoryCourses
                 .Where(x => x.Course.CourseId == id).Select(x => x.Category);
             int countEnrolled = _context.UserCourses.Where(x => x.CourseId == id && x.IsStudent == true).Count();
+            bool isRated = _context.Ratings.Any(x => x.CourseId == id && x.UserId == userID);
 
             var obj = new
             {
@@ -60,7 +61,8 @@ namespace Backend.Controllers
                 Categories = listCategory,
                 Enrolled = countEnrolled,
                 IsEnrolled = isEnrolled,
-                UserId = userID
+                UserId = userID,
+                IsRated = isRated,
             };
             return Ok(obj);
         }
