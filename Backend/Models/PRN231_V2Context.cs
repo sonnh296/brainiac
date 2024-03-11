@@ -16,22 +16,22 @@ namespace Backend.Models
         {
         }
 
-        public virtual DbSet<Answer> Answers { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<CategoryCourse> CategoryCourses { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Course> Courses { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<Question> Questions { get; set; }
-        public virtual DbSet<Rating> Ratings { get; set; }
-        public virtual DbSet<ReportedComment> ReportedComments { get; set; }
-        public virtual DbSet<Resource> Resources { get; set; }
-        public virtual DbSet<ResourceUser> ResourceUsers { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Test> Tests { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserCourse> UserCourses { get; set; }
-        public virtual DbSet<UserTest> UserTests { get; set; }
+        public virtual DbSet<Answer> Answers { get; set; } = null!;
+        public virtual DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<CategoryCourse> CategoryCourses { get; set; } = null!;
+        public virtual DbSet<Comment> Comments { get; set; } = null!;
+        public virtual DbSet<Course> Courses { get; set; } = null!;
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
+        public virtual DbSet<Question> Questions { get; set; } = null!;
+        public virtual DbSet<Rating> Ratings { get; set; } = null!;
+        public virtual DbSet<ReportedComment> ReportedComments { get; set; } = null!;
+        public virtual DbSet<Resource> Resources { get; set; } = null!;
+        public virtual DbSet<ResourceUser> ResourceUsers { get; set; } = null!;
+        public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<Test> Tests { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<UserCourse> UserCourses { get; set; } = null!;
+        public virtual DbSet<UserTest> UserTests { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -58,9 +58,7 @@ namespace Backend.Models
             {
                 entity.ToTable("Category");
 
-                entity.Property(e => e.CategoryName)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.CategoryName).HasMaxLength(255);
             });
 
             modelBuilder.Entity<CategoryCourse>(entity =>
@@ -84,9 +82,7 @@ namespace Backend.Models
 
                 entity.Property(e => e.CommentDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Status).HasMaxLength(50);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Comments)
@@ -103,19 +99,13 @@ namespace Backend.Models
             {
                 entity.ToTable("Course");
 
-                entity.Property(e => e.CourseName)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.CourseName).HasMaxLength(255);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Status).HasMaxLength(50);
 
-                entity.Property(e => e.Title)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Title).HasMaxLength(255);
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
@@ -199,9 +189,7 @@ namespace Backend.Models
 
                 entity.Property(e => e.Description).HasMaxLength(255);
 
-                entity.Property(e => e.Type)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Type).HasMaxLength(50);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Resources)
@@ -228,9 +216,7 @@ namespace Backend.Models
             {
                 entity.ToTable("Role");
 
-                entity.Property(e => e.RoleName)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.RoleName).HasMaxLength(255);
             });
 
             modelBuilder.Entity<Test>(entity =>
@@ -239,13 +225,9 @@ namespace Backend.Models
 
                 entity.Property(e => e.PercentPoint).HasColumnType("decimal(5, 2)");
 
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Status).HasMaxLength(50);
 
-                entity.Property(e => e.TestName)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.TestName).HasMaxLength(255);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Tests)
@@ -259,17 +241,11 @@ namespace Backend.Models
 
                 entity.Property(e => e.Balance).HasColumnType("money");
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Email).HasMaxLength(255);
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.Password).HasMaxLength(255);
 
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.UserName).HasMaxLength(255);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
@@ -281,9 +257,7 @@ namespace Backend.Models
             {
                 entity.ToTable("UserCourse");
 
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Status).HasMaxLength(50);
 
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.UserCourses)

@@ -11,7 +11,7 @@ namespace Backend.Models
         public DateTime Date { get; set; }
         public decimal? Total { get; set; }
 
-        public virtual Course Course { get; set; }
-        public virtual User User { get; set; }
+        public virtual Course Course { get; set; } = null!;
+        public virtual User User { get; set; } = null!;
     }
 }

@@ -20,7 +20,7 @@ namespace Backend.Controllers.Admin
             
         }
         // GET: Admin/ManageUser/{id}
-        [HttpGet("{id}")]
+        [HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
             User user = await _userRepository.GetByIdAsync(id);
