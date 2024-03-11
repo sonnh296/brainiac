@@ -24,6 +24,7 @@ namespace Backend.Models
         public string Email { get; set; }
         public int? RoleId { get; set; }
         public decimal? Balance { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual Role Role { get; set; }
         [JsonIgnore]
