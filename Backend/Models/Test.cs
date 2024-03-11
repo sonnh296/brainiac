@@ -12,13 +12,13 @@ namespace Backend.Models
         }
 
         public int TestId { get; set; }
-        public string TestName { get; set; }
+        public string TestName { get; set; } = null!;
         public int? Time { get; set; }
         public decimal? PercentPoint { get; set; }
         public int? CourseId { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = null!;
 
-        public virtual Course Course { get; set; }
+        public virtual Course? Course { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<UserTest> UserTests { get; set; }
     }

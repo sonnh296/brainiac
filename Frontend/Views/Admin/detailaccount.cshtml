@@ -10,6 +10,7 @@
 	<link href="/css/datepicker3.css" rel="stylesheet">
 	<link href="/css/styles.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </head>
 <body>
@@ -143,7 +144,7 @@
 			<form id="accountForm">
 				<div class="form-group">
 					<label for="userName">User Name:</label>
-					<input type="text" class="form-control" id="userName" value="JohnDoe" readonly>
+					<input type="text" class="form-control" id="userName" value="" readonly>
 				</div>
 
 				<div class="form-group">
@@ -196,15 +197,44 @@
 
 	</div><!--/.main-->
 	
+<script>
+        $(document).ready(function () {
+            // Lấy user ID từ URL (tham số truyền vào)
+            var urlParams = new URLSearchParams(window.location.search);
+            var userId = urlParams.get('id');
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/custom.js"></script>
+            // Kiểm tra nếu có user ID thì thực hiện AJAX request để lấy thông tin người dùng
+            if (userId) {
+                $.ajax({
+                    url: 'http://localhost:5020/Admin/ManageUser/GetUser/' + userId,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (userData) {
+                        // Điền thông tin người dùng vào các trường trong form
+                        $('#userName').val(userData.userName);
+                        @* $('#status').val(userData.status); *@
+                        $('#email').val(userData.email);
+                        $('#password').val(userData.password); // Lưu ý: Không nên hiển thị mật khẩu như này
+                        // Xử lý checkbox roles tùy thuộc vào dữ liệu từ API
+                        $('#teacherCheckbox').prop('checked', userData.roles.includes('Teacher'));
+                        $('#adminCheckbox').prop('checked', userData.roles.includes('Admin'));
+                        $('#studentCheckbox').prop('checked', userData.roles.includes('Student'));
+                    },
+                    error: function () {
+                        console.error('Error fetching detailed user information');
+                    }
+                });
+            }
+        });
+    </script>
+	<script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/chart.min.js"></script>
+	<script src="/js/chart-data.js"></script>
+	<script src="/js/easypiechart.js"></script>
+	<script src="/js/easypiechart-data.js"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/custom.js"></script>
 
 </body>
 </html>

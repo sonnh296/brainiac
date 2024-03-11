@@ -12,8 +12,8 @@ namespace Backend.Models
         public DateTime DateTime { get; set; }
         public string ReasonReport { get; set; }
 
-        public virtual Comment Comment { get; set; }
-        public virtual User UserComment { get; set; }
-        public virtual User UserReport { get; set; }
+        public virtual Comment Comment { get; set; } = null!;
+        public virtual User UserComment { get; set; } = null!;
+        public virtual User UserReport { get; set; } = null!;
     }
 }

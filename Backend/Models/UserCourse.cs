@@ -11,6 +11,7 @@ namespace Backend.Models
         public bool? IsStudent { get; set; }
         public string? Status { get; set; }
 
+
         public virtual Course? Course { get; set; }
         public virtual User? User { get; set; }
     }
