@@ -18,22 +18,25 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        //[Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student")]
         // GET: api/Course/CourseDetail/5
         [HttpGet("CourseDetail/{id}")]
         public async Task<IActionResult> GetCourseDetailAsync(int id)
         {
-            //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            //int userID = -1;
-            //if (identity != null) {
-            //    IEnumerable<Claim> claims = identity.Claims;
-            //    // or
-            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
-            //}
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = -1;
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                // or
+                userID = Int32.Parse(identity.FindFirst("ID").Value);
+            }
 
             //Console.WriteLine(userID);
 
-            var course = _context.Courses.FirstOrDefault(x => x.CourseId == id);
+            var course = _context.Courses
+                .Include(x => x.Resources)
+                .FirstOrDefault(x => x.CourseId == id);
             if(course == null)
             {
                 return NotFound();
@@ -55,7 +58,9 @@ namespace Backend.Controllers
                 Lessons = course.Resources.Count(),
                 Author = new {UserId = author.UserId, UserName = author.UserName},
                 Categories = listCategory,
-                Enrolled = countEnrolled
+                Enrolled = countEnrolled,
+                UserId = userID,
+                UserRole = _context.Users.Include(u => u.Role).FirstOrDefault(x => x.UserId == userID).Role.RoleName
             };
             return Ok(obj);
         }
