@@ -57,6 +57,7 @@ namespace Backend.Controllers
                 Name = course.CourseName,
                 Description = course.Title,
                 Lessons = course.Resources.Count(),
+                Price = course.Price,
                 Author = new {UserId = author.UserId, UserName = author.UserName},
                 Categories = listCategory,
                 Enrolled = countEnrolled,
@@ -137,5 +138,26 @@ namespace Backend.Controllers
                 });
             return Ok(listCourse);
         }
+
+        [Authorize(Roles = "Student")]
+        [HttpPost("EnrollCourse")]
+        public async Task<IActionResult> EnrollCourseAsync(UserCourse userCourse)
+        {
+            try
+            {
+                userCourse.IsStudent = true;
+                userCourse.Status = "1";
+                _context.UserCourses.Add(userCourse);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
+
+        
     }
 }
