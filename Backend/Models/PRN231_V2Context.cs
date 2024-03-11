@@ -162,6 +162,8 @@ namespace Backend.Models
 
                 entity.Property(e => e.DateTime).HasColumnType("datetime");
 
+                entity.Property(e => e.ReasonReport).IsUnicode(false);
+
                 entity.HasOne(d => d.Comment)
                     .WithMany(p => p.ReportedComments)
                     .HasForeignKey(d => d.CommentId)

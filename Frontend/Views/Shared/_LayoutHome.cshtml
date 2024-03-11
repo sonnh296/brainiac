@@ -1,0 +1,210 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>RAFS</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/Assets/HomePage/img/core-img/rafs.ico">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="~/Assets/HomePage/style.css">
+    <style>
+        .logoutbtn {
+            background: none !important;
+            border: none;
+            padding: 2 !important;
+            /*optional*/
+            font-family: arial, sans-serif;
+            /*input has OS specific font-family*/
+            color: #069;
+            cursor: pointer;
+        }
+
+        .logoutbtn-text {
+            position: absolute;
+            bottom: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img">
+            <img src="~/Assets/Dashboard/images/RAFSIcon.png" alt="">
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- ***** Top Header Area ***** -->
+        <div class="top-header-area" style="background-color:green; opacity: 0.8;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="top-header-content d-flex align-items-center justify-content-between">
+                            <!-- Top Header Content -->
+                            <div class="top-header-meta">
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="rafs.hub@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> <span>Email: rafs.hub@gmail.com</span></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="+84 838776396"><i class="fa fa-phone" aria-hidden="true"></i> <span>Liên hệ: +84 838776396</span></a>
+                            </div>
+
+                            <!-- Top Header Content -->
+                            <div class="top-header-meta d-flex">
+                                <!-- If the user is logged in, display welcome message & logout button -->
+                               
+                                    <div class="welcome">
+                                        <a asp-action="Index" asp-controller="Farm"><i class="" aria-hidden="true"></i> <span style="color:white; padding-left: 1px"></span></a>
+                                    </div>
+                                    <div class="logout">
+                                        <a>
+                                            <form id="logoutForm" asp-controller="Authentication" asp-action="Logout" method="post">
+
+                                            <button type="submit" style="color:red;  font-weight: bold;" class="logoutbtn">
+                                                    Đăng xuất
+                                                </button>
+                                            </form>
+                                        </a>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ***** Navbar Area ***** -->
+        <div class="alazea-main-menu" style="background-color:black; ">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="alazeaNav">
+
+                        
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Navbar Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/Home/AboutUs">Course</a></li>
+                                    <li><a href="/Home/Farm">Contract</a></li>
+                                    <li><a href="/Home/Blog">About us</a></li>
+                                </ul>
+
+                            </div>
+                            <!-- Navbar End -->
+                        </div>
+                    </nav>
+
+                    <!-- Search Form -->
+                    <div class="search-form">
+                        <form action="#" method="get">
+                            <input type="search" name="search" id="search" placeholder="Type keywords &amp; press enter...">
+                            <button type="submit" class="d-none"></button>
+                        </form>
+                        <!-- Close Icon -->
+                        <div class="closeIcon"><i class="fa fa-times" aria-hidden="true"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+    @RenderBody()
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area bg-img" style="background-image: url(/Assets/HomePage/img/bg-img/3.jpg);">
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="single-footer-widget">
+                            <div class="footer-logo mb-30">
+                                <a href="#"><img src="~/Assets/HomePage/img/core-img/rafs-logo.png" alt=""></a>
+                            </div>
+                            <p>Theo dõi chúng tôi trên nền tảng mạng xã hội để nhận tin tức mới nhất</p>
+                            <div class="social-info">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="single-footer-widget">
+                            <div class="widget-title">
+                                <h5>LIÊN HỆ</h5>
+                            </div>
+
+                            <div class="contact-information">
+                                <p><span>Địa chỉ:</span> Khu CNC Hoa Lac, km 29, Đại lộ, Thăng Long, Hà Nội</p>
+                                <p><span>Điện thoại:</span> +84 838776396</p>
+                                <p><span>Email:</span> rafs.hub@gmail.com</p>
+                                <p><span>Mở cửa:</span> Thứ 2 - Thứ 6: 8 AM đến 7 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Area -->
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="border-line"></div>
+                    </div>
+                    <!-- Copywrite Text -->
+                    <div class="col-12 col-md-6">
+                        <div class="copywrite-text">
+                        </div>
+                    </div>
+                    <!-- Footer Nav -->
+                    <div class="col-12 col-md-6">
+                        <div class="footer-nav">
+                            <nav>
+                                <ul>
+                                    <li><a href="/Home">Home</a></li>
+                                    <li><a href="/Home/AboutUs">Course</a></li>
+                                    <li><a href="/Home/Farm">Contract</a></li>
+                                    <li><a href="#">About us</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Assets/HomePage/js/active.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
