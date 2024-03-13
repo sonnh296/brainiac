@@ -10,7 +10,7 @@ namespace Backend.Models
         public int? UserId { get; set; }
         public bool? IsComplete { get; set; }
 
-        public virtual Resource Resource { get; set; }
-        public virtual User User { get; set; }
+        public virtual Resource? Resource { get; set; }
+        public virtual User? User { get; set; }
     }
 }

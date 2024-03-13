@@ -1,4 +1,6 @@
-﻿using Backend.Repositories;
+﻿using AutoMapper;
+using Backend.DTOs;
+using Backend.Repositories;
 using Backend.Service;
 using Backend.Service.Implement;
 

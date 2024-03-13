@@ -11,7 +11,8 @@ namespace Backend.Models
         }
 
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+        public string CategoryName { get; set; } = null!;
+        public int? Status { get; set; }
 
         public virtual ICollection<CategoryCourse> CategoryCourses { get; set; }
     }

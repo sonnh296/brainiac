@@ -15,8 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PRN231_V2Context>();
-//builder.Services.AddScoped<ITeacherService, TeacherServiceImpl>();
-//builder.Services.AddScoped<TeacherRepository>();
 builder.Services.AddAppServices();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(option => 
