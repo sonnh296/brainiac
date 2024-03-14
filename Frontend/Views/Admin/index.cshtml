@@ -5,11 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Manage-Account</title>
 
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/font-awesome.min.css" rel="stylesheet">
-	<link href="css/datepicker3.css" rel="stylesheet">
-	<link href="css/styles.css" rel="stylesheet">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/css/datepicker3.css" rel="stylesheet">
+	<link href="/css/styles.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </head>
 <body>
@@ -26,7 +27,7 @@
 				<ul class="nav navbar-top-links navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-							<em class="fa fa-envelope"></em><span class="label label-danger">15</span>
+							<img src="/imgs/admin-img/notifi.png" width="20" height="20" alt="notifi Icon"><span class="label label-danger">15</span>
 						</a>
 						<ul class="dropdown-menu dropdown-messages">
 							<li>
@@ -66,7 +67,7 @@
 					</li>
 					<li class="dropdown">
 						<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-							<em class="fa fa-bell"></em><span class="label label-info">5</span>
+							<img src="/imgs/admin-img/message.png" width="20" height="20" alt="notifi Icon"><span class="label label-info">5</span>
 						</a>
 						<ul class="dropdown-menu dropdown-alerts">
 							<li>
@@ -104,10 +105,10 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+				<img src="/imgs/admin-img/male-user.png" width="40" height="40" alt="admin Icon">
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">ADMIN</div>
+				<div class="profile-usertitle-name">Admin</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>
@@ -119,17 +120,16 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li><a href="/admin/manageaccount"><em class="fa fa-dashboard">&nbsp;</em> Manage Account </a></li>
-			<li><a href="/admin/managecourse"><em class="fa fa-calendar">&nbsp;</em> Manage Courses </a></li>
-			<li class="active"><a href="/admin/reportedcomment"><em class="fa fa-bar-chart">&nbsp;</em> Reported Comments </a></li>
-
-			<li><a href="/admin/login"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a style="font-size:small" href="/admin/manageaccount"><img src="/imgs/admin-img/acc.png" width="20" height="20" alt="acc Icon">&nbsp; Manage Account </a></li>
+			<li><a style="font-size:small" href="/admin/managecourse"><img src="/imgs/admin-img/course.png" width="20" height="20" alt="course Icon">&nbsp; Manage Courses </a></li>
+			<li><a style="font-size:small" href="/admin/reportedcomment"><img src="/imgs/admin-img/reported.png" width="20" height="20" alt="reported Icon">&nbsp;Reported Comments</a></li>
+			<li><a style="font-size:small" href="/admin/login"><img src="/imgs/admin-img/logout.png" width="20" height="20" alt="logout Icon">&nbsp; Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<button class="btn btn-primary" id="addAccountButton"><i class="bi bi-plus"></i> Add Account</button>
-		<table class="table">
+		<table class="table" id="userTable">
 			<thead>
 				<tr>
 					<th>User ID</th>
@@ -141,26 +141,50 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>namfpt</td>
-					<td>nam@fpt</td>
-					<td>Admin</td>
-					<td><a href="detailaccount">Detail</a></td>
-				</tr>
+				
 			</tbody>
 		</table>
 	
 	</div>	<!--/.main-->
+	<script>
+        // Wait for the document to be ready
+        $(document).ready(function () {
+            // Make an AJAX request to your API endpoint
+            $.ajax({
+                url: 'http://localhost:5020/Admin/ManageUser/GetAllUsers',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    // Iterate through the returned data and populate the table
+                    $.each(data, function (index, user) {
+						console.log("Hello, this is a message in the console!",index);
+                        var row = '<tr>' +
+                            '<td>' + user.userId + '</td>' +
+                            '<td>' + user.userName + '</td>' +
+							'<td>' + user.email + '</td>' +
+                            '<td>' + (user.role ? user.role.roleName : '') + '</td>' +
+                            '<td><a href="admin/detailaccount">Detail</a></td>' +
+                            '</tr>';
+                        // Append the row to the tbody
+                        $('#userTable tbody').append(row);
+                    });
+                },
+                error: function () {
+                    // Handle errors if needed
+                    console.error('Error fetching data from the API');
+                }
+            });
+        });
+    </script>
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/chart.min.js"></script>
+	<script src="/js/chart-data.js"></script>
+	<script src="/js/easypiechart.js"></script>
+	<script src="/js/easypiechart-data.js"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/custom.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
 

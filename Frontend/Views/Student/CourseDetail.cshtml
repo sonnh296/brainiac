@@ -1,23 +1,22 @@
-﻿
-
-@{
+﻿@{
     Layout = "_LayoutHome";
 }
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/stylecoursedetail.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+          rel="stylesheet" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/stylecoursedetail.css" />
     <title>Education Course Detail</title>
 
-  <style>
+    <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: "Arial", sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa;
@@ -99,7 +98,6 @@
                 background-color: #0056b3;
             }
 
-
         .enroll-btn button {
             padding: 10px 20px;
             background-color: #007bff;
@@ -140,6 +138,221 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+        }
+
+        /*
+         *  Pure CSS star rating that works without reversing order
+         *  of inputs
+         *  -------------------------------------------------------
+         *  NOTE: For the styling to work, there needs to be a radio
+         *        input selected by default. There also needs to be a
+         *        radio input before the first star, regardless of
+         *        whether you offer a 'no rating' or 0 stars option
+         *
+         *  This codepen uses FontAwesome icons
+         */
+
+        #full-stars-example {
+            /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+            .rating-group
+
+        {
+            display: inline-flex;
+        }
+
+        /* make hover effect work properly in IE */
+        .rating__icon {
+            pointer-events: none;
+        }
+
+        /* hide radio inputs */
+        .rating__input {
+            position: absolute !important;
+            left: -9999px !important;
+        }
+
+        /* set icon padding and size */
+        .rating__label {
+            cursor: pointer;
+            padding: 0 0.1em;
+            font-size: 2rem;
+        }
+
+        /* set default star color */
+        .rating__icon--star {
+            color: orange;
+        }
+
+        /* set color of none icon when unchecked */
+        .rating__icon--none {
+            color: #eee;
+        }
+
+        /* if none icon is checked, make it red */
+        .rating__input--none:checked + .rating__label .rating__icon--none {
+            color: red;
+        }
+
+        /* if any input is checked, make its following siblings grey */
+        .rating__input:checked ~ .rating__label .rating__icon--star {
+            color: #ddd;
+        }
+
+        /* make all stars orange on rating group hover */
+        .rating-group:hover .rating__label .rating__icon--star {
+            color: orange;
+        }
+
+        /* make hovered input's following siblings grey on hover */
+        .rating__input:hover ~ .rating__label .rating__icon--star {
+            color: #ddd;
+        }
+
+        /* make none icon grey on rating group hover */
+        .rating-group:hover
+        .rating__input--none:not(:hover) + .rating__label
+        .rating__icon--none {
+            color: #eee;
+        }
+
+        /* make none icon red on hover */
+        .rating__input--none:hover + .rating__label .rating__icon--none {
+            color: red;
+        }
+
+        }
+
+        #half-stars-example {
+            /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+            .rating-group
+
+        {
+            display: inline-flex;
+        }
+
+        /* make hover effect work properly in IE */
+        .rating__icon {
+            pointer-events: none;
+        }
+
+        /* hide radio inputs */
+        .rating__input {
+            position: absolute !important;
+            left: -9999px !important;
+        }
+
+        /* set icon padding and size */
+        .rating__label {
+            cursor: pointer;
+            /* if you change the left/right padding, update the margin-right property of .rating__label--half as well. */
+            padding: 0 0.1em;
+            font-size: 2rem;
+        }
+
+        /* add padding and positioning to half star labels */
+        .rating__label--half {
+            padding-right: 0;
+            margin-right: -0.6em;
+            z-index: 2;
+        }
+
+        /* set default star color */
+        .rating__icon--star {
+            color: orange;
+        }
+
+        /* set color of none icon when unchecked */
+        .rating__icon--none {
+            color: #eee;
+        }
+
+        /* if none icon is checked, make it red */
+        .rating__input--none:checked + .rating__label .rating__icon--none {
+            color: red;
+        }
+
+        /* if any input is checked, make its following siblings grey */
+        .rating__input:checked ~ .rating__label .rating__icon--star {
+            color: #ddd;
+        }
+
+        /* make all stars orange on rating group hover */
+        .rating-group:hover .rating__label .rating__icon--star,
+        .rating-group:hover .rating__label--half .rating__icon--star {
+            color: orange;
+        }
+
+        /* make hovered input's following siblings grey on hover */
+        .rating__input:hover ~ .rating__label .rating__icon--star,
+        .rating__input:hover ~ .rating__label--half .rating__icon--star {
+            color: #ddd;
+        }
+
+        /* make none icon grey on rating group hover */
+        .rating-group:hover
+        .rating__input--none:not(:hover) + .rating__label
+        .rating__icon--none {
+            color: #eee;
+        }
+
+        /* make none icon red on hover */
+        .rating__input--none:hover + .rating__label .rating__icon--none {
+            color: red;
+        }
+
+        }
+
+        #full-stars-example-two {
+            /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+            .rating-group
+
+        {
+            display: inline-flex;
+        }
+
+        /* make hover effect work properly in IE */
+        .rating__icon {
+            pointer-events: none;
+        }
+
+        /* hide radio inputs */
+        .rating__input {
+            position: absolute !important;
+            left: -9999px !important;
+        }
+
+        /* hide 'none' input from screenreaders */
+        .rating__input--none {
+            display: none;
+        }
+
+        /* set icon padding and size */
+        .rating__label {
+            cursor: pointer;
+            padding: 0 0.1em;
+            font-size: 2rem;
+        }
+
+        /* set default star color */
+        .rating__icon--star {
+            color: orange;
+        }
+
+        /* if any input is checked, make its following siblings grey */
+        .rating__input:checked ~ .rating__label .rating__icon--star {
+            color: #ddd;
+        }
+
+        /* make all stars orange on rating group hover */
+        .rating-group:hover .rating__label .rating__icon--star {
+            color: orange;
+        }
+
+        /* make hovered input's following siblings grey on hover */
+        .rating__input:hover ~ .rating__label .rating__icon--star {
+            color: #ddd;
+        }
+
         }
 
         .comment-btn {
@@ -229,7 +442,7 @@
         }
 
             .content-item.grey {
-                background-color: #F0F0F0;
+                background-color: #f0f0f0;
                 padding: 50px 0;
                 height: 100%;
             }
@@ -257,26 +470,25 @@
         }
 
             .content-headline h2 {
-                background-color: #FFFFFF;
+                background-color: #ffffff;
                 display: inline-block;
                 margin: -20px auto 0;
                 padding: 0 20px;
             }
 
         .grey .content-headline h2 {
-            background-color: #F0F0F0;
+            background-color: #f0f0f0;
         }
 
         .content-headline h3 {
             font-size: 14px;
-            color: #AAAAAA;
+            color: #aaaaaa;
             display: block;
         }
 
-
         #comments {
-            box-shadow: 0 -1px 6px 1px rgba(0,0,0,0.1);
-            background-color: #FFFFFF;
+            box-shadow: 0 -1px 6px 1px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
         }
 
             #comments form {
@@ -296,7 +508,7 @@
             }
 
             #comments .media {
-                border-top: 1px dashed #DDDDDD;
+                border-top: 1px dashed #dddddd;
                 padding: 20px 0;
                 margin: 0;
             }
@@ -329,7 +541,7 @@
             }
 
                 #comments .media-detail li {
-                    color: #AAAAAA;
+                    color: #aaaaaa;
                     font-size: 12px;
                     padding-right: 10px;
                     font-weight: 600;
@@ -356,11 +568,22 @@
             box-sizing: border-box;
         }
 
-        article, aside, details, figcaption, figure, footer, header, nav, section, summary {
+        article,
+        aside,
+        details,
+        figcaption,
+        figure,
+        footer,
+        header,
+        nav,
+        section,
+        summary {
             display: block;
         }
 
-        audio, canvas, video {
+        audio,
+        canvas,
+        video {
             display: inline-block;
         }
 
@@ -374,15 +597,17 @@
         }
 
         a {
-            color: #231F40;
+            color: #231f40;
             text-decoration: none;
             outline: none;
         }
 
-            a:hover, a:focus, a:active {
+            a:hover,
+            a:focus,
+            a:active {
                 text-decoration: none;
                 outline: none;
-                color: #525FE1;
+                color: #525fe1;
             }
 
             a:focus {
@@ -397,7 +622,8 @@
             border-bottom: 1px dotted;
         }
 
-        b, strong {
+        b,
+        strong {
             font-weight: bold;
         }
 
@@ -405,11 +631,12 @@
             font-size: 16px;
             line-height: 1.63;
             font-weight: 500;
-            color: #6F6B80;
+            color: #6f6b80;
             margin: 0 0 30px;
         }
 
-        h5, .h5 {
+        h5,
+        .h5 {
             font-weight: 700;
         }
 
@@ -435,7 +662,7 @@
 
         .course-details-card {
             border-radius: 8px;
-            border: 1px solid #EEEEEE;
+            border: 1px solid #eeeeee;
             padding: 30px;
         }
 
@@ -476,41 +703,46 @@
             }
         }
 
-        .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+        .row--30 > [class*="col"],
+        .row--30 > [class*="col-"] {
             padding-left: 30px;
             padding-right: 30px;
         }
 
         @@media only screen and (min-width: 1200px) and (max-width: 1599px) {
-            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+            .row--30 > [class*="col"],
+            .row--30 > [class*="col-"] {
                 padding-left: 15px;
                 padding-right: 15px;
             }
         }
 
         @@media only screen and (min-width: 992px) and (max-width: 1199px) {
-            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+            .row--30 > [class*="col"],
+            .row--30 > [class*="col-"] {
                 padding-left: 15px;
                 padding-right: 15px;
             }
         }
 
         @@media only screen and (min-width: 768px) and (max-width: 991px) {
-            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+            .row--30 > [class*="col"],
+            .row--30 > [class*="col-"] {
                 padding-left: 15px !important;
                 padding-right: 15px !important;
             }
         }
 
         @@media only screen and (max-width: 767px) {
-            .row--30 > [class*="col"], .row--30 > [class*="col-"] {
+            .row--30 > [class*="col"],
+            .row--30 > [class*="col-"] {
                 padding-left: 15px !important;
                 padding-right: 15px !important;
             }
         }
 
         .course-details-content .rating-box {
-            background: #FFFFFF;
+            background: #ffffff;
             box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.07);
             border-radius: 5px;
             text-align: center;
@@ -522,7 +754,7 @@
                 font-weight: 800;
                 font-size: 72px;
                 line-height: 90px;
-                color: #231F40;
+                color: #231f40;
             }
 
             .course-details-content .rating-box span {
@@ -536,7 +768,7 @@
         }
 
         .course-details-content .rating-box {
-            background: #FFFFFF;
+            background: #ffffff;
             box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.07);
             border-radius: 5px;
             text-align: center;
@@ -548,7 +780,7 @@
                 font-weight: 800;
                 font-size: 72px;
                 line-height: 90px;
-                color: #231F40;
+                color: #231f40;
             }
 
             .course-details-content .rating-box span {
@@ -571,7 +803,7 @@
             max-width: 83%;
             margin-left: 38px;
             height: 12px;
-            background: #EEEEEE;
+            background: #eeeeee;
         }
 
         @@media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -581,7 +813,7 @@
         }
 
         .review-wrapper .progress .progress-bar {
-            background-color: #FFA41B;
+            background-color: #ffa41b;
         }
 
         .review-wrapper span.rating-value {
@@ -632,7 +864,7 @@
             line-height: 26px;
             display: block;
             margin-bottom: 10px;
-            color: #231F40;
+            color: #231f40;
         }
 
         @@media only screen and (max-width: 575px) {
@@ -642,78 +874,209 @@
         }
 
         .edu-comment + .edu-comment {
-            border-top: 1px solid #EEEEEE;
+            border-top: 1px solid #eeeeee;
             padding-top: 30px;
             margin-top: 30px;
         }
+    </style>
+    <style>
+        .slider {
+            margin-top: 20px;
+            overflow: hidden;
+        }
 
-  </style>
-  <style>
-    .slider {
-        margin-top: 20px;
-        overflow: hidden;
-    }
+        .slider-content {
+            display: flex;
+            flex-direction: row;
+        }
 
-    .slider-content {
-        display: flex;
-        flex-direction: row;
-    }
+        .slider-item {
+            display: none;
+            flex: 0 0 auto;
+            margin-right: 20px;
+            text-align: center;
+        }
 
-    .slider-item {
-        display: none;
-        flex: 0 0 auto;
-        margin-right: 20px;
-        text-align: center;
-    }
+            .slider-item img {
+                max-width: 100%;
+                height: auto;
+            }
 
-    .slider-item img {
-        max-width: 100%;
-        height: auto;
-    }
+            .slider-item h3 {
+                margin-top: 10px;
+                font-size: 18px;
+            }
 
-    .slider-item h3 {
-        margin-top: 10px;
-        font-size: 18px;
-    }
+            .slider-item p {
+                color: #666;
+            }
+    </style>
+    <style>
+        image {
+            max-height: 1920px;
+            max-width: 930px;
+        }
 
-    .slider-item p {
-        color: #666;
-    }
-</style>
-<style>
-  image{
-      max-height: 1920px;
-      max-width: 930px;
-  }
-  .flex-container a:hover,
-.flex-slider a:hover {outline: none; }
-.slides, .slides > li, .flex-control-nav, .flex-direction-nav {margin: 0; padding: 0; list-style: none; }
-.flex-pauseplay span {text-transform: capitalize; } 
-.flexslider {margin: 0; padding: 0; }
-.flexslider .slides > li {display: none; -webkit-backface-visibility: hidden; }
-.flexslider .slides img {width: 100%; display: block; }
-.flexslider .slides:after {content: "\0020"; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
-html[xmlns] .flexslider .slides {display: block; }
-* html .flexslider .slides {height: 1%; }
-.no-js .flexslider .slides > li:first-child {display: block; }
-.flexslider {background: #fff; position: relative; zoom: 3; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); -moz-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); -o-box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); box-shadow: '' 0 1px 4px rgba(0, 0, 0, 0.2); }
+        .flex-container a:hover,
+        .flex-slider a:hover {
+            outline: none;
+        }
 
-.flex-viewport {max-height: 2000px; -webkit-transition: all 1s ease; -moz-transition: all 1s ease; -ms-transition: all 1s ease; -o-transition: all 1s ease; transition: all 1s ease; }
-.loading .flex-viewport {max-height: 300px; }
-.carousel li {margin-right: 5px; }
-.flex-direction-nav a {text-decoration: none; display: block; width: 55px; height: 60px; margin: -20px 0 0; position: absolute; top: 40%; z-index: 10; overflow: hidden; opacity: 0; cursor: pointer; color: #fff; /*text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/ -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
-.flex-direction-nav a:before {font-family: "FontAwesome"; font-size: 40px; display: inline-block; content: '\f104'; /*color: rgba(0, 0, 0, 0.8); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/ }
-.flex-direction-nav a.flex-next:before {content: "\f105"; }
-.flex-direction-nav .flex-prev {left: 00px; }
-.flex-direction-nav .flex-next {right: 00px; text-align: right; }
-.flexslider:hover .flex-direction-nav .flex-prev {opacity: 0.7; left: 10px; }
-.flexslider:hover .flex-direction-nav .flex-prev:hover {opacity: 1; }
-.flexslider:hover .flex-direction-nav .flex-next {opacity: 0.7; right: 10px; }
-.flexslider:hover .flex-direction-nav .flex-next:hover {opacity: 1; }
+        .slides,
+        .slides > li,
+        .flex-control-nav,
+        .flex-direction-nav {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
 
-.flexslider.thumbe-slider{ bottom: 0; z-index: 9; ;height:130px; width: 100%; margin:  auto; left: 0; right: 0;} 
-.slider{position: relative;}
-.flexslider.thumbe-slider img{cursor: pointer;border: 4px solid #fff;}
+        .flex-pauseplay span {
+            text-transform: capitalize;
+        }
+
+        .flexslider {
+            margin: 0;
+            padding: 0;
+        }
+
+            .flexslider .slides > li {
+                display: none;
+                -webkit-backface-visibility: hidden;
+            }
+
+            .flexslider .slides img {
+                width: 100%;
+                display: block;
+            }
+
+            .flexslider .slides:after {
+                content: "\0020";
+                display: block;
+                clear: both;
+                visibility: hidden;
+                line-height: 0;
+                height: 0;
+            }
+
+        html[xmlns] .flexslider .slides {
+            display: block;
+        }
+
+        * html .flexslider .slides {
+            height: 1%;
+        }
+
+        .no-js .flexslider .slides > li:first-child {
+            display: block;
+        }
+
+        .flexslider {
+            background: #fff;
+            position: relative;
+            zoom: 3;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: "" 0 1px 4px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: "" 0 1px 4px rgba(0, 0, 0, 0.2);
+            -o-box-shadow: "" 0 1px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: "" 0 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .flex-viewport {
+            max-height: 2000px;
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -ms-transition: all 1s ease;
+            -o-transition: all 1s ease;
+            transition: all 1s ease;
+        }
+
+        .loading .flex-viewport {
+            max-height: 300px;
+        }
+
+        .carousel li {
+            margin-right: 5px;
+        }
+
+        .flex-direction-nav a {
+            text-decoration: none;
+            display: block;
+            width: 55px;
+            height: 60px;
+            margin: -20px 0 0;
+            position: absolute;
+            top: 40%;
+            z-index: 10;
+            overflow: hidden;
+            opacity: 0;
+            cursor: pointer;
+            color: #fff; /*text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .flex-direction-nav a:before {
+                font-family: "FontAwesome";
+                font-size: 40px;
+                display: inline-block;
+                content: "\f104"; /*color: rgba(0, 0, 0, 0.8); text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);*/
+            }
+
+            .flex-direction-nav a.flex-next:before {
+                content: "\f105";
+            }
+
+        .flex-direction-nav .flex-prev {
+            left: 00px;
+        }
+
+        .flex-direction-nav .flex-next {
+            right: 00px;
+            text-align: right;
+        }
+
+        .flexslider:hover .flex-direction-nav .flex-prev {
+            opacity: 0.7;
+            left: 10px;
+        }
+
+            .flexslider:hover .flex-direction-nav .flex-prev:hover {
+                opacity: 1;
+            }
+
+        .flexslider:hover .flex-direction-nav .flex-next {
+            opacity: 0.7;
+            right: 10px;
+        }
+
+            .flexslider:hover .flex-direction-nav .flex-next:hover {
+                opacity: 1;
+            }
+
+        .flexslider.thumbe-slider {
+            bottom: 0;
+            z-index: 9;
+            height: 130px;
+            width: 100%;
+            margin: auto;
+            left: 0;
+            right: 0;
+        }
+
+        .slider {
+            position: relative;
+        }
+
+        .flexslider.thumbe-slider img {
+            cursor: pointer;
+            border: 4px solid #fff;
+        }
 
         .imagecontainer {
             position: relative;
@@ -734,7 +1097,6 @@ html[xmlns] .flexslider .slides {display: block; }
             top: 25%;
         }
 
-
         .course-detail {
             height: 500px;
             position: relative;
@@ -744,7 +1106,7 @@ html[xmlns] .flexslider .slides {display: block; }
         .course-bg {
             height: 100%;
             width: 50%; /* Set width to 50% for the gradient background */
-            background-image: linear-gradient(to right,rgb(37, 150, 190), rgba(255, 0, 0, 0)); /* Red linear gradient from left to right */
+            background-image: linear-gradient( to right, rgb(37, 150, 190), rgba(255, 0, 0, 0) ); /* Red linear gradient from left to right */
             position: absolute;
             top: 0;
             left: 0;
@@ -753,7 +1115,8 @@ html[xmlns] .flexslider .slides {display: block; }
         .course-img {
             height: 100%;
             width: 50%; /* Set width to 50% for the image */
-            background-image: url("https://www.ncertbooks.guru/wp-content/uploads/2022/05/Course-details.png "); /* Add your image URL here */ background-repeat: no-repeat;
+            background-image: url("https://www.ncertbooks.guru/wp-content/uploads/2022/05/Course-details.png "); /* Add your image URL here */
+            background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
             opacity: 0.5;
@@ -794,151 +1157,258 @@ html[xmlns] .flexslider .slides {display: block; }
     </style>
 </head>
 <body>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <header>
         <div class="course-detail">
-            <div class="course-bg"></div> <!-- Background gradient -->
-            <div class="course-img"></div> <!-- Image overlay -->
+            <div class="course-bg"></div>
+            <!-- Background gradient -->
+            <div class="course-img"></div>
+            <!-- Image overlay -->
             <div class="container">
                 <div class="course-name">Introduction to Web Development</div>
-                <div class="course-title">Learn the basics of HTML, CSS, and JavaScript</div>
+                <div class="course-title">
+                    Learn the basics of HTML, CSS, and JavaScript
+                </div>
                 <div class="number-lesson">10 Lessons</div>
                 <div class="author">Author: John Doe</div>
                 <div class="category">Category: Web Development</div>
-                <button class="btn btn-primary">Enroll Course</button>
+                <button class="btn-enroll btn btn-primary">Enroll Course</button>
                 <div class="enrolled">Enrolled: 1500 students</div>
             </div>
         </div>
     </header>
     <main>
-      <section class="course-content">
-        <h2>Course Content</h2>
-        <ul class="content-list">
-            <li class="lesson">
-                <div class="lesson-header ">Introduce1111111</div>
-                <div class="lesson-details">  <p>Des 4</p></div>
-            </li>
-        </ul>
-    </section>
-    <section class="content-item" id="comments">
-   
-        <div class="container row col-md-12">
-            <div class="row col-md-12">
-                <div class="col-md-5 course-details-content">
-                    <div class="course-details-card mt--40">
-                        <div class="course-content">
-                            <h5 class="mb--20">Review</h5>
-                            <div class="row row--30">
-                                <div class="col-lg-4">
-                                    <div class="rating-box">
-                                        <div class="rating-number">5.0</div>
-                                        <div class="rating">  </div>
-                                        <span class="rating-number"></span>
-                                    </div>
+        <section class="course-content">
+            <h2>Course Content</h2>
+            <ul class="content-list">
+                <li class="lesson">
+                    <div class="lesson-header">Introduce1111111</div>
+                    <div class="lesson-details"><p>Des 4</p></div>
+                </li>
+            </ul>
+        </section>
+        <section class="content-item" id="comments">
+            <div class="container row col-md-12">
+                <div class="row col-md-12">
+                    <div class="col-md-5 course-details-content">
+                        <div class="course-details-card mt--40">
+                            <div class="course-content">
+                                <div class="ratingPoint">
+                                    <form action="" id="rateCourse">
+                                        <div id="full-stars-example">
+                                            <div class="rating-group">
+                                                <label aria-label="1 star"
+                                                       class="rating__label"
+                                                       for="rating-1">
+                                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                </label>
+                                                <input class="rating__input"
+                                                       name="rating"
+                                                       id="rating-1"
+                                                       value="1"
+                                                       type="radio" />
+                                                <label aria-label="2 stars"
+                                                       class="rating__label"
+                                                       for="rating-2">
+                                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                </label>
+                                                <input class="rating__input"
+                                                       name="rating"
+                                                       id="rating-2"
+                                                       value="2"
+                                                       type="radio" />
+                                                <label aria-label="3 stars"
+                                                       class="rating__label"
+                                                       for="rating-3">
+                                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                </label>
+                                                <input class="rating__input"
+                                                       name="rating"
+                                                       id="rating-3"
+                                                       value="3"
+                                                       type="radio"
+                                                       checked />
+                                                <label aria-label="4 stars"
+                                                       class="rating__label"
+                                                       for="rating-4">
+                                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                </label>
+                                                <input class="rating__input"
+                                                       name="rating"
+                                                       id="rating-4"
+                                                       value="4"
+                                                       type="radio" />
+                                                <label aria-label="5 stars"
+                                                       class="rating__label"
+                                                       for="rating-5">
+                                                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                                                </label>
+                                                <input class="rating__input"
+                                                       name="rating"
+                                                       id="rating-5"
+                                                       value="5"
+                                                       type="radio" />
+                                            </div>
+                                        </div>
+                                        <button type="submit">Rate</button>
+                                    </form>
                                 </div>
-                                <div class="col-lg-8">
-                                    <div class="review-wrapper point">
-                                       
+                                <h5 class="mb--20">Review</h5>
+                                <div class="row row--30">
+                                    <div class="col-lg-4">
+                                        <div class="rating-box">
+                                            <div class="rating-number">5.0</div>
+                                            <div class="rating"></div>
+                                            <span class="rating-number"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="review-wrapper point"></div>
                                     </div>
                                 </div>
                             </div>
-   
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-7">
-                    <form>
-                        <h3 class="pull-left">New Comment</h3>
-                        <button type="submit" class="btn btn-normal pull-right">Submit</button>
-                        <fieldset>
-                            <div class="row">
-                                <div class="col-sm-3 col-lg-2 hidden-xs">
-                                        <img class="img-responsive" src="data:image/png;base64,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" alt="">
+                    <div class="col-sm-7">
+                        <form class="write-cmt">
+                            <h3 class="pull-left">New Comment</h3>
+                            <button type="submit" class="btn btn-normal pull-right">
+                                Submit
+                            </button>
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-3 col-lg-2 hidden-xs">
+                                        <img class="img-responsive"
+                                             src="data:image/png;base64,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"
+                                             alt="" />
+                                    </div>
+                                    <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                        <textarea class="form-control"
+                                                  id="message"
+                                                  placeholder="Your message"
+                                                  required=""></textarea>
+                                    </div>
                                 </div>
-                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
-                                    <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-   
-                    <h3>4 Comments</h3>
-                    <div class="comments">
-                     
+                            </fieldset>
+                        </form>
+
+                        <h3 class="total-comment">4 Comments</h3>
+                        <div class="comments"></div>
                     </div>
-                
-                 
-   
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="slider" style=" width: 100%;">
-   
-        <div id="carousel" class="flexslider thumbe-slider">
-                <ul style="width: 100%;" class="slides" id="slidessss">
-                   @*  <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Font-End High Level</div><div class="bottomimage">Work with React</div></div></li>
-                    <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Back-End C Sharp</div><div class="bottomimage">Project Razor</div></div></li>
-                    <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Font-End Normal</div><div class="bottomimage">Start with JavaScript</div></div></li> *@
-               asdfgh
-            </ul>
-        </div>
-    </section>
-  
+        </section>
+        <section class="slider" style="width: 100%">
+            <div id="carousel" class="flexslider thumbe-slider">
+                <ul style="width: 100%" class="slides" id="slidessss">
+                    @*
+                    <li>
+                    <div class="imagecontainer">
+                    <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                    <div class="centeredimage">Font-End High Level</div>
+                    <div class="bottomimage">Work with React</div>
+                    </div>
+                    </li>
+                    <li>
+                    <div class="imagecontainer">
+                    <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                    <div class="centeredimage">Back-End C Sharp</div>
+                    <div class="bottomimage">Project Razor</div>
+                    </div>
+                    </li>
+                    <li>
+                    <div class="imagecontainer">
+                    <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                    <div class="centeredimage">Font-End Normal</div>
+                    <div class="bottomimage">Start with JavaScript</div>
+                    </div>
+                    </li>
+                    *@ asdfgh
+                </ul>
+            </div>
+        </section>
     </main>
-    <script src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
-    <script  >
-    var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEwNjg4MzQ3LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.JcUMGxhhKMNOb0qVpRPdqO-4VZzIREUJIgR0nln7-Zw";
-    $(window).load(function(){
-                    $('#carousel').flexslider({
-                        animation: "slide",
-                        controlNav: false,
-                        animationLoop: true,
-                        slideshow: false,
-                        itemWidth: 210,
-                        itemMargin: 5,
-                        asNavFor: '#slider'
-                    });
-    
-                    $('#slider').flexslider({
-                        animation: "fade",
-                        controlNav: false,
-                        animationLoop: true,
-                        slideshow: false,
-                        sync: "#carousel",
-                        start: function(slider){
-                            $('body').removeClass('loading');
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js"></script>
+    <script>
+        var token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEwNjg4MzQ3LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.JcUMGxhhKMNOb0qVpRPdqO-4VZzIREUJIgR0nln7-Zw";
+
+        $(window).load(function () {
+            $("#carousel").flexslider({
+                animation: "slide",
+                controlNav: false,
+                animationLoop: true,
+                slideshow: false,
+                itemWidth: 210,
+                itemMargin: 5,
+                asNavFor: "#slider",
+            });
+
+            $("#slider").flexslider({
+                animation: "fade",
+                controlNav: false,
+                animationLoop: true,
+                slideshow: false,
+                sync: "#carousel",
+                start: function (slider) {
+                    $("body").removeClass("loading");
+                },
+            });
+        });
+
+        const urlParam = new URLSearchParams(window.location.search);
+        const courseId = urlParam.get("courseId");
+        var isEnrolled = false;
+        var userId = -1;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            courseDetail();
+            setTimeout(function () {
+                lessonList();
+            }, 100);
+            ratingDetail();
+            relatedCourses();
+        });
+        function courseDetail() {
+            fetch(`http://localhost:5020/api/Course/CourseDetail/${courseId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    userId = data.userId;
+                    isEnrolled = data.isEnrolled;
+                    var btnEnroll = document.querySelector(".btn-enroll");
+                    var ratingPoint = document.querySelector(".ratingPoint");
+                    if (isEnrolled == true) {
+                        btnEnroll.innerHTML = "Go to course";
+                    } else {
+                        btnEnroll.innerHTML = "Enroll Course";
+                        ratingPoint.style.display = "none";
+                    }
+                    if (data.isRated == true) {
+                        ratingPoint.style.display = "none";
+                    }
+
+                    btnEnroll.addEventListener("click", function () {
+                        if (isEnrolled == true) {
+                            // Redirect to the course page
+                            window.location.href = "/Student/Course?courseId=" + courseId;
+                        } else {
+                            // Redirect to the payment page
+                            window.location.href = "/Student/Payment?courseId=" + courseId;
                         }
                     });
-                });
-    </script>
-<script>
-  const urlParam = new URLSearchParams(window.location.search);
-  const courseId = urlParam.get("courseId");
-  
-  document.addEventListener("DOMContentLoaded", function () {
-  courseDetail();
-      setTimeout(function () { lessonList(); }, 100);
-  commentList();
-  ratingDetail();
-      relatedCourses();
-  });
-  function courseDetail() {
-      fetch(`http://localhost:5020/api/Course/CourseDetail/${courseId}`, {
-          headers: {Authorization: `Bearer ${token}`}})
-          .then((response) => response.json())
-          .then((data) => {
-              var courseName = document.querySelector(".course-name");
-              var courseTitle = document.querySelector(".course-title");
-              var numberLesson = document.querySelector(".number-lesson");
-              var author = document.querySelector(".author");
-              var category = document.querySelector(".category");
-              var enrolled = document.querySelector(".enrolled");
+                    var courseName = document.querySelector(".course-name");
+                    var courseTitle = document.querySelector(".course-title");
+                    var numberLesson = document.querySelector(".number-lesson");
+                    var author = document.querySelector(".author");
+                    var category = document.querySelector(".category");
+                    var enrolled = document.querySelector(".enrolled");
                     courseName.innerHTML = `<h3>Course Name: ${data.name}</h3>`;
                     courseTitle.innerHTML = `<p>${data.description}</p>`;
                     numberLesson.innerHTML = `<p>Number of lessons: ${data.lessons}</p>`;
@@ -950,143 +1420,315 @@ html[xmlns] .flexslider .slides {display: block; }
                     });
                     category.innerHTML = `<p>Category: ${categories}</p>`;
                     enrolled.innerHTML = `<p>${data.enrolled} already enrolled</p>`;
-                    console.log(data.lessons);
-          });
-  }
-  function lessonList() {
-      fetch(`http://localhost:5020/api/Lesson/Course/${courseId}`)
-          .then((response) => response.json())
-          .then((data) => {
-              var lessonList = document.querySelector(".content-list");
-              var lesson = "";
-              data.forEach((element) => {
-                  lesson += `<li class="lesson">
-                          <div class="lesson-header "'>${element.name}</div>
-                  <div class="lesson-details">  <p>${element.description}</p></div>
-                </li>`;
-              });
-            
-              lessonList.innerHTML = lesson;
-              var lessonHeaders = document.querySelectorAll('.lesson-header');
-              lessonHeaders.forEach(header => {
+                    commentList();
+                });
+        }
+        function lessonList() {
+            fetch(`http://localhost:5020/api/Lesson/Course/${courseId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    var lessonList = document.querySelector(".content-list");
+                    var lesson = "";
+                    data.forEach((element) => {
+                        lesson += `<li class="lesson">
+                                <div class="lesson-header "'>${element.name}</div>
+                        <div class="lesson-details">  <p>${element.description}</p></div>
+                      </li>`;
+                    });
 
-                  header.addEventListener('click', function () {
-                      const details = this.nextElementSibling;
-                      details.classList.toggle('show');
-                  });
+                    lessonList.innerHTML = lesson;
+                    var lessonHeaders = document.querySelectorAll(".lesson-header");
+                    lessonHeaders.forEach((header) => {
+                        header.addEventListener("click", function () {
+                            const details = this.nextElementSibling;
+                            details.classList.toggle("show");
+                        });
+                    });
+                });
+        }
+        function commentList() {
+            var writeCmt = document.querySelector(".write-cmt");
+            var formReport =
+                "<form class='report-comment'>" +
+                "<p>Reason report</p>" +
+                "<input type='hidden' id='cmtId' value='cmtId'>" +
+                "<input type='hidden' id='userCmtId' value='userId'>" +
+                "<input type='text' id='message' placeholder='Write a reason report' />" +
+                "<div class ='report'><button type='submit'>Report</button>" +
+                "</form>";
+            if (isEnrolled == false) {
+                writeCmt.style.display = "none";
+                formReport = "";
+            }
+            fetch(`http://localhost:5020/api/Comment/Course/${courseId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    var commentList = document.querySelector(".comments");
+                    var comment = "";
+                    var totalComment = document.querySelector(".total-comment");
+                    totalComment.innerHTML = `${data.length} Comments`;
+                    var userComment;
 
-              });
-          });
-      
-     
-  }
-  function commentList() {
-      fetch(`http://localhost:5020/api/Comment/Course/${courseId}`)
-          .then((response) => response.json())
-          .then((data) => {
-              var commentList = document.querySelector(".comments");
-              var comment = "";
-              data.forEach((element) => {
-                  comment +=
-                  "<div class='media'>" +
+                    data.forEach((element) => {
+                        var currentFormReport = formReport; // Copy formReport for this iteration
+                        //Hiden form report if user is not enrolled
+                        if (element.user.userId == userId) {
+                            currentFormReport = "";
+                            userComment = `<h4 class='media-heading'>Me</h4>`;
+                        } else {
+                            currentFormReport = currentFormReport.replace(
+                                "value='cmtId'",
+                                `value='${element.commentId}'`
+                            ); // Set commentId
+                            currentFormReport = currentFormReport.replace(
+                                "value='userId'",
+                                `value='${element.user.userId}'`
+                            ); // Set userCommentId
+                            userComment = `<h4 class='media-heading'>${element.user.userName}</h4>`;
+                        }
+
+                        comment +=
+                            "<div class='media'>" +
                             "<a class='pull-left' href='#'><img class='media-object' src='data:image/png;base64,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' alt=''></a>" +
-                      "<div class='media-body'>" +
-                      `<h4 class='media-heading'>${element.user.userName}</h4>` +
-                      `<p>${element.content}</p>` +
-                      "<ul class='list-unstyled list-inline media-detail pull-left'>" +
-                      `<li><i class='fa fa-calendar'></i>${element.commentDate}</li>` +
-                      "</ul>" +
-                      "<ul class='list-unstyled list-inline media-detail pull-right'>" +
-                      "<li class=''><a href=''>Reply</a></li>" +
-                      "</ul>" +
-                      "</div>" +
-                      "</div> ";
-              });
-              commentList.innerHTML = comment;
-          });
-  }
-  function ratingDetail() {
-      fetch(`http://localhost:5020/api/Rating/Course/${courseId}`)
-          .then((response) => response.json())
-          .then((data) => {
-              var ratingStar = document.querySelector(".rating");
-              var ratingNumber = document.querySelector(".rating-number");
-              var point5 = document.querySelector(".point");
-              for (let i = 0; i < data.avg; i++) {
-                  ratingStar.innerHTML += `<i class="fa fa-star" aria-hidden="true"></i>`;
-              }
-              var percent = 0;
+                            "<div class='media-body'>" +
+                            userComment +
+                            `<p>${element.content}</p>` +
+                            "<ul class='list-unstyled list-inline media-detail pull-left'>" +
+                            `<li><i class='fa fa-calendar'></i>${element.commentDate}</li>` +
+                            "</ul>" +
+                            "<ul class='list-unstyled list-inline media-detail pull-right'>" +
+                            currentFormReport +
+                            "</ul>" +
+                            "</div>" +
+                            "</div> ";
+                    });
+                    commentList.innerHTML = comment;
 
-              ratingNumber.innerHTML = `<p>(${data.totalReview} reviews)</p>`;
-             
-              percent = data.count5 / data.totalReview;
-              point5.innerHTML += "<div class='single-progress-bar'>" +
-                  "<div class='rating-text'> 5 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
-                  "<div class='progress'>" +
-                  "<div class='progress-bar' role='progressbar' style='width: " + percent*100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
-                  "</div>" +
-                  `<span class='rating-value'>${data.count5}</span>` +
-                  "</div>";
-              percent = data.count4 / data.totalReview;
-                  point5.innerHTML += "<div class='single-progress-bar'>" +
-                  "<div class='rating-text'> 4 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
-                  "<div class='progress'>" +
-                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
-                  "</div>" +
-                  `<span class='rating-value'>${data.count4}</span>` +
-                  "</div>";
-              percent = data.count3 / data.totalReview;
-                  point5.innerHTML += "<div class='single-progress-bar'>" +
-                  "<div class='rating-text'> 3 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
-                  "<div class='progress'>" +
-                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
-                  "</div>" +
-                  `<span class='rating-value'>${data.count3}</span>` +
-                  "</div>";
-              percent = data.count2 / data.totalReview;
-                  point5.innerHTML += "<div class='single-progress-bar'>" +
-                  "<div class='rating-text'> 2 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
-                  "<div class='progress'>" +
-                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
-                  "</div>" +
-                  `<span class='rating-value'>${data.count2}</span>` +
-                  "</div>";
-              percent = data.count1 / data.totalReview;
-              point5.innerHTML += "<div class='single-progress-bar'>" +
-                  "<div class='rating-text'> 1 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
-                  "<div class='progress'>" +
-                  "<div class='progress-bar' role='progressbar' style='width: " + percent * 100 + "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
-                  "</div>" +
-                  `<span class='rating-value'>${data.count1}</span>` +
-                  "</div>";
-             
-          });
-  }
-  function relatedCourses() {
-      fetch(`http://localhost:5020/api/Course/Related/${courseId}`)
-          .then((response) => response.json())
-          .then((data) => {
+                    // Add event listeners for each form submission
+                    document.querySelectorAll(".report-comment").forEach((form) => {
+                        form.addEventListener("submit", function (event) {
+                            event.preventDefault(); // Prevent form submission
+
+                            const reasonReport = form.querySelector("#message").value;
+                            const commentId = form.querySelector("#cmtId").value;
+                            const userCmtId = form.querySelector("#userCmtId").value;
+                            const data = {
+                                CommentId: commentId,
+                                UserReportId: userId,
+                                UserCommentId: userCmtId,
+                                Content: reasonReport,
+                            };
+
+                            fetch(`http://localhost:5020/api/Comment/ReportComment`, {
+                                method: "POST",
+                                headers: {
+                                    Accept: "application/json",
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                },
+                                body: JSON.stringify(data),
+                            })
+                                .then((res) => {
+                                    if (res.ok) {
+                                        alert(
+                                            "Comment reported successfully. We will check it later!"
+                                        );
+                                    } else {
+                                        alert("Failed to report comment. Please try again.");
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error("Error:", error);
+                                    alert("An error occurred while reporting the comment.");
+                                });
+
+                            form.reset(); // Reset the form after submission
+                        });
+                    });
+                });
+        }
+
+        function ratingDetail() {
+            fetch(`http://localhost:5020/api/Rating/Course/${courseId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    var ratingStar = document.querySelector(".rating");
+                    var ratingNumber = document.querySelector(".rating-number");
+                    var point5 = document.querySelector(".point");
+                    ratingStar.innerHTML = "";
+                    ratingNumber.innerHTML = "";
+                    point5.innerHTML = "";
+                    for (let i = 0; i < data.avg; i++) {
+                        ratingStar.innerHTML += `<i class="fa fa-star" aria-hidden="true"></i>`;
+                    }
+                    var percent = 0;
+
+                    ratingNumber.innerHTML = `<p>(${data.totalReview} reviews)</p>`;
+
+                    percent = data.count5 / data.totalReview;
+                    point5.innerHTML +=
+                        "<div class='single-progress-bar'>" +
+                        "<div class='rating-text'> 5 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                        "<div class='progress'>" +
+                        "<div class='progress-bar' role='progressbar' style='width: " +
+                        percent * 100 +
+                        "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                        "</div>" +
+                        `<span class='rating-value'>${data.count5}</span>` +
+                        "</div>";
+                    percent = data.count4 / data.totalReview;
+                    point5.innerHTML +=
+                        "<div class='single-progress-bar'>" +
+                        "<div class='rating-text'> 4 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                        "<div class='progress'>" +
+                        "<div class='progress-bar' role='progressbar' style='width: " +
+                        percent * 100 +
+                        "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                        "</div>" +
+                        `<span class='rating-value'>${data.count4}</span>` +
+                        "</div>";
+                    percent = data.count3 / data.totalReview;
+                    point5.innerHTML +=
+                        "<div class='single-progress-bar'>" +
+                        "<div class='rating-text'> 3 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                        "<div class='progress'>" +
+                        "<div class='progress-bar' role='progressbar' style='width: " +
+                        percent * 100 +
+                        "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                        "</div>" +
+                        `<span class='rating-value'>${data.count3}</span>` +
+                        "</div>";
+                    percent = data.count2 / data.totalReview;
+                    point5.innerHTML +=
+                        "<div class='single-progress-bar'>" +
+                        "<div class='rating-text'> 2 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                        "<div class='progress'>" +
+                        "<div class='progress-bar' role='progressbar' style='width: " +
+                        percent * 100 +
+                        "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                        "</div>" +
+                        `<span class='rating-value'>${data.count2}</span>` +
+                        "</div>";
+                    percent = data.count1 / data.totalReview;
+                    point5.innerHTML +=
+                        "<div class='single-progress-bar'>" +
+                        "<div class='rating-text'> 1 <i class='fa fa-star' aria-hidden='true'></i> </div>" +
+                        "<div class='progress'>" +
+                        "<div class='progress-bar' role='progressbar' style='width: " +
+                        percent * 100 +
+                        "%' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'></div>" +
+                        "</div>" +
+                        `<span class='rating-value'>${data.count1}</span>` +
+                        "</div>";
+                });
+        }
+        function relatedCourses() {
+            fetch(`http://localhost:5020/api/Course/Related/${courseId}`)
+                .then((response) => response.json())
+                .then((data) => {
                     var relatedCourseList = document.querySelector("#slidessss");
-              var relatedCourse = "";
-              data.forEach((element) => {
-                        relatedCourse += "<li>" +
+                    var relatedCourse = "";
+                    data.forEach((element) => {
+                        relatedCourse +=
+                            "<li>" +
                             "<div class='imagecontainer'>" +
                             "<img  src='https://fakeimg.pl/1920x930/' class='img-fluid'/>" +
-                            "<div class='centeredimage'>"+element.name+"</div>" +
-                            "<div class='bottomimage'>" + element.description + "</div>" +
+                            "<div class='centeredimage'>" +
+                            element.name +
+                            "</div>" +
+                            "<div class='bottomimage'>" +
+                            element.description +
+                            "</div>" +
                             "</div>" +
                             "</li>";
-              });
+                    });
                     console.log(relatedCourseList.innerHTML);
-                  console.log(relatedCourse);
-                    relatedCourseList.innerHTML = "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Font-End High Level</div><div class='bottomimage'>Work with React</div></div></li>" +
+                    console.log(relatedCourse);
+                    relatedCourseList.innerHTML =
+                        "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Font-End High Level</div><div class='bottomimage'>Work with React</div></div></li>" +
                         "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Back-End C Sharp</div><div class='bottomimage'>Project Razor</div></div></li>" +
                         "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Font-End Normal</div><div class='bottomimage'>Start with JavaScript</div></div></li>";
                     console.log(relatedCourseList.innerHTML);
-          });
-  }
-</script>
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the form element
+            const formComment = document.querySelector(".write-cmt");
+
+            // Add event listener for form submission
+            formComment.addEventListener("submit", function (event) {
+                // Prevent the default form submission behavior
+                event.preventDefault();
+
+                // Get the textarea value
+                const message = document.getElementById("message").value;
+                const data = {
+                    userCommentId: userId,
+                    courseId: courseId,
+                    content: message,
+                };
+                fetch(`http://localhost:5020/api/Comment/PostComment`, {
+                    method: "Post",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }).then((res) => {
+                    if (res.ok) {
+                        commentList();
+                    }
+                });
+                // Reset the form if needed
+                formComment.reset();
+            });
+
+            const formRateCourse = document.getElementById("rateCourse");
+
+            // Add event listener for form submission
+            formRateCourse.addEventListener("submit", function (event) {
+                // Prevent the default form submission behavior
+                event.preventDefault();
+
+                // Get the selected rating value
+                const rating = document.querySelector(
+                    'input[name="rating"]:checked'
+                ).value;
+
+                // Prepare the data to be sent in the request body
+                const data = {
+                    UserId: userId, // Replace userId with the actual user ID
+                    CourseId: courseId, // Replace courseId with the actual course ID
+                    Point: rating,
+                };
+
+                // Make a POST request to the API endpoint
+                fetch("http://localhost:5020/api/Rating/PostRating", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            var ratingPoint = document.querySelector(".ratingPoint");
+                            ratingPoint.style.display = "none";
+                            // Handle success response
+                            alert("Rated successfully!!!");
+                            ratingDetail();
+                        } else {
+                            // Handle error response
+                            alert("Rate failed!!!");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                        alert("An error occurred while rating the course.");
+                    });
+            });
+        });
+    </script>
 </body>
-
 </html>
-

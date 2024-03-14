@@ -32,7 +32,7 @@ namespace Backend.Controllers
                 userID = Int32.Parse(identity.FindFirst("ID").Value);
             }
 
-            //Console.WriteLine(userID);
+            bool isEnrolled = _context.UserCourses.Any(x => x.CourseId == id && x.UserId == userID && x.IsStudent == true);
 
             var course = _context.Courses
                 .Include(x => x.Resources)
@@ -49,6 +49,7 @@ namespace Backend.Controllers
             var listCategory = _context.CategoryCourses
                 .Where(x => x.Course.CourseId == id).Select(x => x.Category);
             int countEnrolled = _context.UserCourses.Where(x => x.CourseId == id && x.IsStudent == true).Count();
+            bool isRated = _context.Ratings.Any(x => x.CourseId == id && x.UserId == userID);
 
             var obj = new
             {
@@ -56,11 +57,13 @@ namespace Backend.Controllers
                 Name = course.CourseName,
                 Description = course.Title,
                 Lessons = course.Resources.Count(),
+                Price = course.Price,
                 Author = new {UserId = author.UserId, UserName = author.UserName},
                 Categories = listCategory,
                 Enrolled = countEnrolled,
+                IsEnrolled = isEnrolled,
                 UserId = userID,
-                UserRole = _context.Users.Include(u => u.Role).FirstOrDefault(x => x.UserId == userID).Role.RoleName
+                IsRated = isRated,
             };
             return Ok(obj);
         }
@@ -135,5 +138,26 @@ namespace Backend.Controllers
                 });
             return Ok(listCourse);
         }
+
+        [Authorize(Roles = "Student")]
+        [HttpPost("EnrollCourse")]
+        public async Task<IActionResult> EnrollCourseAsync(UserCourse userCourse)
+        {
+            try
+            {
+                userCourse.IsStudent = true;
+                userCourse.Status = "1";
+                _context.UserCourses.Add(userCourse);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
+
+        
     }
 }

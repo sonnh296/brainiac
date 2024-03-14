@@ -15,5 +15,13 @@ namespace Frontend.Controllers.Student
         {
             return View();
         }
+        public IActionResult Course(string courseId)
+        {
+            return View();
+        }
+        public IActionResult Payment(string courseId)
+        {
+            return View();
+        }
     }
 }
