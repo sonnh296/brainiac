@@ -1,4 +1,5 @@
-﻿using Backend.DTOs;
+﻿using Backend.CustomizedExceptions;
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Repositories;
 
@@ -34,7 +35,7 @@ namespace Backend.Services.Implement
             {
                 if (c.CourseName.ToLower().Equals(course.CourseName.ToLower()))
                 {
-                    //throw new RepeatedExeption("This course name has already existed");
+                    throw new RepeatedExeption("This course name has already existed");
                 }
             }
             return repository.CreateCourseDraft(teacherid, course);
