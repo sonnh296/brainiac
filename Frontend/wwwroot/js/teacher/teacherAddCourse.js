@@ -17,7 +17,6 @@ function SaveDraftCourse() {
         //console.log(catesSeltected);
 
         else {
-            course.status = "draft";
             course.categories = catesSeltected;
             $.ajax({
                 headers: {
