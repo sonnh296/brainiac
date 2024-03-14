@@ -11,10 +11,10 @@ namespace Backend.Models
         }
 
         public int QuestionId { get; set; }
-        public string Content { get; set; }
+        public string? Content { get; set; }
         public int? TestId { get; set; }
 
-        public virtual Test Test { get; set; }
+        public virtual Test? Test { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
     }
 }

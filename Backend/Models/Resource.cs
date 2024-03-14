@@ -19,7 +19,8 @@ namespace Backend.Models
         public string Type { get; set; }
         public string Name { get; set; }
 
-        public virtual Course Course { get; set; }
+
+        public virtual Course? Course { get; set; }
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
     }
 }

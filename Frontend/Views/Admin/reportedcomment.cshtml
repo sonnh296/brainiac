@@ -24,7 +24,7 @@
 				<ul class="nav navbar-top-links navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-							<em class="fa fa-envelope"></em><span class="label label-danger">15</span>
+							<img src="/imgs/admin-img/notifi.png" width="20" height="20" alt="notifi Icon"><span class="label label-danger">15</span>
 						</a>
 						<ul class="dropdown-menu dropdown-messages">
 							<li>
@@ -64,7 +64,7 @@
 					</li>
 					<li class="dropdown">
 						<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-							<em class="fa fa-bell"></em><span class="label label-info">5</span>
+							<img src="/imgs/admin-img/message.png" width="20" height="20" alt="notifi Icon"><span class="label label-info">5</span>
 						</a>
 						<ul class="dropdown-menu dropdown-alerts">
 							<li>
@@ -102,22 +102,25 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+				<img src="/imgs/admin-img/male-user.png" width="40" height="40" alt="admin Icon">
 			</div>
 			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">ADMIN</div>
+				<div class="profile-usertitle-name">Admin</div>
 				<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 			</div>
 			<div class="clear"></div>
 		</div>
 		<div class="divider"></div>
-
+		<form role="search">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Search">
+			</div>
+		</form>
 		<ul class="nav menu">
-			<li><a href="/admin/manageaccount"><em class="fa fa-dashboard">&nbsp;</em> Manage Account </a></li>
-			<li><a href="/admin/managecourse"><em class="fa fa-calendar">&nbsp;</em> Manage Courses </a></li>
-			<li class="active"><a href="/admin/reportedcomment"><em class="fa fa-bar-chart">&nbsp;</em> Reported Comments </a></li>
-
-			<li><a href="/admin/login"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a style="font-size:small" href="/admin/manageaccount"><img src="/imgs/admin-img/acc.png" width="20" height="20" alt="acc Icon">&nbsp; Manage Account </a></li>
+			<li><a style="font-size:small" href="/admin/managecourse"><img src="/imgs/admin-img/course.png" width="20" height="20" alt="course Icon">&nbsp; Manage Courses </a></li>
+			<li><a style="font-size:small" href="/admin/reportedcomment"><img src="/imgs/admin-img/reported.png" width="20" height="20" alt="reported Icon">&nbsp;Reported Comments</a></li>
+			<li><a style="font-size:small" href="/admin/login"><img src="/imgs/admin-img/logout.png" width="20" height="20" alt="logout Icon">&nbsp; Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 

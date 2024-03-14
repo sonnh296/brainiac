@@ -12,7 +12,7 @@ namespace Backend.Models
         public DateTime? TestDate { get; set; }
         public int? TotalTime { get; set; }
 
-        public virtual Test Test { get; set; }
-        public virtual User User { get; set; }
+        public virtual Test? Test { get; set; }
+        public virtual User? User { get; set; }
     }
 }
