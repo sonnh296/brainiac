@@ -11,7 +11,6 @@
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="./css/stylelogin.css">
 	<style>
 		
 @@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -22,7 +21,6 @@
 
 body {
 	background: #f6f5f7;
-	background-image: url("./img/bg-img/3.jpg");
 	background-size:cover;
 	display: flex;
 	justify-content: center;
@@ -586,7 +584,6 @@ footer i {
 }
 body {
 	background: #f6f5f7;
-	background-image: url("./img/bg-img/3.jpg");
 	background-size:cover;
 	display: flex;
 	justify-content: center;
@@ -602,7 +599,7 @@ footer a {
 }
 	</style>
 </head>
-<body style="background-image: url('./img/bg-img/3.jpg');background-size:cover;">
+<body>
 	<!-- partial:index.partial.html -->
 	<h2>Welcome to Braniac</h2>
 	<div class="container" id="container">
@@ -622,7 +619,7 @@ footer a {
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="#">
+			<form action="#" id="login-form">
 				<h1>Sign in</h1>
 				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -630,11 +627,11 @@ footer a {
 					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 				</div>
 				<span>or use your account</span>
-				<input type="email" placeholder="Email" />
-				<input type="password" placeholder="Password" />
-				<button id="forGot">Forgot your password?</button>
-
-				<button>Sign In</button>
+				<input id="username-login" onkeyup="checkLogin()" type="text" placeholder="Email" autofocus />
+				<input id="password-login" onkeyup="checkLogin()" type="password" placeholder="Password" />
+				@*<button id="forGot">Forgot your password?</button>*@
+				<h4 style="color: red" id="login-message"></h4>
+				<button id="signin-button">Sign In</button>
 			</form>
 		</div>
 		<div class="overlay-container">
@@ -685,7 +682,7 @@ footer a {
 												</div>
 											</div>
 											<div class="form-group">
-												<a href="#"> <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit"> <a />
+												@*<a href="#"> <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit"> <a />*@
 											</div>
 
 											<input type="hidden" class="hide" name="token" id="token" value="">
@@ -701,38 +698,94 @@ footer a {
 	</div>
 	<!-- partial -->
 
-	<script>
-		const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
+<script>
+	const signUpButton = document.getElementById('signUp');
+	const signInButton = document.getElementById('signIn');
+	const container = document.getElementById('container');
 
-const overlay2 = document.getElementById('popup1');
-const forGotButton = document.getElementById('forGot');
-const closeButton = document.getElementById('close');
+	const overlay2 = document.getElementById('popup1');
+	//const forGotButton = document.getElementById('forGot');
+	const closeButton = document.getElementById('close');
 
-closeButton.addEventListener('click', () => {
-	overlay2.style.visibility="hidden";
-	overlay2.style.opacity="0";
-	container.style.visibility="visible";
-	container.style.opacity="1";
-});
+	document.getElementById("signin-button").disabled = true;
+	function checkLogin() {
+		console.log("changed");
+		var u = document.getElementById("username-login").value;
+		var p = document.getElementById("password-login").value;
+		if (u.length > 0 && p.length > 0){
+			document.getElementById("signin-button").disabled = false;
+		}
+		else{
+			document.getElementById("signin-button").disabled = true;
+		}
+	}
 
-forGotButton.addEventListener('click', () => {
-	container.style.visibility="hidden";
-	container.style.opacity="0";
-	overlay2.style.visibility="visible";
-	overlay2.style.opacity="1";
-});
+	const form = document.getElementById('login-form');
 
-signUpButton.addEventListener('click', () => {
-	container.classList.add("right-panel-active");
-});
+	form.addEventListener('submit', (event) => {
+		event.preventDefault();
+		console.log("acv");
+		const loginUrl = 'http://localhost:5020/api/Login/login';
 
-signInButton.addEventListener('click', () => {
-	container.classList.remove("right-panel-active");
-});
+		const credentials = {
+			username: document.getElementById('username-login').value,
+			password: document.getElementById('password-login').value
+		};
 
-		</script>
+		const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(credentials)
+		};
+
+		fetch(loginUrl, options)
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error('Login failed: ' + response.statusText);
+				}
+			})
+			.then(data => {
+					if (data.error === "") {
+					console.log('Login successful:', data);
+					document.cookie = `jwt_token=${data.token}; path=/`;
+					window.location.href = data.role + '/home';
+				}else{
+					document.getElementById("login-message").innerHTML = data.error;
+				}
+			})
+			.catch(error => {
+				console.error('Error logging in:', error);
+			});
+
+	});
+
+	closeButton.addEventListener('click', () => {
+		overlay2.style.visibility="hidden";
+		overlay2.style.opacity="0";
+		container.style.visibility="visible";
+		container.style.opacity="1";
+	});
+
+	//forGotButton.addEventListener('click', () => {
+	//	container.style.visibility="hidden";
+	//	container.style.opacity="0";
+	//	overlay2.style.visibility="visible";
+	//	overlay2.style.opacity="1";
+	//});
+
+	signUpButton.addEventListener('click', () => {
+		container.classList.add("right-panel-active");
+	});
+
+	signInButton.addEventListener('click', () => {
+		container.classList.remove("right-panel-active");
+	});
+
+</script>
 
 </body>
 </html>
