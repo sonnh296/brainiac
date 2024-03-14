@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.DTOs;
+using Backend.Models;
 using Backend.Services;
 using Backend.Services.Implement;
 using Microsoft.AspNetCore.Authorization;
@@ -141,8 +142,13 @@ namespace Backend.Controllers
 
         [Authorize(Roles = "Student")]
         [HttpPost("EnrollCourse")]
-        public async Task<IActionResult> EnrollCourseAsync(UserCourse userCourse)
+        public async Task<IActionResult> EnrollCourseAsync(UserCourseDTO userCourseDTO)
         {
+            var userCourse = new UserCourse
+            {
+                UserId = userCourseDTO.UserId,
+                CourseId = userCourseDTO.CourseId
+            };
             try
             {
                 userCourse.IsStudent = true;
