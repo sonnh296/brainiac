@@ -45,16 +45,23 @@ namespace Backend.Repositories
         {
             var course = mapper.Map<Course>(courseDto);
             context.Courses.Add(course);
+            await context.SaveChangesAsync();
+            await ModifyUserCourseInfo(teacherid, course, "Draft");
+            return course;
+        }
+
+        public async Task<UserCourse> ModifyUserCourseInfo(int teacherid, Course course, string status)
+        {
             var userCourse = new UserCourse()
             {
                 UserId = teacherid,
                 CourseId = course.CourseId,
                 IsStudent = false,
-                Status = "Draft"
+                Status = status
             };
             context.UserCourses.Add(userCourse);
-            //await context.SaveChangesAsync();
-            return course;
+            await context.SaveChangesAsync();
+            return userCourse;
         }
     }
 }

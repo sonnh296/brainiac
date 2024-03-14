@@ -10,6 +10,8 @@ namespace Backend.Configurations
         {
             CreateMap<Course, CourseDTO>();
             CreateMap<CourseDTO, Course>();
+            CreateMap<Category, CategoryDTO>();
+            CreateMap<CategoryDTO, Category>();
         }
     }
 }
