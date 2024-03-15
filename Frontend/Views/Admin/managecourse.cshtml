@@ -160,8 +160,9 @@
 							'<td>' + course.courseName + '</td>' +
 							'<td>' + course.title + '</td>' +
 							'<td>' + course.price + '</td>' +
-							'<td>' + (course.status ? "active" : 'unactive') + '</td>' +
-							'<td><a href="detailaccount" class="detailLink" data-courseid="' + course.courseId + '">Detail</a></td>' +
+                            '<td> ' + (course.status == 1 ? "approved" : (course.status == 0 ? "rejected" : course.status)) + '</td>'+
+
+							'<td><a href="detailcourse" class="detailLink" data-courseid="' + course.courseId + '">Detail</a></td>' +
 							'</tr>';
 						// Append the row to the tbody
 						$('#courseTable tbody').append(row);
@@ -171,7 +172,7 @@
 						event.preventDefault();
 						var courseid = $(this).data('courseid');
 						// Redirect to the detailaccount page with the user ID as a parameter
-						window.location.href = 'detailaccount?id=' + courseid;
+						window.location.href = 'detailcourse?courseid=' + courseid;
 					});
 				},
 				error: function () {

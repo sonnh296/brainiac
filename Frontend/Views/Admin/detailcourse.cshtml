@@ -1,0 +1,309 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detail-Account</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/datepicker3.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">BRANIAC</a>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <img src="/imgs/admin-img/notifi.png" width="20" height="20" alt="notifi Icon"><span class="label label-danger">15</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="http://placehold.it/40/30a5ff/fff">
+                                    </a>
+                                    <div class="message-body">
+                                        <small class="pull-right">3 mins ago</small>
+                                        <a href="#"><strong>John Doe</strong> commented on <strong>your photo</strong>.</a>
+                                        <br /><small class="text-muted">1:24 pm - 25/03/2015</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="dropdown-messages-box">
+                                    <a href="profile.html" class="pull-left">
+                                        <img alt="image" class="img-circle" src="http://placehold.it/40/30a5ff/fff">
+                                    </a>
+                                    <div class="message-body">
+                                        <small class="pull-right">1 hour ago</small>
+                                        <a href="#">New message from <strong>Jane Doe</strong>.</a>
+                                        <br /><small class="text-muted">12:27 pm - 25/03/2015</small>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <div class="all-button">
+                                    <a href="#">
+                                        <em class="fa fa-inbox"></em> <strong>All Messages</strong>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <img src="/imgs/admin-img/message.png" width="20" height="20" alt="notifi Icon"><span class="label label-info">5</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <em class="fa fa-envelope"></em> 1 New Message
+                                        <span class="pull-right text-muted small">3 mins ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <em class="fa fa-heart"></em> 12 New Likes
+                                        <span class="pull-right text-muted small">4 mins ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <em class="fa fa-user"></em> 5 New Followers
+                                        <span class="pull-right text-muted small">4 mins ago</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <div class="profile-sidebar">
+            <div class="profile-userpic">
+                <img src="/imgs/admin-img/male-user.png" width="40" height="40" alt="admin Icon">
+            </div>
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">Admin</div>
+                <div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="divider"></div>
+        <form role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+        </form>
+        <ul class="nav menu">
+            <li><a style="font-size:small" href="/admin/manageaccount"><img src="/imgs/admin-img/acc.png" width="20" height="20" alt="acc Icon">&nbsp; Manage Account </a></li>
+            <li><a style="font-size:small" href="/admin/managecourse"><img src="/imgs/admin-img/course.png" width="20" height="20" alt="course Icon">&nbsp; Manage Courses </a></li>
+            <li><a style="font-size:small" href="/admin/reportedcomment"><img src="/imgs/admin-img/reported.png" width="20" height="20" alt="reported Icon">&nbsp;Reported Comments</a></li>
+            <li><a style="font-size:small" href="/admin/login"><img src="/imgs/admin-img/logout.png" width="20" height="20" alt="logout Icon">&nbsp; Logout</a></li>
+        </ul>
+    </div><!--/.sidebar-->
+
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+        <div>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">
+                        <img src="/imgs/admin-img/home.png" width="20" height="20" alt="acc Icon">
+                    </a>
+                </li>
+                <li class="active">Detail Course  </li>
+            </ol>
+        </div><!--/.row-->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Course Information</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="course_id"><strong>Course ID:</strong></label>
+                            <span id="course_id"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_name"><strong>Course Name:</strong></label>
+                            <span id="course_name"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_title"><strong>Title:</strong></label>
+                            <span id="course_title"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="course_price"><strong>Price:</strong></label>
+                            <span id="course_price"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="num_tests"><strong>Number of Tests:</strong></label>
+                            <span id="num_tests"></span>
+                            <button id="show_tests_button" class="btn btn-default"><img src="/imgs/admin-img/list.png" width="20" height="20" alt="acc Icon"></button>
+                        </div>                     
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="status"><strong>Status:</strong></label>
+                                <span id="status"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="statusSelect"><strong>Edit Status:</strong></label>
+                                <select class="form-control" id="statusSelect">
+                                    <option value="1">Approved</option>
+                                    <option value="0">Rejected</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="pending">Pending</option>
+                                    <!-- Add other status options as needed -->
+                                </select>
+                                <button id="saveStatus" class="btn btn-primary"><img src="/imgs/admin-img/save.png" width="20" height="20" alt="acc Icon"> Save</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="created_by"><strong>Created By:</strong></label>
+                            <span id="created_by"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                   
+                    <div class="panel-body">
+                        <table class="table" id="testTable">
+                            <thead>
+                                
+                            </thead>
+                            <tbody >
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      
+
+        <ul id="test_list"></ul>
+    </div><!--/.main-->
+
+    <script>
+        $(document).ready(function () {
+            // Lấy user ID từ URL (tham số truyền vào)
+            var urlParams = new URLSearchParams(window.location.search);
+            var courseid = urlParams.get('courseid');
+            console.log(courseid);
+            // Kiểm tra nếu có user ID thì thực hiện AJAX request để lấy thông tin người dùng
+            if (courseid) { 
+                
+                $.ajax({
+                    url: 'http://localhost:5020/Admin/ManageCourse/GetCourse/' + courseid,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (courseData) {
+                        console.log("good");
+                        // Điền thông tin người dùng vào các trường trong form
+                        $('#course_id').text(courseData.courseId);
+                        $('#course_name').text(courseData.courseName);
+                        $('#course_title').text(courseData.title);
+                        $('#course_price').text(courseData.price);
+                        var status = (courseData.status == 1 ? "approved" : (courseData.status == 0 ? "rejected" : courseData.status))
+                        $('#status').text(status);
+                    },
+                    error: function () {
+                        console.error('Error fetching detailed user information');
+                    }
+                });
+                getNumberOfTests(courseid);
+            }
+            // Hàm để lấy số lượng bài kiểm tra cho một courseId cụ thể
+            function getNumberOfTests(courseid) {
+                console.log(courseid);
+                $.ajax({
+                    url: 'http://localhost:5020/Admin/ManageCourse/GetTestsByCourse/' + courseid,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (testsData) {
+                        console.log("getNumberOfTests");
+                        // Đếm số lượng bài kiểm tra
+                        var numberOfTests = testsData.length;
+                        // Hiển thị số lượng bài kiểm tra
+                        $('#num_tests').text(numberOfTests);
+                    },
+                    error: function () {
+                        console.error('Error fetching test information');
+                    }
+                });
+            }
+            $('#show_tests_button').click(function () {
+                $.ajax({
+                    url: 'http://localhost:5020/Admin/ManageCourse/GetTestsByCourse/' + courseid,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (testsData) {
+                        $('#testTable thead tr').empty();
+                        $('#testTable tbody tr').empty();
+                        $('#testTable thead').append(
+                            '<tr>' +
+                            '<th>Test ID</th>' +
+                            '<th>Test Name</th>' +
+                            '<th>Time</th>' +
+                            '<th>Status</th>' +
+                            '<th>Number of Question</th>' +
+                            '</tr>');
+                        testsData.forEach(function (test) {
+                            $('#testTable tbody').append(
+                                '<tr>' +
+                                '<td>' + test.testId + '<td>'+
+                                '<td>' + test.testName + '<td>'+
+                                '<td>' + test.time + '<td>'+
+                                '<td>' + test.status + '<td>'+
+                                '<td>' + test.status + '<td>'+
+                                '</tr>'
+                            );
+                        });
+                    },
+                    error: function () {
+                        console.error('Error fetching test information');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/chart.min.js"></script>
+    <script src="/js/chart-data.js"></script>
+    <script src="/js/easypiechart.js"></script>
+    <script src="/js/easypiechart-data.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    <script src="/js/custom.js"></script>
+
+</body>
+</html>
