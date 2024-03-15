@@ -752,7 +752,16 @@ footer a {
 					if (data.error === "") {
 					console.log('Login successful:', data);
 					document.cookie = `jwt_token=${data.token}; path=/`;
-					window.location.href = data.role + '/home';
+
+					let path = '/';
+					if(!data.role){
+						window.location.href = '/';
+					}
+					if(data.role == "student"){
+						window.location.href = "/";
+					}
+					window.location.href = "/" + data.role + '/dashboard';
+
 				}else{
 					document.getElementById("login-message").innerHTML = data.error;
 				}
