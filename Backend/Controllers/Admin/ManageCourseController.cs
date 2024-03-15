@@ -12,13 +12,16 @@ namespace Backend.Controllers.Admin
     public class ManageCourseController : ControllerBase
     {
         private readonly PRN231_V2Context _context;
-      
+        private readonly IGenericRepository<Course> _courseRepository;
+        private readonly ITestRepository _testRepository;
 
-        public ManageCourseController(PRN231_V2Context context)
+        public ManageCourseController(PRN231_V2Context context, ITestRepository testRepository)
         {
             _context = context;
-           
+            _courseRepository = new GenericRepository<Course>(_context);
+            _testRepository = testRepository;
         }
+
         [HttpGet("GetAllCourses")]
         public async Task<IActionResult> GetAllCourses()
         {
@@ -38,6 +41,37 @@ namespace Backend.Controllers.Admin
                 return NotFound("No users found");
             }
             
+        }
+        [HttpGet("GetCourse/{id}")]
+        public async Task<IActionResult> GetCourseById(int id)
+        {
+            Course course = await _courseRepository.GetByIdAsync(id);
+
+            if (course != null)
+            {
+                return Ok(course);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpGet("GetTestsByCourse/{courseId}")]
+        public IActionResult GetTestsByCourse(int courseId)
+        {
+            try
+            {
+                List<Test> tests = _testRepository.GetByCourseId(courseId);
+                if (tests == null || tests.Count == 0)
+                {
+                    return NotFound("No tests found for the provided course ID");
+                }
+                return Ok(tests);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

@@ -37,5 +37,9 @@ namespace Frontend.Controllers.Admin
         {
             return View("detailaccount");
         }
+        public IActionResult DetailCourse()
+        {
+            return View("detailcourse");
+        }
     }
 }

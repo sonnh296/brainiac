@@ -12,6 +12,7 @@ namespace Backend.App.Extensions
         {
             services.AddScoped<ITeacherService, TeacherServiceImpl>();
             services.AddScoped<TeacherRepository>();
+            services.AddScoped<ITestRepository, TestRepository>();//  cuong add
         }
     }
 }
