@@ -57,10 +57,10 @@ namespace Backend.Controllers
             }
         }
         [HttpGet("GetCourseBySearchCatePrice")]
-        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseBySearchCatePrice(string search, int cate, int price)
+        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseBySearchCatePrice(string search, int cate, int pricefrom, int priceto)
         {
 
-            List<CourseRatingDTO> course = _homeRepository.GetCourseBySearchCatePrice(search,cate,price);
+            List<CourseRatingDTO> course = _homeRepository.GetCourseBySearchCatePrice(search,cate, pricefrom, priceto);
 
             if (course != null)
             {
@@ -91,10 +91,10 @@ namespace Backend.Controllers
             }
         }
         [HttpGet("GetCourseBySearchPrice")]
-        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseBySearchPrice(string search, int price)
+        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseBySearchPrice(string search, int pricefrom, int priceto)
         {
 
-            List<CourseRatingDTO> course = _homeRepository.GetCourseBySearchPrice(search, price);
+            List<CourseRatingDTO> course = _homeRepository.GetCourseBySearchPrice(search, pricefrom, priceto);
 
             if (course != null)
             {
@@ -108,10 +108,10 @@ namespace Backend.Controllers
             }
         }
         [HttpGet("GetCourseByCatePrice")]
-        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseByCatePrice(int cate, int price)
+        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseByCatePrice(int cate, int pricefrom, int priceto)
         {
 
-            List<CourseRatingDTO> course = _homeRepository.GetCourseByCatePrice(cate, price);
+            List<CourseRatingDTO> course = _homeRepository.GetCourseByCatePrice(cate, pricefrom, priceto);
 
             if (course != null)
             {
@@ -159,10 +159,10 @@ namespace Backend.Controllers
             }
         }
         [HttpGet("GetCourseByPrice")]
-        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseByPrice(int price)
+        public async Task<ActionResult<IEnumerable<CourseRatingDTO>>> GetCourseByPrice(int pricefrom, int priceto)
         {
 
-            List<CourseRatingDTO> course = _homeRepository.GetCourseByPrice(price);
+            List<CourseRatingDTO> course = _homeRepository.GetCourseByPrice(pricefrom,priceto);
 
             if (course != null)
             {
