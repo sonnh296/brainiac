@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <h1>Thanh toan thanh cong</h1>
+    <div class="buttonBack">
+        <button>Back</button>
+    </div>
+</body>
+
+<script>
+    const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEwNjg4MzQ3LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.JcUMGxhhKMNOb0qVpRPdqO-4VZzIREUJIgR0nln7-Zw";
+    const urlParam = new URLSearchParams(window.location.search);
+    const courseId = urlParam.get("courseId");
+    const userId = urlParam.get("userId");
+    const amount = urlParam.get("amount");
+    fetchOrderDetail(userId, courseId, amount);
+
+    function fetchOrderDetail(userId, courseId, amount) {
+        var data = {
+            userId: userId,
+            total: amount,
+        };
+        fetch(`http://localhost:5020/api/Order/Payment`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // window.location.href = `CourseDetail.html?courseId=${courseId}`;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+    }
+
+    const buttonBack = document.querySelector(".buttonBack button");
+    buttonBack.addEventListener("click", () => {
+        if (courseId)
+            window.location.href = `/Student/Payment?courseId=${courseId}`;
+        else
+            window.location.href = `/Student/HistoryPay?userId=${userId}`;
+    });
+</script>
+</html>

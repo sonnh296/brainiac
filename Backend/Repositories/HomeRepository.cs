@@ -46,7 +46,7 @@ namespace Backend.Repositories
             return resultcourses;
         }
 
-        public List<CourseRatingDTO> GetCourseByCatePrice(int cate, int rate)
+        public List<CourseRatingDTO> GetCourseByCatePrice(int cate, int ratefrom, int rateto)
         {
             List<CourseRatingDTO> resultcourses = new List<CourseRatingDTO>();
             List<CategoryCourse> categoryCourses = _context.CategoryCourses.Where(x => x.CategoryId == cate).ToList();
@@ -55,7 +55,7 @@ namespace Backend.Repositories
             {
                 result.Add(_context.Courses.FirstOrDefault(x => x.CourseId == category.CourseId));
             }
-            result = result.Where(x => (rate - 1) * 500 < x.Price && x.Price < (rate * 500)).ToList();
+            result = result.Where(x => ratefrom < x.Price && x.Price < rateto).ToList();
 
             foreach (Course rating in result)
             {
@@ -73,12 +73,12 @@ namespace Backend.Repositories
             return resultcourses;
         }
 
-        public List<CourseRatingDTO> GetCourseByPrice(int rate)
+        public List<CourseRatingDTO> GetCourseByPrice(int ratefrom, int rateto)
         {
             List<CourseRatingDTO> resultcourses = new List<CourseRatingDTO>();
             List<Course> result = new List<Course>();
 
-            result = _context.Courses.Where(x => (rate - 1) * 500 < x.Price && x.Price < (rate * 500)).ToList();
+            result = _context.Courses.Where(x => ratefrom < x.Price && x.Price < rateto).ToList();
             foreach (Course rating in result)
             {
               
@@ -145,7 +145,7 @@ namespace Backend.Repositories
             return resultcourses;
         }
 
-        public List<CourseRatingDTO> GetCourseBySearchCatePrice(string search, int cate, int rate)
+        public List<CourseRatingDTO> GetCourseBySearchCatePrice(string search, int cate, int ratefrom, int rateto)
         {
             List<CourseRatingDTO> resultcourses = new List<CourseRatingDTO>();
             List<CategoryCourse> categoryCourses = _context.CategoryCourses.Where(x=>x.CategoryId==cate).ToList();
@@ -154,7 +154,7 @@ namespace Backend.Repositories
             {
                 result.Add(_context.Courses.FirstOrDefault(x => x.CourseId == category.CourseId));
             }
-            result = result.Where(x => x.CourseName.ToLower().Contains(search.ToLower()) && (rate - 1) * 500 < x.Price && x.Price < (rate * 500)).ToList();
+            result = result.Where(x => x.CourseName.ToLower().Contains(search.ToLower()) && ratefrom < x.Price && x.Price < rateto).ToList();
          
             foreach (Course rating in result)
             {
@@ -172,12 +172,12 @@ namespace Backend.Repositories
             return resultcourses;
         }
 
-        public List<CourseRatingDTO> GetCourseBySearchPrice(string search, int rate)
+        public List<CourseRatingDTO> GetCourseBySearchPrice(string search, int ratefrom, int rateto)
         {
             List<CourseRatingDTO> resultcourses = new List<CourseRatingDTO>();
             List<Course> result = new List<Course>();
            
-            result = _context.Courses.Where(x => x.CourseName.ToLower().Contains(search.ToLower()) && (rate-1)*500 < x.Price && x.Price < (rate * 500)).ToList();
+            result = _context.Courses.Where(x => x.CourseName.ToLower().Contains(search.ToLower()) && ratefrom < x.Price && x.Price < rateto).ToList();
 
             foreach (Course rating in result)
             {
