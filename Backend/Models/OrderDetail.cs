@@ -13,5 +13,6 @@ namespace Backend.Models
 
         public virtual Course? Course { get; set; }
         public virtual User? User { get; set; }
+
     }
 }

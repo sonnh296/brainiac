@@ -1,10 +1,14 @@
 using AutoMapper;
 using Backend.Configurations;
 using Backend.Models;
+using Backend.Repositories;
+using Backend.Services.Implement;
+using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Backend.App.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<PRN231_V2Context>();
+builder.Services.AddAppServices();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(option => 
         option.TokenValidationParameters = new TokenValidationParameters {

@@ -17,10 +17,10 @@ namespace Backend.Models
         }
 
         public int CourseId { get; set; }
-        public string CourseName { get; set; }
-        public string Title { get; set; }
+        public string CourseName { get; set; } = null!;
+        public string Title { get; set; } = null!;
         public decimal Price { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = null!;
 
         public virtual ICollection<CategoryCourse> CategoryCourses { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

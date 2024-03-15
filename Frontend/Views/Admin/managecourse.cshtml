@@ -9,7 +9,7 @@
 	<link href="/css/datepicker3.css" rel="stylesheet">
 	<link href="/css/styles.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -25,7 +25,7 @@
 				<ul class="nav navbar-top-links navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-							<em class="fa fa-envelope"></em><span class="label label-danger">15</span>
+							<img src="/imgs/admin-img/notifi.png" width="20" height="20" alt="notifi Icon"><span class="label label-danger">15</span>
 						</a>
 						<ul class="dropdown-menu dropdown-messages">
 							<li>
@@ -65,7 +65,7 @@
 					</li>
 					<li class="dropdown">
 						<a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-							<em class="fa fa-bell"></em><span class="label label-info">5</span>
+							<img src="/imgs/admin-img/message.png" width="20" height="20" alt="notifi Icon"><span class="label label-info">5</span>
 						</a>
 						<ul class="dropdown-menu dropdown-alerts">
 							<li>
@@ -103,7 +103,7 @@
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<div class="profile-sidebar">
 			<div class="profile-userpic">
-				<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
+				<img src="/imgs/admin-img/male-user.png" width="40" height="40" alt="admin Icon">
 			</div>
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">Admin</div>
@@ -118,45 +118,81 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li><a href="/admin/manageaccount"><em class="fa fa-dashboard">&nbsp;</em> Manage Account </a></li>
-			<li><a href="/admin/managecourse"><em class="fa fa-calendar">&nbsp;</em> Manage Courses </a></li>
-			<li class="active"><a href="/admin/reportedcomment"><em class="fa fa-bar-chart">&nbsp;</em> Reported Comments </a></li>
-
-			<li><a href="/admin/login"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+			<li><a style="font-size:small" href="/admin/manageaccount"><img src="/imgs/admin-img/acc.png" width="20" height="20" alt="acc Icon">&nbsp; Manage Account </a></li>
+			<li><a style="font-size:small" href="/admin/managecourse"><img src="/imgs/admin-img/course.png" width="20" height="20" alt="course Icon">&nbsp; Manage Courses </a></li>
+			<li><a style="font-size:small" href="/admin/reportedcomment"><img src="/imgs/admin-img/reported.png" width="20" height="20" alt="reported Icon">&nbsp;Reported Comments</a></li>
+			<li><a style="font-size:small" href="/admin/login"><img src="/imgs/admin-img/logout.png" width="20" height="20" alt="logout Icon">&nbsp; Logout</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-		<div class="row">
-			<ol class="breadcrumb">
-				<li>
-					<a href="#">
-						<em class="fa fa-home"></em>
-					</a>
-				</li>
-				<li class="active">Manage Courses</li>
-			</ol>
-		</div><!--/.row-->
+		<button class="btn btn-primary" id="addCourseButton"><i class="bi bi-plus"></i> Add Course</button>
+		<table class="table" id="courseTable">
+			<thead>
+				<tr>
+					<th>Course ID</th>
+					<th>Course Name</th>
+					<th>Title</th>
+					<th>Price</th>
+					<th>Status</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
 
-		<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">Manage Courses</h1>
-			</div>
-		</div><!--/.row-->
+	</div>
+	<script>
+		// Wait for the document to be ready
+		$(document).ready(function () { 
+			// Make an AJAX request to your API endpoint
+			$.ajax({
+				url: 'http://localhost:5020/Admin/ManageCourse/GetAllCourses',
+				method: 'GET',
+				dataType: 'json',
+				success: function (data) {
+					// Iterate through the returned data and populate the table
+					$.each(data, function (index, course) {
+						console.log("Hello, this is a message in the console!", index);
+						var row = '<tr>' +
+							'<td>' + course.courseId + '</td>' +
+							'<td>' + course.courseName + '</td>' +
+							'<td>' + course.title + '</td>' +
+							'<td>' + course.price + '</td>' +
+							'<td>' + (course.status ? "active" : 'unactive') + '</td>' +
+							'<td><a href="detailaccount" class="detailLink" data-courseid="' + course.courseId + '">Detail</a></td>' +
+							'</tr>';
+						// Append the row to the tbody
+						$('#courseTable tbody').append(row);
+					});
 
-		<div class="row">
-		</div><!--/.row-->
-	</div>	<!--/.main-->
+					$('.detailLink').on('click', function (event) {
+						event.preventDefault();
+						var courseid = $(this).data('courseid');
+						// Redirect to the detailaccount page with the user ID as a parameter
+						window.location.href = 'detailaccount?id=' + courseid;
+					});
+				},
+				error: function () {
+					// Handle errors if needed
+					console.error('Error fetching data from the API');
+				}
+
+			});
+		});
+	</script>
 
 
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/chart.min.js"></script>
-	<script src="js/chart-data.js"></script>
-	<script src="js/easypiechart.js"></script>
-	<script src="js/easypiechart-data.js"></script>
-	<script src="js/bootstrap-datepicker.js"></script>
-	<script src="js/custom.js"></script>
+	<script src="/js/jquery-1.11.1.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/chart.min.js"></script>
+	<script src="/js/chart-data.js"></script>
+	<script src="/js/easypiechart.js"></script>
+	<script src="/js/easypiechart-data.js"></script>
+	<script src="/js/bootstrap-datepicker.js"></script>
+	<script src="/js/custom.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

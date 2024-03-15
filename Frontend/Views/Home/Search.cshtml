@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = "_LayoutHome";
+}
+<!DOCTYPE html>
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
@@ -16,6 +19,7 @@
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
+    height: 300px;
 }
 
 .item.list-group-item
@@ -135,9 +139,9 @@ body {
 }
 
 .side-bar {
-	height: 100vh;
-	width: 300px;
-	position: fixed;
+	height: 100%;
+	width: 100%;
+	
 	top: 0;
 	left: 0;
 	z-index: 1000;
@@ -204,6 +208,23 @@ body {
 	display: none;
 }
 
+        .container-fluid {
+            margin-top: 7%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .thumbnail .caption {
+            padding: 0px;
+            color: #333;
+        }
+
+        .footer-area {
+            width: 100%;
+            
+        }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -211,133 +232,50 @@ body {
 <body>
   <div class="container-fluid">
     <div class="row">
-               <div class="col-lg-3 col-md-3 col-sm-4">
+               <div class="col-lg-2 col-md-2 col-sm-4">
                 <!-- Bootstrap Sidebar -->
                 <div id="sidebar" class="side-bar">
-                    <h1 class="heading">filter images</h1>
+                    <h1 class="heading">filter courses</h1>
                     <div class="box">
-                        <h3 class="title">search image :</h3>
+                        <h3 class="title">search course :</h3>
                         <input type="text" placeholder="search image..." id="search-box" class="form-control">
                     </div>
                     <div class="box">
                         <h3 class="title">category :</h3>
-                        <div class="category">
-                            <button class="btn active" data-category="all"> all </button>
-                            <button class="btn" data-category="animal">animals</button>
-                            <button class="btn" data-category="food">food</button>
-                            <button class="btn" data-category="fish">fish</button>
-                            <button class="btn" data-category="flower">flower</button>
+                        <div class="category" id="categoryfilter">
+                            
+                            <button class="btn cate" value="animal">animals</button>
+                            <button class="btn cate active" value="food">food</button>
+                            <button class="btn cate" value="fish">fish</button>
+                            <button class="btn cate" value="flower">flower</button>
                         </div>
                     </div>
                     <div class="box">
-                        <h3 class="title">type :</h3>
+                        <h3 class="title">Price</h3>
                         <div class="type">
-                            <button class="btn active" data-type="all">all type</button>
-                            <button class="btn" data-type="jpg">jpg</button>
-                            <button class="btn" data-type="png">png</button>
-                            <button class="btn" data-type="svg">svg</button>
+                            <h3 class="title">From :</h3>
+                            <input type="text" placeholder="price greater than..." id="from" class="form-control">
+                            <h3 class="title">to :</h3>
+                            <input type="text" placeholder="price smaller than..." id="to" class="form-control">
                         </div>
                     </div>
                     <div class="reset-btn">
+                        <button class="btn" id="filer">Filter Course</button>
                         <button class="btn">reset all</button>
                     </div>
                 </div>
                 <!-- End Bootstrap Sidebar -->
             </div>
-        <div class="col-lg-9 col-md-9 col-sm-7">
+        <div class="col-lg-10 col-md-10 col-sm-8">
 <div class="list container">
     <div class="well well-sm">
-        <strong>Display</strong>
+        <strong></strong>
         <div class="btn-group">
-            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"></span>List</a> 
-            <a href="#" id="grid" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th"></span>Grid</a>
+          
         </div>
     </div>
     <div id="products" class=" row">
-      <div class="item col-lg-3 col-md-5 col-sm-11">
-            <div class="thumbnail">
-                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-6">
-                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-          <div class="item col-lg-3 col-md-5 col-sm-11">
-            <div class="thumbnail">
-                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-6">
-                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item col-lg-3 col-md-5 col-sm-11">
-            <div class="thumbnail">
-                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-6">
-                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-             <div class="item col-lg-3 col-md-5 col-sm-11">
-            <div class="thumbnail">
-                <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-6">
-                            <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
           </div>
           </div>
 </div>
@@ -345,9 +283,227 @@ body {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script>
   $(document).ready(function() {
-    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
-    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
-});
+        Manager.GetAllProduct();
+        $('.category .btn.cate').click(function () {
+            // Remove 'active' class from all category buttons
+            $('.category .btn.cate').removeClass('active');
+
+            // Add 'active' class to the clicked category button
+            $(this).addClass('active');
+        });
+        $('.type .btn.price').click(function () {
+            // Remove 'active' class from all category buttons
+            $('.type .btn.price').removeClass('active');
+
+            // Add 'active' class to the clicked category button
+            $(this).addClass('active');
+        });
+        $('#filer').click(function () {
+            // Remove 'active' class from all category buttons
+            var search = document.getElementById('search-box').value;
+            var category = $('#categoryfilter .btn.active').val();
+            var from = $('#from').val();
+            var to = $('#to').val();
+
+            if (!search && !category && !from && !to) {
+                // Case 1: all null
+                alert('Please fill in at least one field.');
+            } else if (search && !category && !from && !to) {
+                // Case 3: only search is not null
+                console.log('Search:', search);
+                Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseBySearch?search=${search}`);
+            } else if (!search && category && !from && !to) {
+                // Case 4: only category is not null
+                console.log('Category:', category);
+                if (category = 0) {
+                    
+                } else {
+                    Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseByCate?cate=${category}`);
+                }
+            } else if (!search && !category && from && to) {
+                // Case 5: only from, to is not null
+                if (from < 0 || to < 0) {
+                    alert('Please enter valid price values.');
+                } else {
+                    console.log('From:', from);
+                    console.log('To:', to);
+                    Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseByPrice?pricefrom=${from}&priceto=${to}`);
+                }
+            } else if (search && category && !from && !to) {
+                // Case 6: only search, category is not null
+                console.log('Search:', search);
+                console.log('Category:', category);
+                if (category == 0) {
+                    Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseBySearch?search=${search}`);
+                } else {
+                    Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseBySearchCate?search=${search}&cate=${category}`);
+                }
+            } else if (search && !category && from && to) {
+                // Case 7: only search, from, to is not null
+                if (from < 0 || to < 0) {
+                    alert('Please enter valid price values.');
+                } else {
+                    console.log('Search:', search);
+                    console.log('From:', from);
+                    console.log('To:', to);
+                    Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseBySearchPrice?search=${search}&pricefrom=${from}&priceto=${to}`);
+                }
+            } else if (!search && category && from && to) {
+                // Case 8: only category, from, to is not null
+                if (from < 0 || to < 0) {
+                    alert('Please enter valid price values.');
+                } else {
+                    console.log('Category:', category);
+                    console.log('From:', from);
+                    console.log('To:', to);
+                    if (category == 0) {
+                        Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseByPrice?pricefrom=${from}&priceto=${to}`);
+                    } else {
+                        Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseByCatePrice?cate=${category}&pricefrom=${from}&priceto=${to}`);
+                    }
+                }
+            } else {
+                // Case 2: all var is not null
+                console.log('Search:', search);
+                console.log('Category:', category);
+                console.log('From:', from);
+                console.log('To:', to);
+                if (category == 0) {
+                    Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseBySearchPrice?search=${search}&pricefrom=${from}&priceto=${to}`);
+                } else {
+                    Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseBySearchCatePrice?search=${search}&cate=${category}&pricefrom=${from}&priceto=${to}`);
+
+                }
+            }
+        });
+
+    }); 
+    var Manager = {
+        GetAllProduct: function () {
+            var serviceUrl = "http://localhost:5020/api/Home/GetNewestCourse";
+            window.Manager.GetAPI(serviceUrl, onSuccess, onFailed);
+            var obj = "";
+            function onSuccess(jsonData) {
+                obj = jsonData;
+                var rows1 = "";
+               
+                $.each(jsonData, function (i, item) {
+
+
+                    rows1 += `                        <div class="item col-lg-3 col-md-5 col-sm-11">
+                                <div class="thumbnail">
+                                    <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                                    <div class="caption">
+                                        <h4 class="group inner list-group-item-heading">
+                                                ${item.courseName}
+                                        </h4>
+                                        <p class="group inner list-group-item-text">
+                                                    ${item.title}
+                                        </p>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <p class="lead">
+                                                            $ ${item.price}
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`
+                            ;
+                  
+
+                });
+                var id2 = '#products'; // Corrected the selector to target the tbody of #table2
+                $(id2).empty().append(rows1);
+            }
+            function onFailed(error) {
+                window.alert(error.statusText);
+            }
+            serviceUrl = "http://localhost:5020/Category/getAll";
+            window.Manager.GetAPI(serviceUrl, onSuccess2, onFailed2);
+            var obj = "";
+            function onSuccess2(jsonData) {
+                var rows1 = `<button class="btn cate active" data-category="all" value="0"> all </button>`;
+
+                $.each(jsonData, function (i, item) {
+                    rows1 += `  <button class="btn cate" value="${item.categoryId}">${item.categoryName}</button>`;
+                });
+                var id2 = '#categoryfilter'; // Corrected the selector to target the tbody of #table2
+                $(id2).empty().append(rows1);
+                $('.category .btn.cate').click(function () {
+                    // Remove 'active' class from all category buttons
+                    $('.category .btn.cate').removeClass('active');
+
+                    // Add 'active' class to the clicked category button
+                    $(this).addClass('active');
+                });
+            }
+            function onFailed2(error) {
+                window.alert(error.statusText);
+            }
+            
+            return obj;
+        },
+        GetAllProductByLink: function (link) {
+            var serviceUrl = link;
+            window.Manager.GetAPI(serviceUrl, onSuccess, onFailed);
+            var obj = "";
+            function onSuccess(jsonData) {
+                obj = jsonData;
+                var rows1 = "";
+
+                $.each(jsonData, function (i, item) {
+
+
+                    rows1 += `                        <div class="item col-lg-3 col-md-5 col-sm-11">
+                                    <div class="thumbnail">
+                                        <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                                        <div class="caption">
+                                            <h4 class="group inner list-group-item-heading">
+                                                    ${item.courseName}
+                                            </h4>
+                                            <p class="group inner list-group-item-text">
+                                                        ${item.title}
+                                            </p>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <p class="lead">
+                                                                $ ${item.price}
+                                                    </p>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`
+                        ;
+
+
+                });
+                var id2 = '#products'; // Corrected the selector to target the tbody of #table2
+                $(id2).empty().append(rows1);
+            }
+            function onFailed(error) {
+                window.alert(error.statusText);
+            }
+            return obj;
+        },
+        GetAPI: function (serviceUrl, successCallback, errorCallback) {
+            $.ajax({
+                type: "GET",
+                url: serviceUrl,
+                dataType: "json",
+                success: successCallback,
+                error: errorCallback
+            });
+        }
+    }
 
 </script>
 </html>
