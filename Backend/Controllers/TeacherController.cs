@@ -41,7 +41,7 @@ namespace Backend.Controllers
 
         // add a new course
         [HttpPost("course/add/{teacherId}")]
-        public async Task<ActionResult<Course>> CreateNewCourseDraft(int teacherId, CourseDTO course)
+        public async Task<ActionResult<CourseDTO>> CreateNewCourseDraft(int teacherId, [FromBody] CourseDTO course)
         {
             try
             {

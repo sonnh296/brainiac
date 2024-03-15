@@ -70,19 +70,24 @@
                 
 
                 if (balance < price) {
-                    var confirmation = confirm(
-                        "Not enough money!!! Add more money to balance? if yes, click OK, if no, click Cancel to back to Course Detail page"
-                    );
-                    if (confirmation) {
-                        window.location.href = "http://localhost:5020/Payment/AddMoney";
+                    var neededMoney = price - balance;
+                    var addedMoney = prompt("Enter the amount of money you want to add(must be greater than or equal 5):", neededMoney);
+                    if (addedMoney === null) {
+                        return;
                     } else {
-                        window.location.href = `/Student/CourseDetail?courseId=${courseId}`;
+                        addedMoney = parseFloat(addedMoney);
+                        if (isNaN(addedMoney) || addedMoney < 5) {
+                            alert("Invalid input. Please enter a valid amount.");
+                        } else {
+                            window.location.href = `http://localhost:5016/Student/CreatePaymentUrl?userId=${userId}&amount=${addedMoney}&isCheckout=true&courseId=${courseId}`;
+                        }
                     }
                 } else {
                     var confirmEnroll = confirm(
                         `Are you sure to enroll this course with price: ${price}?`
                     );
-                    if (!confirmEnroll) return;
+                    if (!confirmEnroll)
+                        window.location.href = `/Student/CourseDetail?courseId=${courseId}`;
                     var data = {
                         courseId: courseId,
                         userId: userId,
@@ -106,7 +111,6 @@
                         })
                         .catch((error) => {
                             console.error("Error:", error);
-                            alert("An error occurred while enrolling the course.");
                         });
                 }
             });
@@ -131,7 +135,6 @@
                 })
                 .catch((error) => {
                     console.error("Error:", error);
-                    alert("An error occurred while fetching the order detail.");
                 });
         }
     </script>
