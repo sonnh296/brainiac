@@ -10,12 +10,13 @@
   "profiles": {
     "Frontend": {
       "commandName": "Project",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5016",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "dotnetRunMessages": true
+      }
+
     },
     "IIS Express": {
       "commandName": "IISExpress",
