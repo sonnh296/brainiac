@@ -278,18 +278,22 @@
 
         </div>
     </section>
-    <h1>Newest Course</h1>
+ 
     <!-- ##### Hero Area End ##### -->
     <section class="slider" style="width: 100%">
         <h1>Newest Course</h1>
         <div id="carousel" class="flexslider thumbe-slider">
             <ul style="width: 100%" class="slides" id="slidessss">
                 <li>
+                    <a href="http://localhost:5016/home/login">
                     <div class="imagecontainer">
+                       
                         <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
                         <div class="centeredimage">Font-End High Level</div>
                         <div class="bottomimage">Work with React</div>
-                    </div>
+
+                        </div>
+                    </a>
                 </li>
                 <li>
                     <div class="imagecontainer">
@@ -583,7 +587,14 @@
     <script src="./js/slider.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
     <script>
-        
+        $(window).load(function () {
+            $(".imagecontainer").on("click", function () {
+                window.location = "/home/login";
+
+            });
+
+           
+        });
         function openPopup() {
             document.getElementById("popup").style.display = "block";
             document.getElementById("overlay").style.display = "block";
