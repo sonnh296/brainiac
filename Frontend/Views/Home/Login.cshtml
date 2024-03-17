@@ -726,43 +726,12 @@ footer a {
 
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();
-		console.log("acv");
-		const loginUrl = 'http://localhost:5020/api/Login/login';
 
-		const credentials = {
-			username: document.getElementById('username-login').value,
-			password: document.getElementById('password-login').value
-		};
+		username: document.getElementById('username-login').value,
+		password: document.getElementById('password-login').value
 
-		const options = {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(credentials)
-		};
-
-		fetch(loginUrl, options)
-			.then(response => {
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error('Login failed: ' + response.statusText);
-				}
-			})
 			.then(data => {
-					if (data.error === "") {
-					console.log('Login successful:', data);
-					document.cookie = `jwt_token=${data.token}; path=/`;
-
-					let path = '/';
-					if(!data.role){
-						window.location.href = '/';
-					}
-					if(data.role == "student"){
-						window.location.href = "/";
-					}
-					window.location.href = "/" + data.role + '/dashboard';
+					
 
 				}else{
 					document.getElementById("login-message").innerHTML = data.error;
