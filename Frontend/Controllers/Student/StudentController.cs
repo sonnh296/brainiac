@@ -51,5 +51,10 @@ namespace Frontend.Controllers.Student
         {
             return View();
         }
+
+        public IActionResult Profile()
+        {
+            return View();
+        }
     }
 }
