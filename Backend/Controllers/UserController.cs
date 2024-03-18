@@ -36,9 +36,29 @@ namespace Backend.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 Role = user.Role.RoleName,
+                Password = user.Password,
                 Balance = user.Balance,
             };
             return Ok(obj);
+        }
+
+        [HttpPut("Update/{userId}")]
+        public async Task<IActionResult> UpdateUserAsync(int userId, [FromBody] User user)
+        {
+            try
+            {
+                var u = await _context.Users
+                    .FirstOrDefaultAsync(u => u.UserId == userId);
+                u.UserName = user.UserName;
+                u.Email = user.Email;
+                _context.Users.Update(u);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
