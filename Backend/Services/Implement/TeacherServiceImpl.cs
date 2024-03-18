@@ -40,5 +40,10 @@ namespace Backend.Services.Implement
             }
             return repository.CreateCourseDraft(teacherid, course);
         }
+
+        public Task<Resource> CreateResource(ResourceDTO resource)
+        {
+            return null;
+        }
     }
 }

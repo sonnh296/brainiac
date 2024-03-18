@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
-    [Route("a[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
     {

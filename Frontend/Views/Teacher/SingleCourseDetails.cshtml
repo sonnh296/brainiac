@@ -1,0 +1,99 @@
+﻿@{
+    Layout = "/Views/Teacher/_Layout.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Detail course</title>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="~/js/teacher/singleCourseDetails.js"></script>
+    <link rel="stylesheet" href="~/css/teacher/coursedetail/style.css" />
+</head>
+
+<body>
+    <main>
+        <div class="course-detail">
+            <div>
+                <h2>General information</h2>
+            </div>
+            <div class="general-info">
+                <div class="course-title">
+                    <label for="course-title-name">Course title:</label>
+                    <input type="text" id="course-title-name" name="course-title-name" readonly/>
+                </div>
+                <div class="course-description">
+                    <label for="course-description">Description:</label>
+                    <textarea id="course-description"
+                              name="course-description"
+                              rows="4"
+                              cols="50"
+                              disabled="true"
+                    >
+                              
+                    </textarea>
+                </div>
+                <div class="course-author">
+                    <label for="author-name">Author:</label>
+                    <input type="text"
+                           id="author-name"
+                           name="author-name"
+                           value="John Doe"
+                           disabled="true" />
+                </div>
+                <div class="course-price">
+                    <label for="price">Price:</label>
+                    <input type="text"
+                           id="price"
+                           name="price"
+                           value="$100"
+                           disabled="true" />
+                </div>
+                <div>
+                    <button id="edit-button">edit info</button>
+                    <button id="save-button" disabled>Save</button>
+                </div>
+            </div>
+
+            <div>
+                <h2>Lessons</h2>
+            </div>
+            <div class="lessons">
+                <button class="accordion">Section 1</button>
+                <div class="panel">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                        nisi ut aliquip ex ea commodo consequat.
+                    </p>
+                    <div class="editlesson">
+                        <button>[  Edit  ]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript" src="~/js/teacher/detailcourse/script.js"></script>
+</body>
+

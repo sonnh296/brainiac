@@ -12,5 +12,24 @@ namespace Frontend.Controllers
         {
             return View();
         }
+        public IActionResult DashBoard()
+        {
+            return View();
+        }
+
+        public IActionResult SingleCourseDetails()
+        {
+            return View();
+        }
+        
+        public IActionResult AddResource(int? courseid)
+        {
+            if(courseid.HasValue)
+            {
+                ViewBag.CourseId = courseid;
+                return View();
+            }
+            return View();
+        }
     }
 }

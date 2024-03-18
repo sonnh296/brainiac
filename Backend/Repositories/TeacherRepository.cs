@@ -88,5 +88,13 @@ namespace Backend.Repositories
             //await context.SaveChangesAsync();
             return listToAdd;
         }
+
+        public async Task<Resource> CreateResourceDraft(ResourceDTO resourcedto)
+        {
+            Resource res = mapper.Map<Resource>(resourcedto);
+            context.Resources.Add(res);
+            await context.SaveChangesAsync();
+            return res;
+        }
     }
 }

@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Backend.Models
+﻿namespace Backend.DTOs
 {
-    public partial class Resource
+    public class ResourceDTO
     {
-        public Resource()
-        {
-            ResourceUsers = new HashSet<ResourceUser>();
-        }
-
         public int ResourceId { get; set; }
         public string Content { get; set; }
         public string Description { get; set; }
@@ -19,9 +11,5 @@ namespace Backend.Models
         public string Type { get; set; }
         public string Name { get; set; }
         public int? Status { get; set; }
-
-
-        public virtual Course? Course { get; set; }
-        public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
     }
 }

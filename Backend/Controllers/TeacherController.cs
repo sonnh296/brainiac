@@ -22,16 +22,18 @@ namespace Backend.Controllers
         }
 
         // get course list by a teacher
-        [HttpGet("course/{teacherid}")]
+        //[HttpGet("GetAllCourses/{teacherid}")]
+        [HttpGet("GetAllCourses/")]
         public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync(int teacherid)
         {
-            var courses = await service.GetCourseListByTeacherAsync(teacherid);
+            var teacherId = 1;
+            var courses = await service.GetCourseListByTeacherAsync(teacherId);
             var dtos = mapper.Map<List<CourseDTO>>(courses);
             return Ok(dtos);
         }
 
         // get a single course by a teacher
-        [HttpGet("GetCourse")]
+        [HttpGet("GetSingleCourse")]
         public async Task<ActionResult<CourseDTO>> GetSinglgeCourseByIdAsync([FromQuery] int teacherId, [FromQuery] int courseId)
         {
             var course = await service.GetSingleCourseByIdAsync(teacherId, courseId);
@@ -40,7 +42,7 @@ namespace Backend.Controllers
         }
 
         // add a new course
-        [HttpPost("course/add/{teacherId}")]
+        [HttpPost("course/addCourse/{teacherId}")]
         public async Task<ActionResult<CourseDTO>> CreateNewCourseDraft(int teacherId, [FromBody] CourseDTO course)
         {
             try
@@ -56,6 +58,14 @@ namespace Backend.Controllers
             {
                 return BadRequest("Course name has already existed");
             }
+        }
+
+        // add a new resource to a course
+        [HttpPost("Resource/AddResource")]
+        public async Task<ActionResult<ResourceDTO>> CreateResourceDraft(ResourceDTO resource)
+        {
+
+            return Ok();
         }
     }
 }
