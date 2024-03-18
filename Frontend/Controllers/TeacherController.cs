@@ -21,15 +21,16 @@ namespace Frontend.Controllers
         {
             return View();
         }
-        
+
         public IActionResult AddResource(int? courseid)
         {
-            if(courseid.HasValue)
+            if (courseid.HasValue)
             {
                 ViewBag.CourseId = courseid;
                 return View();
             }
-            return View();
+            return View("/Views/Shared/Error.cshtml");
         }
+
     }
 }

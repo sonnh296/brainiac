@@ -24,9 +24,9 @@ namespace Backend.Controllers
         // get course list by a teacher
         //[HttpGet("GetAllCourses/{teacherid}")]
         [HttpGet("GetAllCourses/")]
-        public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync(int teacherid)
+        public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync()
         {
-            var teacherId = 1;
+            var teacherId = 2;
             var courses = await service.GetCourseListByTeacherAsync(teacherId);
             var dtos = mapper.Map<List<CourseDTO>>(courses);
             return Ok(dtos);
