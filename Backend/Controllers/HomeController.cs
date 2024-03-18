@@ -1,6 +1,8 @@
-﻿using Backend.DTOs;
+﻿using AutoMapper;
+using Backend.DTOs;
 using Backend.Models;
 using Backend.Repositories;
+using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -11,15 +13,25 @@ namespace Backend.Controllers
     {
         private readonly PRN231_V2Context _context;
         private readonly IHomeRepository _homeRepository;
-       
+        private readonly IMapper mapper;
+        private readonly ICategoryService service;
 
-        public HomeController(PRN231_V2Context context)
+        public HomeController(ICategoryService s, PRN231_V2Context context, IMapper m)
         {
+            service = s;
             _context = context;
             _homeRepository = new HomeRepository(_context);
+            mapper = m;
         }
 
-
+        // get category list
+        [HttpGet("GetAllCategoriesAsync2")]
+        public async Task<ActionResult<List<CategoryDTO>>> GetAllCategoriesAsync2()
+        {
+            var cates = await service.GetAllCategoriesAsync();
+            var dtos = mapper.Map<List<CategoryDTO>>(cates);
+            return Ok(dtos);
+        }
         //Get list related courses
         // GET: /Student/CourseDetail/5
         [HttpGet("GetNewestCourse")]
