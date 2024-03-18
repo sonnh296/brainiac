@@ -81,7 +81,7 @@ namespace Backend.Controllers {
             exprs = newRefreshToken.Expires;
         }
 
-        [HttpPost("refresh-token")]
+        [HttpPost("/refresh-token")]
         public async Task<ActionResult<string>> RefreshToken() {
             var refreshToken = Request.Cookies["refreshToken"];
 
@@ -99,17 +99,18 @@ namespace Backend.Controllers {
         }
 
         [AllowAnonymous]
-        [HttpPost("login")]
+        [HttpPost("/login")]
         public async Task<ActionResult<LoginResponse>> Login(LoginRequest loginRequest) {
 
             var user = Authenticate(loginRequest);
-
-            if (user != null) {
+			string rtoken = GenerateToken(user);
+			if (user != null) {
                 var token = GenerateToken(user);
                 return Ok(new LoginResponse {
                     id = user.UserId,
                     Role = user.Role.RoleName,
                     Token = token,
+                    RefreshToken = rtoken,
                     Error = ""
                 });
             }

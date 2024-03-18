@@ -16,7 +16,7 @@ namespace Frontend.Controllers {
 
         public IActionResult Privacy() {
             return View();
-        }
+        }   
         public IActionResult Login()
         {
             return View("Login");
