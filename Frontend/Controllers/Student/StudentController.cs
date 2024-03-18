@@ -56,5 +56,10 @@ namespace Frontend.Controllers.Student
         {
             return View();
         }
+
+        public IActionResult MyCourses()
+        {
+            return View();
+        }
     }
 }
