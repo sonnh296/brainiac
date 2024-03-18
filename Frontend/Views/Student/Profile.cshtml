@@ -1,5 +1,108 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@* For more information on enabling MVC for empty projects, visit
+    https://go.microsoft.com/fwlink/?LinkID=397860 *@ @{ }
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .btnSave {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="profile">
+            <div class="name">
+                <label for="txtName">Name</label>
+                <input type="text" disabled name="" id="txtName" />
+            </div>
+            <div class="email">
+                <label for="txtEmail">Email</label>
+                <input type="text" disabled name="" id="txtEmail" />
+            </div>
+            <div class="balance">
+                <label for="txtBalance">Balance</label>
+                <input type="number" disabled name="" id="txtBalance" />
+                <a onclick="addMoney()" href="#">Add more money</a>
+            </div>
+            <div class="password">
+                <label for="txtPass">Password</label>
+                <input type="password" disabled name="" id="txtPass" />
+                <a href="#">Change password</a>
+            </div>
+            <button class="btnShowPass">Show password</button>
+            <button class="btnUpdate">Update</button>
+            <button class="btnSave">Save</button>
+        </div>
+
+        <script>
+            const token =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEyNTU5NDA2LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.H1JkX5QuqhFZQRG87-UHBHGPuXNVZ-m55n8wb5OuU5I";
+            var userId = -1;
+            getUser();
+            function getUser() {
+                fetch("http://localhost:5020/api/User/CurrentUser", {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        userId = data.userId;
+                        document.getElementById("txtName").value = data.userName;
+                        document.getElementById("txtEmail").value = data.email;
+                        document.getElementById("txtBalance").value = data.balance;
+                        document.getElementById("txtPass").value = data.password;
+                    });
+            }
+            document
+                .querySelector(".btnUpdate")
+                .addEventListener("click", function () {
+                    document.querySelector(".btnSave").style.display = "block";
+                    document.querySelector(".btnUpdate").style.display = "none";
+                    document.getElementById("txtName").disabled = false;
+                    document.getElementById("txtEmail").disabled = false;
+                });
+
+            document.querySelector(".btnSave").addEventListener("click", function () {
+                document.querySelector(".btnSave").style.display = "none";
+                document.querySelector(".btnUpdate").style.display = "block";
+                fetch(`http://localhost:5020/api/User/Update/${userId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        userName: document.getElementById("txtName").value,
+                        email: document.getElementById("txtEmail").value,
+                    }),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        getUser();
+                    });
+            });
+
+            document
+                .querySelector(".btnShowPass")
+                .addEventListener("click", function () {
+                    var x = document.getElementById("txtPass");
+                    if (x.type === "password") {
+                        x.type = "text";
+                    } else {
+                        x.type = "password";
+                    }
+                });
+
+            function addMoney() {
+                var money = prompt("Enter the amount of money you want to add", "10");
+                money = parseFloat(money);
+                if (money != null && money > 0) {
+                    window.location.href = `http://localhost:5016/Student/CreatePaymentUrl?userId=${userId}&amount=${money}`;
+                }
+            }
+        </script>
+    </body>
+</html>

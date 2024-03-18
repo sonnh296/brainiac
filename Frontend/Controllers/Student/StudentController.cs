@@ -30,7 +30,7 @@ namespace Frontend.Controllers.Student
         {
             return View();
         }
-        public IActionResult CreatePaymentUrl(int userId, decimal amount, bool isCheckout, int courseId)
+        public IActionResult CreatePaymentUrl(int userId, decimal amount, bool? isCheckout, int? courseId)
         {
             var urlSuccess = $"http://localhost:5016/Student/SuccessPayment?userId={userId}&courseId={courseId}&amount={amount}";
             
