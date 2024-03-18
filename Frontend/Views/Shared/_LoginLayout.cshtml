@@ -1,0 +1,48 @@
+﻿
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Title -->
+    <title>RAFS</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/Assets/HomePage/img/core-img/rafs.ico">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="~/Assets/HomePage/style.css">
+    <style>
+        .logoutbtn {
+            background: none !important;
+            border: none;
+            padding: 2 !important;
+            /*optional*/
+            font-family: arial, sans-serif;
+            /*input has OS specific font-family*/
+            color: #069;
+            cursor: pointer;
+        }
+
+        .logoutbtn-text {
+            position: absolute;
+            bottom: 0%;
+        }
+    
+    </style>
+</head>
+
+<body>
+   
+    <!-- ##### Header Area End ##### -->
+    @RenderBody()
+    <script src="~/Assets/HomePage/js/active.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

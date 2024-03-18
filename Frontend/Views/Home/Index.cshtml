@@ -40,6 +40,25 @@
         .hero-post2 {
             background-image: url("./img/bg-img/2.jpg");
         }
+
+        .imagecontainer {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .centeredimage {
+            position: absolute;
+            left: 10%;
+            top: 10%;
+        }
+
+        .bottomimage {
+            font-size: 10px;
+            position: absolute;
+            left: 10%;
+            top: 25%;
+        }
     </style>
 </head>
 
@@ -259,78 +278,59 @@
 
         </div>
     </section>
+ 
     <!-- ##### Hero Area End ##### -->
-    <section class="slider" style=" width: 100%;">
+    <section class="slider" style="width: 100%">
         <h1>Newest Course</h1>
         <div id="carousel" class="flexslider thumbe-slider">
-            <ul style="width: 100%;" class="slides">
+            <ul style="width: 100%" class="slides" id="slidessss">
                 <li>
-                    <img src="./img/bg-img/2.jpkg" class="img-fluid imagestyle" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
+                    <a href="http://localhost:5016/home/login">
+                    <div class="imagecontainer">
+                       
+                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                        <div class="centeredimage">Font-End High Level</div>
+                        <div class="bottomimage">Work with React</div>
 
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <div class="imagecontainer">
+                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                        <div class="centeredimage">Back-End C Sharp</div>
+                        <div class="bottomimage">Project Razor</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="imagecontainer">
+                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                        <div class="centeredimage">Font-End Normal</div>
+                        <div class="bottomimage">Start with JavaScript</div>
+                    </div>
+                </li>
+                <li>
+                <div class="imagecontainer">
+                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                <div class="centeredimage">Font-End High Level</div>
+                <div class="bottomimage">Work with React</div>
+                </div>
+                </li>
+                <li>
+                <div class="imagecontainer">
+                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                <div class="centeredimage">Back-End C Sharp</div>
+                <div class="bottomimage">Project Razor</div>
+                </div>
+                </li>
+                <li>
+                <div class="imagecontainer">
+                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
+                <div class="centeredimage">Font-End Normal</div>
+                <div class="bottomimage">Start with JavaScript</div>
+                </div>
+                </li>
+                
             </ul>
         </div>
     </section>
@@ -587,7 +587,14 @@
     <script src="./js/slider.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
     <script>
-        
+        $(window).load(function () {
+            $(".imagecontainer").on("click", function () {
+                window.location = "/home/login";
+
+            });
+
+           
+        });
         function openPopup() {
             document.getElementById("popup").style.display = "block";
             document.getElementById("overlay").style.display = "block";
