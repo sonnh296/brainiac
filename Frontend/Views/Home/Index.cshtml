@@ -95,9 +95,7 @@
                                     <a href="./home/login"><i class="fa fa-user" aria-hidden="true"></i> <span>Login</span></a>
                                 </div>
 
-                                <div class="login">
-                                    <a href="./home/search"><i class="fa fa-user" aria-hidden="true"></i> <span>Search</span></a>
-                                </div>
+                               
                                 <div class="login">
                                     <a href="#" onclick="openPopup()"><i class="fa fa-user" aria-hidden="true"></i> <span>Your Profile</span></a>
                                 </div>
@@ -201,15 +199,11 @@
                             <div class="classynav">
                                 <ul>
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="about.html">Course</a></li>
+                                    <li><a href="./home/search">Course</a></li>
                                     <li><a href="index.html">Contact</a></li>
                                     <li><a href="about.html">About us</a></li>
                                 </ul>
 
-                                <!-- Search Icon -->
-                                <div id="searchIcon">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
 
                             </div>
                             <!-- Navbar End -->
@@ -279,136 +273,230 @@
         </div>
     </section>
  
-    <!-- ##### Hero Area End ##### -->
-    <section class="slider" style="width: 100%">
-        <h1>Newest Course</h1>
-        <div id="carousel" class="flexslider thumbe-slider">
-            <ul style="width: 100%" class="slides" id="slidessss">
-                <li>
-                    <a href="http://localhost:5016/home/login">
-                    <div class="imagecontainer">
-                       
-                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                        <div class="centeredimage">Font-End High Level</div>
-                        <div class="bottomimage">Work with React</div>
+
+        <section class="slider" style="width: 100%">
+            <h1>Newest Course</h1>
+            <div id="carousel" class="flexslider thumbe-slider">
+            <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                <ul style="width: 1600%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slides" id="slider">
+                    <li id="1" class="flex-active-slide" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Software Enginering</div>
+                            <div class="bottomimage">The tutorial of developing software</div>
 
                         </div>
-                    </a>
-                </li>
-                <li>
-                    <div class="imagecontainer">
-                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                        <div class="centeredimage">Back-End C Sharp</div>
-                        <div class="bottomimage">Project Razor</div>
+
+                    </li>
+                    <li id="2" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Google Analysis</div>
+                            <div class="bottomimage">Work with data of Google</div>
+
+                        </div>
+
+                    </li>
+                    <li id="3" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">JavaScript Tutorial</div>
+                            <div class="bottomimage">Basic Java </div>
+
+                        </div>
+
+                    </li>
+                    <li id="4" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Font-End Basic</div>
+                            <div class="bottomimage">Html, Css Basic</div>
+
+                        </div>
+
+                    </li>
+                    <li id="5" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Font-End Normal</div>
+                            <div class="bottomimage">Start with JavaScript</div>
+
+                        </div>
+
+                    </li>
+                    <li id="6" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Font-End High Level</div>
+                            <div class="bottomimage">Work with React</div>
+
+                        </div>
+
+                    </li>
+                    <li id="7" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Back-End C Sharp</div>
+                            <div class="bottomimage">Get start with Repository Pattern</div>
+
+                        </div>
+
+                    </li>
+                    <li id="8" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Back-End C Sharp Version 2</div>
+                            <div class="bottomimage">Project MVC</div>
+
+                        </div>
+
+                    </li>
+                    <li id="9" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Back-End C Sharp</div>
+                            <div class="bottomimage">Project Razor</div>
+
+                        </div>
+
+                    </li>
+                    </ul>
                     </div>
-                </li>
-                <li>
-                    <div class="imagecontainer">
-                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                        <div class="centeredimage">Font-End Normal</div>
-                        <div class="bottomimage">Start with JavaScript</div>
-                    </div>
-                </li>
-                <li>
-                <div class="imagecontainer">
-                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                <div class="centeredimage">Font-End High Level</div>
-                <div class="bottomimage">Work with React</div>
+             <ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li><li class="flex-nav-next"><a class="flex-next" href="#">Next</a></li></ul>
                 </div>
-                </li>
-                <li>
-                <div class="imagecontainer">
-                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                <div class="centeredimage">Back-End C Sharp</div>
-                <div class="bottomimage">Project Razor</div>
-                </div>
-                </li>
-                <li>
-                <div class="imagecontainer">
-                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                <div class="centeredimage">Font-End Normal</div>
-                <div class="bottomimage">Start with JavaScript</div>
-                </div>
-                </li>
-                
-            </ul>
+                </section>
+    <section class="slider" style="width: 100%">
+        <h1>Most popular Course</h1>
+        <div id="carousel" class="flexslider thumbe-slider">
+            <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                <ul style="width: 1600%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slides" id="slider">
+                    <li id="1" class="flex-active-slide" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Software Enginering</div>
+                            <div class="bottomimage">The tutorial of developing software</div>
+
+                        </div>
+
+                    </li>
+                    <li id="5" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Font-End Normal</div>
+                            <div class="bottomimage">Start with JavaScript</div>
+
+                        </div>
+
+                    </li>
+                    <li id="6" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Font-End High Level</div>
+                            <div class="bottomimage">Work with React</div>
+
+                        </div>
+
+                    </li>
+                    <li id="2" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Google Analysis</div>
+                            <div class="bottomimage">Work with data of Google</div>
+
+                        </div>
+
+                    </li>
+                    <li id="3" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">JavaScript Tutorial</div>
+                            <div class="bottomimage">Basic Java </div>
+
+                        </div>
+
+                    </li>
+                    <li id="4" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Font-End Basic</div>
+                            <div class="bottomimage">Html, Css Basic</div>
+
+                        </div>
+
+                    </li>
+                    
+                    <li id="7" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Back-End C Sharp</div>
+                            <div class="bottomimage">Get start with Repository Pattern</div>
+
+                        </div>
+
+                    </li>
+                    <li id="8" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Back-End C Sharp Version 2</div>
+                            <div class="bottomimage">Project MVC</div>
+
+                        </div>
+
+                    </li>
+                    <li id="9" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                        <div class="imagecontainer">
+
+                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <div class="centeredimage">Back-End C Sharp</div>
+                            <div class="bottomimage">Project Razor</div>
+
+                        </div>
+
+                    </li>
+                    
+                </ul>
+            </div>
+            <ul class="flex-direction-nav"><li class="flex-nav-prev"><a class="flex-prev" href="#">Previous</a></li><li class="flex-nav-next"><a class="flex-next" href="#">Next</a></li></ul>
         </div>
     </section>
 
-    <section class="slider" style=" width: 100%;">
-        <h1>Most Popular</h1>
-        <div id="carousel2" class="flexslider thumbe-slider">
-            <ul style="width: 100%;" class="slides">
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid imagestyle" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
-                <li>
-                    <img src="./img/bg-img/2.jpg" class="img-fluid" />
-                </li>
 
-            </ul>
-        </div>
-    </section>
+   
 
 
     <section style="background-image: url(./img/bg-img/4.jpg);  background-repeat: no-repeat ; background-size: cover;">
@@ -588,13 +676,94 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
     <script>
         $(window).load(function () {
-            $(".imagecontainer").on("click", function () {
-                window.location = "/home/login";
+            $(".imagecontainer").on("click", function (event) {
+                var resId = event.target.closest("li").id;
+                console.log(resId);
+                window.location = "/student/coursedetail?courseId=" + resId;
 
             });
 
-           
+            $("#carousel").flexslider({
+                animation: "slide",
+                controlNav: false,
+                animationLoop: true,
+                slideshow: false,
+                itemWidth: 210,
+                itemMargin: 5,
+                asNavFor: "#slider",
+            });
+
+            $("#slider").flexslider({
+                animation: "fade",
+                controlNav: false,
+                animationLoop: true,
+                slideshow: true,
+                sync: "#carousel",
+                start: function (slider) {
+                    $("body").removeClass("loading");
+                },
+            });
+            Manager.GetAllProduct();
         });
+        var Manager = {
+            GetAllProduct: function () {
+                var serviceUrl = "http://localhost:5020/api/Home/GetPopularCourse";
+                window.Manager.GetAPI(serviceUrl, onSuccess, onFailed);
+                var obj = "";
+                function onSuccess(jsonData) {
+                    obj = jsonData;
+                    var rows1 = "";
+                    var count = 0;
+                    $.each(jsonData, function (i, item) {
+
+                        if (count == 0) {
+                            rows1 += `  <li id="${item.courseId}" class="flex-active-slide" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                            <div class="imagecontainer">
+
+                                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                                        <div class="centeredimage">${item.courseName}</div>
+                                                <div class="bottomimage">${item.title}</div>
+
+                                </div>
+
+                                </li>`;
+                            count++;
+                        } else {
+                            rows1 += `<li id="${item.courseId}" style="width: 210px; margin-right: 5px; float: left; display: block;">
+
+                            <div class="imagecontainer">
+
+                                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                                        <div class="centeredimage">${item.courseName}</div>
+                                                        <div class="bottomimage">${item.title}</div>
+
+                                </div>
+
+                        </li>`;}
+                    });
+      
+                    
+                    var id2 = '#slider'; // Corrected the selector to target the tbody of #table2
+                    $("#slider").append(rows1);
+                }
+                function onFailed(error) {
+                    window.alert(error.statusText);
+                
+                }
+                
+                return obj;
+            },
+            GetAPI: function (serviceUrl, successCallback, errorCallback) {
+                $.ajax({
+                    type: "GET",
+                    url: serviceUrl,
+                    dataType: "json",
+                    success: successCallback,
+                    error: errorCallback
+                });
+            }
+        }
         function openPopup() {
             document.getElementById("popup").style.display = "block";
             document.getElementById("overlay").style.display = "block";

@@ -738,20 +738,33 @@
 
 	form.addEventListener('submit', (event) => {
 		event.preventDefault();
+			var u = document.getElementById("username-login").value;
+			var p = document.getElementById("password-login").value;
+		fetch("http://localhost:5020/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify({
+					userName: u,
+					password: p,
+        })
+    }).then(data => {
+        if (data.error === "") {
+            document.cookie = `web-at=${data.token}; path=/`;
 
-		username: document.getElementById('username-login').value,
-		password: document.getElementById('password-login').value
+            if (!data.role) {
+                window.location.href = '/';
+            }
+            if (data.role == "student") {
+                window.location.href = "/";
+            }
+            window.location.href = "/" + data.role + '/dashboard';
+        }
+    }).catch(e => console.log("error::", e));
 
-			.then(data => {
-					
-
-				}else{
-					document.getElementById("login-message").innerHTML = data.error;
-				}
-			})
-			.catch(error => {
-				console.error('Error logging in:', error);
-			});
 
 	});
 

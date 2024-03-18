@@ -5,7 +5,7 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - PRN231_LIST OBJECT</title>
+  <title>PRN231_LIST OBJECT</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap">
 <style>
 .glyphicon { margin-right:5px; }
@@ -131,6 +131,7 @@ body {
 	color: var(--black);
 	text-transform: capitalize;
 	text-align: center;
+            width: 105%;
 }
 
 .btn:hover {
@@ -139,7 +140,7 @@ body {
 }
 
 .side-bar {
-	height: 100%;
+	height: 60%;
 	width: 100%;
 	
 	top: 0;
@@ -261,7 +262,7 @@ body {
                     </div>
                     <div class="reset-btn">
                         <button class="btn" id="filer">Filter Course</button>
-                        <button class="btn">reset all</button>
+                        <button class="btn" id="reset">reset all</button>
                     </div>
                 </div>
                 <!-- End Bootstrap Sidebar -->
@@ -291,13 +292,13 @@ body {
             // Add 'active' class to the clicked category button
             $(this).addClass('active');
         });
-        $('.type .btn.price').click(function () {
-            // Remove 'active' class from all category buttons
-            $('.type .btn.price').removeClass('active');
-
-            // Add 'active' class to the clicked category button
-            $(this).addClass('active');
-        });
+      $('#reset').click(function () {
+            Manager.GetAllProduct();
+            var search = document.getElementById('search-box').value = "";
+           
+            var from = $('#from').val("");
+            var to = $('#to').val("");
+      });
         $('#filer').click(function () {
             // Remove 'active' class from all category buttons
             var search = document.getElementById('search-box').value;
@@ -315,10 +316,12 @@ body {
             } else if (!search && category && !from && !to) {
                 // Case 4: only category is not null
                 console.log('Category:', category);
-                if (category = 0) {
-                    
+                if (category == 0) {
                 } else {
                     Manager.GetAllProductByLink(`http://localhost:5020/api/Home/GetCourseByCate?cate=${category}`);
+                    console.log('Category is:', category);
+                    console.log(`http://localhost:5020/api/Home/GetCourseByCate?cate=${category}`);
+
                 }
             } else if (!search && !category && from && to) {
                 // Case 5: only from, to is not null
@@ -392,22 +395,22 @@ body {
 
                     rows1 += `                        <div class="item col-lg-3 col-md-5 col-sm-11">
                                 <div class="thumbnail">
-                                    <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                                        <img class="group list-group-image img-fluid" src="https://ihs.redvector.com/lpe/assets/core/img/large-placeholder-course.png" alt="" />
                                     <div class="caption">
                                         <h4 class="group inner list-group-item-heading">
                                                 ${item.courseName}
                                         </h4>
-                                        <p class="group inner list-group-item-text">
-                                                    ${item.title}
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <p class="lead">
-                                                            $ ${item.price}
+                                           <p class="group inner list-group-item-text" style="position: relative;">
+                                                            ${item.title}
                                                 </p>
+                                                    <div class="row" style="position: absolute;bottom: 19px;right: 38px;">
+                                                    <div class="col-6">
+                                                        <p class="lead">
+                                                                    $ ${item.price}
+                                                        </p>
                                             </div>
                                             <div class="col-6">
-                                                <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                                                                        <a style="width:121%; margin-left:-1%%; padding-right: 32px;" class="btn btn-success btn-block text-right" href="/student/coursedetail?courseId=${item.courseId}">Go to Course</a>
                                             </div>
                                         </div>
                                     </div>
@@ -461,22 +464,22 @@ body {
 
                     rows1 += `                        <div class="item col-lg-3 col-md-5 col-sm-11">
                                     <div class="thumbnail">
-                                        <img class="group list-group-image img-fluid" src="http://placehold.it/400x250/000/fff" alt="" />
+                                            <img class="group list-group-image img-fluid" src="https://ihs.redvector.com/lpe/assets/core/img/large-placeholder-course.png" alt="" />
                                         <div class="caption">
                                             <h4 class="group inner list-group-item-heading">
                                                     ${item.courseName}
                                             </h4>
-                                            <p class="group inner list-group-item-text">
+                                                <p class="group inner list-group-item-text" style="position: relative;">
                                                         ${item.title}
                                             </p>
-                                            <div class="row">
+                                                <div class="row" style="position: absolute;bottom: 19px;right: 38px;">
                                                 <div class="col-6">
                                                     <p class="lead">
                                                                 $ ${item.price}
                                                     </p>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a style="width:95%; margin-left:5%;" class="btn btn-success btn-block text-right" href="http://www.jquery2dotnet.com">Add to cart</a>
+                                                                            <a style="width:121%; margin-left:-1%%; padding-right: 32px;" class="btn btn-success btn-block text-right" href="/student/coursedetail?courseId=${item.courseId}">Go to Course</a>
                                                 </div>
                                             </div>
                                         </div>
