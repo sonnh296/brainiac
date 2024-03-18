@@ -3,4 +3,96 @@
 *@
 @{
 }
-<h1>History payment</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .green {
+            color: green;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="history-balance">
+        <h1>History of order</h1>
+        <a onclick="addMoney()" href="#">Add more money</a>
+        <div class="listOrder">
+            <div class="order">
+                <div class="order-id"></div>
+                <div class="course-name"></div>
+                <div class="course-price"></div>
+                <div class="order-date"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEyNTU5NDA2LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.H1JkX5QuqhFZQRG87-UHBHGPuXNVZ-m55n8wb5OuU5I";
+        var userId = -1;
+
+        getUser();
+
+        function getUser() {
+            fetch("http://localhost:5020/api/User/CurrentUser", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    userId = data.userId;
+                    getHistoryOrder();
+                });
+        }
+
+        function getHistoryOrder() {
+            fetch(`http://localhost:5020/api/Order/History/${userId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    var listOrder = document.querySelector(".listOrder");
+                    data.forEach((order) => {
+                        var divOrder = document.createElement("div");
+                        divOrder.classList.add("order");
+
+                        var amount = order.total;
+                        var amountClass = "";
+                        var courseName = "";
+                        if (order.courseId === null) {
+                            amountClass = "green";
+                            amount = "+" + amount;
+                        } else {
+                            amountClass = "red";
+                            amount = "-" + amount;
+                            courseName = "Course: " + order.courseName;
+                        }
+
+                        divOrder.innerHTML = `
+                      <div class="order-id">Order Id: ${order.orderId}</div>
+                      <div class="course-name">${courseName}</div>
+                      <div class="course-price ${amountClass}">Amount: ${amount}</div>
+                      <div class="order-date">Order date: ${order.date}</div>
+                      ------------------------------
+                    `;
+                        listOrder.appendChild(divOrder);
+                    });
+                });
+        }
+
+        function addMoney() {
+            var money = prompt("Enter the amount of money you want to add", "0");
+            money = parseFloat(money);
+            if (money != null && money > 0) {
+                window.location.href = `http://localhost:5016/Student/CreatePaymentUrl?userId=${userId}&amount=${money}`;
+            }
+        }
+    </script>
+</body>
+</html>
