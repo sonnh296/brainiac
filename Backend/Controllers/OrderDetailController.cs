@@ -53,5 +53,27 @@ namespace Backend.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet("History/{userId}")]
+        public async Task<IActionResult> GetHistoryAsync(int userId)
+        {
+            var orderDetails = _context.OrderDetails
+                .Include(x => x.Course)
+                .Where(x => x.UserId == userId)
+                .Select(x => new
+                {
+                    OrderId = x.OrderId,
+                    CourseId = x.CourseId,
+                    Date = x.Date,
+                    Total = x.Total,
+                    CourseName = x.Course != null ? x.Course.CourseName : null
+                })
+                .OrderByDescending(x => x.Date);
+            if (orderDetails == null)
+            {
+                return NoContent();
+            }
+            return Ok(orderDetails);
+        }
     }
 }

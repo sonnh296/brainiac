@@ -24,13 +24,12 @@ namespace Backend.Models
         [JsonIgnore]
         public string Password { get; set; }
         public string PasswordSalt { get; set; } = null!;
-
         public string Email { get; set; }
         public int? RoleId { get; set; }
         public decimal? Balance { get; set; }
         public bool? IsActive { get; set; }
 
-        public virtual Role Role { get; set; }
+        public virtual Role? Role { get; set; }
         [JsonIgnore]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

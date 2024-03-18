@@ -12,6 +12,7 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/stylecoursedetail.css" />
+
     <title>Education Course Detail</title>
 
     <style>
@@ -941,7 +942,7 @@
         }
 
             .flexslider .slides > li {
-                display: none;
+                display: block;
                 -webkit-backface-visibility: hidden;
             }
 
@@ -1333,10 +1334,11 @@
         </section>
     </main>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="~/js/auth/api.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js"></script>
     <script>
         var token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEwNjg4MzQ3LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.JcUMGxhhKMNOb0qVpRPdqO-4VZzIREUJIgR0nln7-Zw";
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEyNTU5NDA2LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.H1JkX5QuqhFZQRG87-UHBHGPuXNVZ-m55n8wb5OuU5I";
 
         $(window).load(function () {
             $("#carousel").flexslider({
@@ -1424,7 +1426,9 @@
                 });
         }
         function lessonList() {
-            fetch(`http://localhost:5020/api/Lesson/Course/${courseId}`)
+            fetch(`http://localhost:5020/api/Resource/Course/${courseId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
                 .then((response) => response.json())
                 .then((data) => {
                     var lessonList = document.querySelector(".content-list");
@@ -1643,11 +1647,8 @@
                             "</li>";
                     });
                     console.log(relatedCourseList.innerHTML);
-                    console.log(relatedCourse);
-                    relatedCourseList.innerHTML =
-                        "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Font-End High Level</div><div class='bottomimage'>Work with React</div></div></li>" +
-                        "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Back-End C Sharp</div><div class='bottomimage'>Project Razor</div></div></li>" +
-                        "<li><div class='imagecontainer'><img src='https://fakeimg.pl/1920x930/' class='img-fluid'><div class='centeredimage'>Font-End Normal</div><div class='bottomimage'>Start with JavaScript</div></div></li>";
+                    console.log("reesssss"+relatedCourse);
+                    relatedCourseList.innerHTML = relatedCourse;
                     console.log(relatedCourseList.innerHTML);
                 });
         }

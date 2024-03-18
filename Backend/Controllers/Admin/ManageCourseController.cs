@@ -26,7 +26,8 @@ namespace Backend.Controllers.Admin
         public async Task<IActionResult> GetAllCourses()
         {
             var allCourses = await _context.Courses.ToListAsync();
-            if (allCourses != null && allCourses.Any()) {
+            if (allCourses != null && allCourses.Any())
+            {
                 var result = allCourses.Select(x => new
                 {
                     x.CourseId,
@@ -36,11 +37,12 @@ namespace Backend.Controllers.Admin
                     x.Status
                 });
                 return Ok(result);
-            }else
+            }
+            else
             {
                 return NotFound("No users found");
             }
-            
+
         }
         [HttpGet("GetCourse/{id}")]
         public async Task<IActionResult> GetCourseById(int id)
@@ -72,6 +74,51 @@ namespace Backend.Controllers.Admin
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+        // PUT: Admin/ManageCourse/UpdateCourseStatus/{id}
+        [HttpPut("UpdateCourseStatus/{id}")]
+        public async Task<IActionResult> UpdateCourseStatus(int id, [FromBody] string status)
+        {
+            //if (!IsValidStatus(status))
+            //{
+            //    return BadRequest("Invalid status. Allowed values are: 1, 0, 'approved', 'rejected', 'draft'.");
+            //}
+
+            if (ModelState.IsValid)
+            {
+                // Check if the course with the given ID exists
+                Course existingCourse = await _courseRepository.GetByIdAsync(id);
+
+                if (existingCourse == null)
+                {
+                    return NotFound("Course not found");
+                }
+
+                // Update the course's status
+                existingCourse.Status = status;
+
+                try
+                {
+                    // Save changes to the database
+                    await _context.SaveChangesAsync();
+                    return Ok(existingCourse);
+                }
+                catch (DbUpdateException ex)
+                {
+                    // Handle exceptions if any
+                    return StatusCode(500, $"Failed to update course status: {ex.Message}");
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        private bool IsValidStatus(string status)
+        {
+            List<string> allowedStatuses = new List<string> { "1", "0", "pending", "draft" };// 0 : rejected; 1: approved
+            return allowedStatuses.Contains(status);
         }
     }
 }

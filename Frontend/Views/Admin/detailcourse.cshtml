@@ -1,6 +1,4 @@
-﻿
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -166,7 +164,7 @@
                             <label for="num_tests"><strong>Number of Tests:</strong></label>
                             <span id="num_tests"></span>
                             <button id="show_tests_button" class="btn btn-default"><img src="/imgs/admin-img/list.png" width="20" height="20" alt="acc Icon"></button>
-                        </div>                     
+                        </div>
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="status"><strong>Status:</strong></label>
@@ -181,7 +179,7 @@
                                     <option value="pending">Pending</option>
                                     <!-- Add other status options as needed -->
                                 </select>
-                                <button id="saveStatus" class="btn btn-primary"><img src="/imgs/admin-img/save.png" width="20" height="20" alt="acc Icon"> Save</button>
+                                <button id="saveStatus" onclick="updateCourseStatus()" class="btn btn-primary"><img src="/imgs/admin-img/save.png" width="20" height="20" alt="acc Icon"> Save</button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -191,119 +189,140 @@
                     </div>
                 </div>
             </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                   
-                    <div class="panel-body">
-                        <table class="table" id="testTable">
-                            <thead>
-                                
-                            </thead>
-                            <tbody >
-                            </tbody>
-                        </table>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <table class="table" id="testTable">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
             </div>
 
-        </div>
-      
 
-        <ul id="test_list"></ul>
-    </div><!--/.main-->
+            <ul id="test_list"></ul>
+        </div><!--/.main-->
 
-    <script>
-        $(document).ready(function () {
-            // Lấy user ID từ URL (tham số truyền vào)
+        <script>
             var urlParams = new URLSearchParams(window.location.search);
             var courseid = urlParams.get('courseid');
-            console.log(courseid);
-            // Kiểm tra nếu có user ID thì thực hiện AJAX request để lấy thông tin người dùng
-            if (courseid) { 
-                
-                $.ajax({
-                    url: 'http://localhost:5020/Admin/ManageCourse/GetCourse/' + courseid,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (courseData) {
-                        console.log("good");
-                        // Điền thông tin người dùng vào các trường trong form
-                        $('#course_id').text(courseData.courseId);
-                        $('#course_name').text(courseData.courseName);
-                        $('#course_title').text(courseData.title);
-                        $('#course_price').text(courseData.price);
-                        var status = (courseData.status == 1 ? "approved" : (courseData.status == 0 ? "rejected" : courseData.status))
-                        $('#status').text(status);
-                    },
-                    error: function () {
-                        console.error('Error fetching detailed user information');
-                    }
-                });
-                getNumberOfTests(courseid);
-            }
-            // Hàm để lấy số lượng bài kiểm tra cho một courseId cụ thể
-            function getNumberOfTests(courseid) {
+            $(document).ready(function () {
+                // Lấy user ID từ URL (tham số truyền vào)
+
                 console.log(courseid);
-                $.ajax({
-                    url: 'http://localhost:5020/Admin/ManageCourse/GetTestsByCourse/' + courseid,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (testsData) {
-                        console.log("getNumberOfTests");
-                        // Đếm số lượng bài kiểm tra
-                        var numberOfTests = testsData.length;
-                        // Hiển thị số lượng bài kiểm tra
-                        $('#num_tests').text(numberOfTests);
-                    },
-                    error: function () {
-                        console.error('Error fetching test information');
-                    }
-                });
-            }
-            $('#show_tests_button').click(function () {
-                $.ajax({
-                    url: 'http://localhost:5020/Admin/ManageCourse/GetTestsByCourse/' + courseid,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (testsData) {
-                        $('#testTable thead tr').empty();
-                        $('#testTable tbody tr').empty();
-                        $('#testTable thead').append(
-                            '<tr>' +
-                            '<th>Test ID</th>' +
-                            '<th>Test Name</th>' +
-                            '<th>Time</th>' +
-                            '<th>Status</th>' +
-                            '<th>Number of Question</th>' +
-                            '</tr>');
-                        testsData.forEach(function (test) {
-                            $('#testTable tbody').append(
+                // Kiểm tra nếu có user ID thì thực hiện AJAX request để lấy thông tin người dùng
+                if (courseid) {
+
+                    $.ajax({
+                        url: 'http://localhost:5020/Admin/ManageCourse/GetCourse/' + courseid,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function (courseData) {
+                            console.log("good");
+                            // Điền thông tin người dùng vào các trường trong form
+                            $('#course_id').text(courseData.courseId);
+                            $('#course_name').text(courseData.courseName);
+                            $('#course_title').text(courseData.title);
+                            $('#course_price').text(courseData.price);
+                            var status = (courseData.status == 1 ? "approved" : (courseData.status == 0 ? "rejected" : courseData.status))
+                            $('#status').text(status);
+                        },
+                        error: function () {
+                            console.error('Error fetching detailed user information');
+                        }
+                    });
+                    getNumberOfTests(courseid);
+                }
+                // Hàm để lấy số lượng bài kiểm tra cho một courseId cụ thể
+                function getNumberOfTests(courseid) {
+                    console.log(courseid);
+                    $.ajax({
+                        url: 'http://localhost:5020/Admin/ManageCourse/GetTestsByCourse/' + courseid,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function (testsData) {
+                            console.log("getNumberOfTests");
+                            // Đếm số lượng bài kiểm tra
+                            var numberOfTests = testsData.length;
+                            // Hiển thị số lượng bài kiểm tra
+                            $('#num_tests').text(numberOfTests);
+                        },
+                        error: function () {
+                            console.error('Error fetching test information');
+                        }
+                    });
+                }
+                $('#show_tests_button').click(function () {
+                    $.ajax({
+                        url: 'http://localhost:5020/Admin/ManageCourse/GetTestsByCourse/' + courseid,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function (testsData) {
+                            $('#testTable thead tr').empty();
+                            $('#testTable tbody tr').empty();
+                            $('#testTable thead').append(
                                 '<tr>' +
-                                '<td>' + test.testId + '<td>'+
-                                '<td>' + test.testName + '<td>'+
-                                '<td>' + test.time + '<td>'+
-                                '<td>' + test.status + '<td>'+
-                                '<td>' + test.status + '<td>'+
-                                '</tr>'
-                            );
-                        });
-                    },
-                    error: function () {
-                        console.error('Error fetching test information');
-                    }
+                                '<th>Test ID</th>' +
+                                '<th>Test Name</th>' +
+                                '<th>Time</th>' +
+                                '<th>Status</th>' +
+                                '<th>Number of Question</th>' +
+                                '</tr>');
+                            testsData.forEach(function (test) {
+                                $('#testTable tbody').append(
+                                    '<tr>' +
+                                    '<td>' + test.testId + '<td>' +
+                                    '<td>' + test.testName + '<td>' +
+                                    '<td>' + test.time + '<td>' +
+                                    '<td>' + test.status + '<td>' +
+                                    '<td>' + test.status + '<td>' +
+                                    '</tr>'
+                                );
+                            });
+                        },
+                        error: function () {
+                            console.error('Error fetching test information');
+                        }
+                    });
                 });
             });
-        });
-    </script>
-    <script src="/js/jquery-1.11.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/chart.min.js"></script>
-    <script src="/js/chart-data.js"></script>
-    <script src="/js/easypiechart.js"></script>
-    <script src="/js/easypiechart-data.js"></script>
-    <script src="/js/bootstrap-datepicker.js"></script>
-    <script src="/js/custom.js"></script>
+            function updateCourseStatus() {
+
+                var status1 = document.getElementById("statusSelect").value;
+
+                console.log(status1);
+                $.ajax({
+                    url: `http://localhost:5020/Admin/ManageCourse/UpdateCourseStatus/${courseid}`,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(status1),
+                    success: function (response) {
+                        console.log('Course status updated:', response);
+                        // Thực hiện các hành động khác sau khi cập nhật thành công
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('There was a problem updating course status:', error);
+                    }
+                });
+            }
+
+        </script>
+        <script src="/js/jquery-1.11.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/chart.min.js"></script>
+        <script src="/js/chart-data.js"></script>
+        <script src="/js/easypiechart.js"></script>
+        <script src="/js/easypiechart-data.js"></script>
+        <script src="/js/bootstrap-datepicker.js"></script>
+        <script src="/js/custom.js"></script>
 
 </body>
 </html>
