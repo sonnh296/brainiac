@@ -81,11 +81,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors(builder =>
-{
-	builder.AllowAnyOrigin()
-	.AllowAnyHeader()
-	.AllowAnyMethod();
+app.UseCors(builder => {
+	builder.WithOrigins("*")
+							.AllowAnyHeader()
+							.AllowAnyMethod();
 });
 
 app.Run();
