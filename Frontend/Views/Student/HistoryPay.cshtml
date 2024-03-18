@@ -87,10 +87,12 @@
         }
 
         function addMoney() {
-            var money = prompt("Enter the amount of money you want to add", "0");
+            var money = prompt("Enter the amount of money you want to add", "10");
             money = parseFloat(money);
-            if (money != null && money > 0) {
+            if (money != null && money > 10) {
                 window.location.href = `http://localhost:5016/Student/CreatePaymentUrl?userId=${userId}&amount=${money}`;
+            }else
+                alert("The amount of money must be greater than 10");
             }
         }
     </script>
