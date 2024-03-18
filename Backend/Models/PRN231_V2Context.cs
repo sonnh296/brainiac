@@ -32,6 +32,7 @@ namespace Backend.Models
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserCourse> UserCourses { get; set; } = null!;
         public virtual DbSet<UserTest> UserTests { get; set; } = null!;
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -245,6 +246,8 @@ namespace Backend.Models
 
                 entity.Property(e => e.Password).HasMaxLength(255);
 
+                entity.Property(e => e.PasswordSalt).HasMaxLength(255);
+
                 entity.Property(e => e.UserName).HasMaxLength(255);
 
                 entity.HasOne(d => d.Role)
@@ -285,6 +288,26 @@ namespace Backend.Models
                     .WithMany(p => p.UserTests)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_UserTest_User");
+            });
+
+            modelBuilder.Entity<RefreshToken>(entity => {
+                entity.ToTable("RefreshToken");
+
+                entity.Property(e => e.ExpiryDate).HasColumnType("smalldatetime");
+
+                entity.Property(e => e.TokenHash).HasMaxLength(1000);
+
+                entity.Property(e => e.TokenSalt).HasMaxLength(50);
+
+                entity.Property(e => e.Ts)
+                    .HasColumnType("smalldatetime")
+                    .HasColumnName("TS");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.RefreshTokens)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RefreshToken_User");
             });
 
             OnModelCreatingPartial(modelBuilder);

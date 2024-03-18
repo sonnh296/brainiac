@@ -1,4 +1,7 @@
-﻿using Backend.DTOs;
+﻿using Backend.Auth.Interfaces;
+using Backend.Auth.Requests;
+using Backend.Auth.Responses;
+using Backend.DTOs;
 using Backend.DTOs.Auth;
 using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -16,111 +19,75 @@ using System.Text;
 namespace Backend.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase {
-        private IConfiguration _configuration;
-        public LoginController(IConfiguration configuration) {
-            _configuration = configuration;
+    public class LoginController : BaseApiController {
+        private readonly IUserService userService;
+        private readonly ITokenService tokenService;
+        public LoginController(IUserService userService, ITokenService tokenService) {
+            this.userService = userService;
+            this.tokenService = tokenService;
         }
-
-        User _user = new User();
-        private string reftk = "";
-        private DateTime exprs = DateTime.MinValue;
-
-        private User Authenticate(LoginRequest loginRequest) {
-            if(loginRequest != null) {
-                var _context = new PRN231_V2Context();
-                var user = _context.Users.Include(u => u.Role)
-                    .FirstOrDefault(u => u.UserName == loginRequest.UserName && u.Password==loginRequest.Password);
-
-                if (user != null) {
-                    _user.UserName = user.UserName;
-                    _user.Password = user.Password;
-                    return user;
-                }
-            }
-            return null;
-        }
-
-        private String GenerateToken(User user) {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[] {
-                new Claim(ClaimTypes.Role, user.Role.RoleName),
-                new Claim("ID", user.UserId + ""),
-            };
-
-            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims,
-                expires:DateTime.Now.AddMinutes(10080 * 3),
-                signingCredentials: credentials
-                );
-
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
-        private RefreshToken GetRefreshToken() {
-            var refreshToken = new RefreshToken() {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
-                Expires = DateTime.Now.AddDays(2),
-                Created = DateTime.Now
-            };
-
-            return refreshToken;
-        }
-
-        private void SetRefreshToken(RefreshToken newRefreshToken) {
-            var cookieOptions = new CookieOptions {
-                HttpOnly = true,
-                Expires = newRefreshToken.Expires
-            };
-
-            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
-
-            reftk = newRefreshToken.Token;
-            exprs = newRefreshToken.Expires;
-        }
-
-        [HttpPost("/refresh-token")]
-        public async Task<ActionResult<string>> RefreshToken() {
-            var refreshToken = Request.Cookies["refreshToken"];
-
-            if(!reftk.Equals(refreshToken)) {
-                return Unauthorized("Invalid refresh token");
-            }else if(exprs < DateTime.Now) {
-                return Unauthorized("Token exprierd");
-            }
-
-            string token = GenerateToken(_user);
-            var newRefreshToken = GetRefreshToken();
-            SetRefreshToken(newRefreshToken);
-
-            return Ok( token);
-        }
-
-        [AllowAnonymous]
-        [HttpPost("/login")]
-        public async Task<ActionResult<LoginResponse>> Login(LoginRequest loginRequest) {
-
-            var user = Authenticate(loginRequest);
-			string rtoken = GenerateToken(user);
-			if (user != null) {
-                var token = GenerateToken(user);
-                return Ok(new LoginResponse {
-                    id = user.UserId,
-                    Role = user.Role.RoleName,
-                    Token = token,
-                    RefreshToken = rtoken,
-                    Error = ""
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(LoginRequest loginRequest) {
+            if (loginRequest == null || string.IsNullOrEmpty(loginRequest.Email) || string.IsNullOrEmpty(loginRequest.Password)) {
+                return BadRequest(new TokenResponse {
+                    Error = "Missing login details",
+                    ErrorCode = "L01"
                 });
             }
+            var loginResponse = await userService.LoginAsync(loginRequest);
+            if (!loginResponse.Success) {
+                return Unauthorized(new {
+                    loginResponse.ErrorCode,
+                    loginResponse.Error
+                });
+            }
+            return Ok(loginResponse);
+        }
+        [HttpPost]
+        [Route("refresh_token")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenRequest refreshTokenRequest) {
+            if (refreshTokenRequest == null || string.IsNullOrEmpty(refreshTokenRequest.RefreshToken) || refreshTokenRequest.UserId == 0) {
+                return BadRequest(new TokenResponse {
+                    Error = "Missing refresh token details",
+                    ErrorCode = "R01"
+                });
+            }
+            var validateRefreshTokenResponse = await tokenService.ValidateRefreshTokenAsync(refreshTokenRequest);
+            if (!validateRefreshTokenResponse.Success) {
+                return UnprocessableEntity(validateRefreshTokenResponse);
+            }
+            var tokenResponse = await tokenService.GenerateTokensAsync(validateRefreshTokenResponse.UserId);
+            return Ok(new { AccessToken = tokenResponse.Item1, Refreshtoken = tokenResponse.Item2 });
+        }
+        [HttpPost]
+        [Route("signup")]
+        public async Task<IActionResult> Signup(SignUpRequest signupRequest) {
+            if (!ModelState.IsValid) {
+                var errors = ModelState.Values.SelectMany(x => x.Errors.Select(c => c.ErrorMessage)).ToList();
+                if (errors.Any()) {
+                    return BadRequest(new TokenResponse {
+                        Error = $"{string.Join(",", errors)}",
+                        ErrorCode = "S01"
+                    });
+                }
+            }
 
-            var refreshToken = GetRefreshToken();
-            SetRefreshToken(refreshToken);
-
-            return Ok(new LoginResponse {
-                Error = "Wrong username or passworrd"
-            });
+            var signupResponse = await userService.SignupAsync(signupRequest);
+            if (!signupResponse.Success) {
+                return UnprocessableEntity(signupResponse);
+            }
+            return Ok(signupResponse.Email);
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout() {
+            var logout = await userService.LogoutAsync(UserID);
+            if (!logout.Success) {
+                return UnprocessableEntity(logout);
+            }
+            return Ok();
         }
     }
 }
