@@ -17,12 +17,12 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace Backend.Controllers {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
-    public class LoginController : BaseApiController {
+    public class AuthController : BaseApiController {
         private readonly IUserService userService;
         private readonly ITokenService tokenService;
-        public LoginController(IUserService userService, ITokenService tokenService) {
+        public AuthController(IUserService userService, ITokenService tokenService) {
             this.userService = userService;
             this.tokenService = tokenService;
         }

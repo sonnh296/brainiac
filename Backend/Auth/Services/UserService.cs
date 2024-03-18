@@ -14,7 +14,7 @@ namespace Backend.Auth.Services {
             this.tokenService = tokenService;
         }
         public async Task<TokenResponse> LoginAsync(LoginRequest loginRequest) {
-            var user = _context.Users.SingleOrDefault(user => user.Email == loginRequest.Email);
+            var user = _context.Users.Include(u => u.Role).SingleOrDefault(user => user.Email == loginRequest.Email);
             if (user == null) {
                 return new TokenResponse {
                     Success = false,
@@ -34,7 +34,8 @@ namespace Backend.Auth.Services {
             return new TokenResponse {
                 Success = true,
                 AccessToken = token.Item1,
-                RefreshToken = token.Item2
+                RefreshToken = token.Item2,
+                Role = user.Role.RoleName,
             };
         }
         public async Task<LogoutResponse> LogoutAsync(int userId) {

@@ -626,17 +626,19 @@
 	<h1 style="color:dodgerblue; font-weight:50px; font-size:50px;">Welcome to Braniac</h1>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="#">
+			<form action="#" id="signup-form">
 				<h1>Create Account</h1>
-				<div class="social-container">
+@*				<div class="social-container">
 					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
 					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
 					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-				</div>
-				<span>or use your email for registration</span>
-				<input type="text" placeholder="Name" />
-				<input type="email" placeholder="Email" />
-				<input type="password" placeholder="Password" />
+				</div>*@
+				@*<span>or use your email for registration</span>*@
+				<input id="signup-name" type="text" placeholder="Name" />
+				<input id="signup-email" placeholder="Email" />
+				<input id="signup-password" placeholder="Password" />
+				<input type="radio" id="signup-student" name="signup-role" value="1"> Student	
+				<input type="radio" id="signup-teacher" name="signup-role" value="2"> Teacher
 				<button style="background-color:blue">Sign Up</button>
 			</form>
 		</div>
@@ -734,53 +736,60 @@
 		}
 	}
 
-	const form = document.getElementById('login-form');
+		const formSignup = document.getElementById('signup-form');
 
-	form.addEventListener('submit', (event) => {
+		formSignup.addEventListener('submit', (event) => {
 		event.preventDefault();
+			var name = document.getElementById("signup-name").value;
+			var email = document.getElementById("signup-email").value;
+			var password = document.getElementById("signup-password").value;
+			var roleid = document.getElementById('signup-student').checked ? 1 : 2;
+		fetch("http://localhost:5020/api/signup", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json",
+			},
+			body: JSON.stringify({
+				email: email,
+				password: password,
+				userName: name,
+				roleid: roleid
+			})
+		}).then(data => {
+			if (!data) {
+				window.location.href = "/home/login";
+			}
+		}).catch(e => console.log("error::", e));
+	});
+
+		const form = document.getElementById('login-form');
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
 			var u = document.getElementById("username-login").value;
 			var p = document.getElementById("password-login").value;
-		fetch("http://localhost:5020/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        },
-        body: JSON.stringify({
-					userName: u,
+			fetch("http://localhost:5020/api/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json",
+				},
+				body: JSON.stringify({
+					email: u,
 					password: p,
-        })
-    }).then(data => {
-        if (data.error === "") {
-            document.cookie = `web-at=${data.token}; path=/`;
-
-            if (!data.role) {
-                window.location.href = '/';
-            }
-            if (data.role == "student") {
-                window.location.href = "/";
-            }
-            window.location.href = "/" + data.role + '/dashboard';
-        }
-    }).catch(e => console.log("error::", e));
-
-
-	});
-
-	closeButton.addEventListener('click', () => {
-		overlay2.style.visibility="hidden";
-		overlay2.style.opacity="0";
-		container.style.visibility="visible";
-		container.style.opacity="1";
-	});
-
-	//forGotButton.addEventListener('click', () => {
-	//	container.style.visibility="hidden";
-	//	container.style.opacity="0";
-	//	overlay2.style.visibility="visible";
-	//	overlay2.style.opacity="1";
-	//});
+				})
+			}).then((data) => {
+				if (data.role != null && data.role != undefined) {
+					document.cookie = `web-at=${data.accessToken.toString()}; path=/`;
+					document.cookie = `web-rt=${data.refreshToken.toString()}; path=/`;
+					if (data.role.toString() == "Student") {
+						window.location.href = "/";
+					}
+					window.location.href = "/" + data.role + '/dashboard';
+				}
+			}).catch(e => console.log("error::", e));
+		});
 
 	signUpButton.addEventListener('click', () => {
 		container.classList.add("right-panel-active");
