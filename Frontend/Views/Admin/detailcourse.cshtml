@@ -165,6 +165,11 @@
                             <span id="num_tests"></span>
                             <button id="show_tests_button" class="btn btn-default"><img src="/imgs/admin-img/list.png" width="20" height="20" alt="acc Icon"></button>
                         </div>
+                        <div class="form-group">
+                            <label for="num_resources"><strong>Number of Resource:</strong></label>
+                            <span id="num_resources"></span>
+                            <button id="show_resources_button" class="btn btn-default"><img src="/imgs/admin-img/list.png" width="20" height="20" alt="acc Icon"></button>
+                        </div>
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="status"><strong>Status:</strong></label>
@@ -189,12 +194,29 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" id="classtable">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+                                <table class="table" id="testTable">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div id="classtable">
                 <div class="col-md-6">
                     <div class="panel panel-default">
 
                         <div class="panel-body">
-                            <table class="table" id="testTable">
+                            <h1 id="h1resource"></h1>
+                            <table class="table" id="resourceTable">
                                 <thead>
                                 </thead>
                                 <tbody>
@@ -205,6 +227,7 @@
                 </div>
 
             </div>
+            
 
 
             <ul id="test_list"></ul>
@@ -239,6 +262,8 @@
                         }
                     });
                     getNumberOfTests(courseid);
+                    getNumberOfResources(courseid);
+
                 }
                 // Hàm để lấy số lượng bài kiểm tra cho một courseId cụ thể
                 function getNumberOfTests(courseid) {
@@ -259,6 +284,7 @@
                         }
                     });
                 }
+             
                 $('#show_tests_button').click(function () {
                     $.ajax({
                         url: 'http://localhost:5020/Admin/ManageCourse/GetTestsByCourse/' + courseid,
@@ -270,18 +296,23 @@
                             $('#testTable thead').append(
                                 '<tr>' +
                                 '<th>Test ID</th>' +
+                                '<th></th>' +
                                 '<th>Test Name</th>' +
+                                '<th></th>' +
                                 '<th>Time</th>' +
+                                '<th></th>' +
                                 '<th>Status</th>' +
+                                '<th></th>' +
                                 '<th>Number of Question</th>' +
+                                '<th></th>' +
                                 '</tr>');
                             testsData.forEach(function (test) {
                                 $('#testTable tbody').append(
                                     '<tr>' +
-                                    '<td>' + test.testId + '<td>' +
-                                    '<td>' + test.testName + '<td>' +
+                                    '<td>' + test.testId + '<td>'+
+                                    '<td>' + test.testName + '<td>'+ 
                                     '<td>' + test.time + '<td>' +
-                                    '<td>' + test.status + '<td>' +
+                                    '<td>' + test.status + '<td>'+ 
                                     '<td>' + test.status + '<td>' +
                                     '</tr>'
                                 );
@@ -293,6 +324,72 @@
                     });
                 });
             });
+            function getNumberOfResources(courseid) {
+                console.log("resource:"+courseid);
+                $.ajax({
+                    url: 'http://localhost:5020/Admin/ManageCourse/GetResourcesByCourse/' + courseid,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (resourcesData) {
+                        console.log("getNumberOfResource");
+                        // Đếm số lượng bài kiểm tra
+                        var numberOfResources = resourcesData.length;
+                        console.log("getNumberOfResource" + numberOfResources);
+
+                        // Hiển thị số lượng bài kiểm tra
+                        $('#num_resources').text(numberOfResources);
+                    },
+                    error: function () {
+                        console.error('Error fetching test information');
+                    }
+                });
+            }
+           // show_resources_button
+            $('#show_resources_button').click(function () {
+                $.ajax({
+                    url: 'http://localhost:5020/Admin/ManageCourse/GetResourcesByCourse/' + courseid,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (resourcesData) {
+                        $('#resourceTable thead tr').empty();
+                        $('#resourceTable tbody tr').empty();
+                        $('#resourceTable thead').append(
+                            '<tr>' +
+                            '<th>Resource ID</th>' +
+                            '<th></th>' +
+                            '<th>Content</th>' +
+                            '<th></th>' +
+                            '<th>Description</th>' +
+                            '<th></th>' +
+                            '<th>Type</th>' +
+                            '<th></th>' +
+                            '<th>Name</th>' +
+                            '<th></th>' +
+                            '</tr>');
+                        resourcesData.forEach(function (resource) {
+                            var contentHtml = '';
+                            if (resource.type === 'Video') {
+                                contentHtml = '<a href="' + resource.content + '" target="_blank">Xem video</a>';
+                            } else {
+                                contentHtml = resource.content;
+                            }
+                            $('#resourceTable tbody').append(
+                                '<tr>' +
+                                '<td>' + resource.resourceId + '<td>' +
+                                '<td style="width: 10%;">  ' + contentHtml + '<td>' +
+                                '<td>' + resource.description + '<td>' +
+                                '<td>' + resource.type + '<td>' +
+                                '<td>' + resource.name + '<td>' +
+                                '</tr>'
+                            );
+                        });
+                    },
+                    error: function () {
+                        console.error('Error fetching test information');
+                    }
+                });
+            });
+                       
             function updateCourseStatus() {
 
                 var status1 = document.getElementById("statusSelect").value;

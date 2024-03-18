@@ -14,12 +14,15 @@ namespace Backend.Controllers.Admin
         private readonly PRN231_V2Context _context;
         private readonly IGenericRepository<Course> _courseRepository;
         private readonly ITestRepository _testRepository;
+        private readonly IResourceRepository _resourceRepository;
 
-        public ManageCourseController(PRN231_V2Context context, ITestRepository testRepository)
+        public ManageCourseController(PRN231_V2Context context, ITestRepository testRepository, IResourceRepository resourceRepository)
         {
             _context = context;
             _courseRepository = new GenericRepository<Course>(_context);
             _testRepository = testRepository;
+            _resourceRepository = resourceRepository;
+           
         }
 
         [HttpGet("GetAllCourses")]
@@ -75,14 +78,31 @@ namespace Backend.Controllers.Admin
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        // PUT: Admin/ManageCourse/UpdateCourseStatus/{id}
+        [HttpGet("GetResourcesByCourse/{courseId}")]
+        public IActionResult GetResourcesByCourseId(int courseId)
+        {
+            try
+            {
+                List<Resource> resources = _resourceRepository.GetByResourceId(courseId);
+                if (resources == null || resources.Count == 0)
+                {
+                    return NotFound("No tests found for the provided course ID");
+                }
+                return Ok(resources);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [HttpPut("UpdateCourseStatus/{id}")]
         public async Task<IActionResult> UpdateCourseStatus(int id, [FromBody] string status)
         {
-            //if (!IsValidStatus(status))
-            //{
-            //    return BadRequest("Invalid status. Allowed values are: 1, 0, 'approved', 'rejected', 'draft'.");
-            //}
+            if (!IsValidStatus(status))
+            {
+                return BadRequest("Invalid status. Allowed values are: 1, 0, 'approved', 'rejected', 'draft'.");
+            }
 
             if (ModelState.IsValid)
             {
