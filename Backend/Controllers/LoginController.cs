@@ -103,13 +103,14 @@ namespace Backend.Controllers {
         public async Task<ActionResult<LoginResponse>> Login(LoginRequest loginRequest) {
 
             var user = Authenticate(loginRequest);
-
-            if (user != null) {
+			string rtoken = GenerateToken(user);
+			if (user != null) {
                 var token = GenerateToken(user);
                 return Ok(new LoginResponse {
                     id = user.UserId,
                     Role = user.Role.RoleName,
                     Token = token,
+                    RefreshToken = rtoken,
                     Error = ""
                 });
             }
