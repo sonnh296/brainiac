@@ -15,6 +15,7 @@ namespace Backend.Models
             ReportedCommentUserReports = new HashSet<ReportedComment>();
             ResourceUsers = new HashSet<ResourceUser>();
             UserCourses = new HashSet<UserCourse>();
+            RefreshTokens = new HashSet<RefreshToken>();
             UserTests = new HashSet<UserTest>();
         }
 
@@ -22,6 +23,8 @@ namespace Backend.Models
         public string UserName { get; set; }
         [JsonIgnore]
         public string Password { get; set; }
+        public string PasswordSalt { get; set; } = null!;
+
         public string Email { get; set; }
         public int? RoleId { get; set; }
         public decimal? Balance { get; set; }
@@ -38,5 +41,6 @@ namespace Backend.Models
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
         public virtual ICollection<UserCourse> UserCourses { get; set; }
         public virtual ICollection<UserTest> UserTests { get; set; }
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }
