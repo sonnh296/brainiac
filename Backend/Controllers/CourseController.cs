@@ -154,6 +154,16 @@ namespace Backend.Controllers
                 userCourse.IsStudent = true;
                 userCourse.Status = "1";
                 _context.UserCourses.Add(userCourse);
+
+                var resource = _context.Resources
+                    .Where(x => x.CourseId == userCourseDTO.CourseId)
+                    .Select(x => new ResourceUser
+                    {
+                        UserId = userCourseDTO.UserId,
+                        ResourceId = x.ResourceId,
+                        IsComplete = false
+                    });
+                _context.ResourceUsers.AddRange(resource);
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -164,6 +174,30 @@ namespace Backend.Controllers
             
         }
 
-        
+        [Authorize(Roles = "Student")]
+        [HttpGet("MyCourses")]
+        public async Task<IActionResult> GetMyCoursesAsync()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = -1;
+            if (identity != null)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                // or
+                userID = Int32.Parse(identity.FindFirst("ID").Value);
+            }
+            var listCourse = _context.UserCourses
+                .Include(x => x.Course)
+                .Include(x => x.User)
+                .Where(x => x.UserId == userID && x.IsStudent == true)
+                .Select(x => new
+                {
+                    CourseId = x.CourseId,
+                    Name = x.Course.CourseName,
+                    Description = x.Course.Title,
+                    Author = x.Course.UserCourses.FirstOrDefault(x => x.IsStudent == false).User.UserName,
+                });
+            return Ok(listCourse);
+        }
     }
 }

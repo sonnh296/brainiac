@@ -10,10 +10,10 @@ namespace Backend.App.Extensions
         {
             services.AddScoped<ITeacherService, TeacherServiceImpl>();
             services.AddScoped<TeacherRepository>();
-
+            services.AddScoped<ITestRepository, TestRepository>();//  cuong add
+            services.AddScoped<IResourceRepository, ResourseRepository>();//  cuong add
             services.AddScoped<ICategoryService, CategoryServiceImpl>();
             services.AddScoped<CategoryRepository>();
-
             services.AddScoped<IStudentService, StudentServiceImpl>();
             services.AddScoped<StudentRepository>();
 

@@ -1,13 +1,13 @@
 using AutoMapper;
 using Backend.Configurations;
 using Backend.Models;
-using Backend.Repositories;
-using Backend.Services.Implement;
-using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using Microsoft.OpenApi.Models;
 using Backend.App.Extensions;
+using Backend.Auth.Helpers;
+using Backend.Auth.Interfaces;
+using Backend.Auth.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,17 +17,45 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<PRN231_V2Context>();
 builder.Services.AddAppServices();
 
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(option => 
-        option.TokenValidationParameters = new TokenValidationParameters {
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters {
             ValidateIssuer = true,
             ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = TokenHelper.Issuer,
+            ValidAudience = TokenHelper.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(TokenHelper.Secret))
+        };
+
+    });
+builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<Backend.Auth.Interfaces.IUserService, UserService>();
+builder.Services.AddSwaggerGen(opt =>
+{
+    var securitySchema = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        BearerFormat = "JWT",
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        In = ParameterLocation.Header,
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
         }
-    );
+    };
+    opt.AddSecurityDefinition("Bearer", securitySchema);
+    var securityRequirement = new OpenApiSecurityRequirement
+    {
+        { securitySchema, new[] { "Bearer" } }
+    };
+});
+
 
 builder.Services.AddAuthorization();
 
@@ -57,9 +85,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.UseCors(builder => {
-    builder.WithOrigins("*")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
+	builder.WithOrigins("*")
+							.AllowAnyHeader()
+							.AllowAnyMethod();
 });
 
 app.Run();
