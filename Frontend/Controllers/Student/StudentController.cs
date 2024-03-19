@@ -61,5 +61,10 @@ namespace Frontend.Controllers.Student
         {
             return View();
         }
+
+        public IActionResult DoTest(int testId)
+        {
+            return View();
+        }
     }
 }

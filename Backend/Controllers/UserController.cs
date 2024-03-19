@@ -19,14 +19,14 @@ namespace Backend.Controllers
         [HttpGet("CurrentUser")]
         public async Task<IActionResult> GetCurrentUserAsyn()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = -1;
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                // or
-                userID = Int32.Parse(identity.FindFirst("ID").Value);
-            }
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = 1;
+            //if (identity != null)
+            //{
+            //    IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
+            //}
             var user = await _context.Users
                 .Include(u => u.Role)
                 .FirstOrDefaultAsync(u => u.UserId == userID);
