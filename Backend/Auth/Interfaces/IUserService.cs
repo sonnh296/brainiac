@@ -6,5 +6,6 @@ namespace Backend.Auth.Interfaces {
         Task<TokenResponse> LoginAsync(LoginRequest loginRequest);
         Task<SignupResponse> SignupAsync(SignUpRequest signupRequest);
         Task<LogoutResponse> LogoutAsync(int userId);
+        Task<ResetPassRequest> ResetPassAsync(ResetPassRequest resetPassRequest);
     }
 }
