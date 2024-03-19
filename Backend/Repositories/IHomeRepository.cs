@@ -7,7 +7,6 @@ namespace Backend.Repositories
     {
         List<Course> GetAllCourse();
         List<CourseRatingDTO> GetPopularCourse();
-        List<SortRatingDTO> GetPopularCourse2();
         List<CourseRatingDTO> GetCourseBySearchCatePrice(string search, int cate, int ratefrom, int rateto);
         List<CourseRatingDTO> GetCourseBySearch(string search);
         List<CourseRatingDTO> GetCourseByCate(int cate);
