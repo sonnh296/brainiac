@@ -156,12 +156,14 @@
                 success: function (data) {
                     // Iterate through the returned data and populate the table
                     $.each(data, function (index, user) {
+						var status = user.isActive == 1 ? "Active" : "Unactive"
 						console.log("Hello, this is a message in the console!",index);
                         var row = '<tr>' +
                             '<td>' + user.userId + '</td>' +
                             '<td>' + user.userName + '</td>' +
 							'<td>' + user.email + '</td>' +
-                            '<td>' + (user.role ? user.role.roleName : '') + '</td>' +                       
+                            '<td>' + (user.role ? user.role.roleName : '') + '</td>' +   
+							'<td>' + status + '</td>' +
 							'<td><a href="detailaccount" class="detailLink" data-userid="' + user.userId + '">Detail</a></td>' +
                             '</tr>';
                         // Append the row to the tbody
