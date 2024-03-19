@@ -1,9 +1,9 @@
 ﻿function getAccessToken() {
-    const cookies = document.cookie.split(';').map(cookie => cookie.trim());
-    for (const cookie of cookies) {
-        const [name, value] = cookie.split('=');
-        if (name === 'web-at') {
-            return value;
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("web-at" + '=')) {
+            return cookie.substring(7);
         }
     }
     return null;
