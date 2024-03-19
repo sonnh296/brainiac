@@ -12,7 +12,9 @@ namespace Backend.Auth.Services {
             this._context = _context;
         }
         public async Task<Tuple<string, string>> GenerateTokensAsync(int userId) {
-            var accessToken = await TokenHelper.GenerateAccessToken(userId);
+            var u = _context.Users.Include(x => x.Role).FirstOrDefault(x => x.UserId == userId);
+
+            var accessToken = await TokenHelper.GenerateAccessToken(userId, u?.Role == null ? "norole" : u.Role.RoleName);
             var refreshToken = await TokenHelper.GenerateRefreshToken();
             var userRecord = await _context.Users.Include(o => o.RefreshTokens).FirstOrDefaultAsync(e => e.UserId == userId);
             if (userRecord == null) {
