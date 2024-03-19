@@ -169,7 +169,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> GetMyCoursesAsync()
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;
