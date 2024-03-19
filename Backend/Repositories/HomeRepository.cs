@@ -43,7 +43,7 @@ namespace Backend.Repositories
 
             }
 
-            return resultcourses;
+            return resultcourses.Where(x=>x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<CourseRatingDTO> GetCourseByCatePrice(int cate, int ratefrom, int rateto)
@@ -70,7 +70,7 @@ namespace Backend.Repositories
 
             }
 
-            return resultcourses;
+            return resultcourses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<CourseRatingDTO> GetCourseByPrice(int ratefrom, int rateto)
@@ -92,7 +92,7 @@ namespace Backend.Repositories
 
             }
             
-            return resultcourses;
+            return resultcourses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<CourseRatingDTO> GetCourseBySearch(string search)
@@ -115,7 +115,7 @@ namespace Backend.Repositories
 
             }
             
-            return resultcourses;
+            return resultcourses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<CourseRatingDTO> GetCourseBySearchCate(string search, int cate)
@@ -142,7 +142,7 @@ namespace Backend.Repositories
 
             }
 
-            return resultcourses;
+            return resultcourses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<CourseRatingDTO> GetCourseBySearchCatePrice(string search, int cate, int ratefrom, int rateto)
@@ -169,7 +169,7 @@ namespace Backend.Repositories
 
             }
             
-            return resultcourses;
+            return resultcourses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<CourseRatingDTO> GetCourseBySearchPrice(string search, int ratefrom, int rateto)
@@ -192,7 +192,7 @@ namespace Backend.Repositories
 
             }
 
-            return resultcourses;
+            return resultcourses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<SortRatingDTO> GetPopularCourse2()
@@ -254,7 +254,7 @@ namespace Backend.Repositories
 
         }
 
-        List<CourseRatingDTO> IHomeRepository.GetPopularCourse()
+        public List<CourseRatingDTO> GetPopularCourse()
         {
             List<SortRatingDTO> sortRatingDTOs = new List<SortRatingDTO>();
 
@@ -293,7 +293,7 @@ namespace Backend.Repositories
                 resultcourses.Add(ratingDTO);
 
             }
-            return resultcourses;
+            return resultcourses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
     }
 }
