@@ -645,12 +645,6 @@
 		<div class="form-container sign-in-container">
 			<form action="#" id="login-form">
 				<h1>Sign in</h1>
-				<div class="social-container">
-					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-				</div>
-				<span>or use your account</span>
 				<input id="username-login" onkeyup="checkLogin()" type="text" placeholder="Email" />
 				<input id="password-login" onkeyup="checkLogin()" type="password" placeholder="Password" />
 				<button style="background-color:blue" id="forGot">Forgot your password?</button>
@@ -779,16 +773,23 @@
 					email: u,
 					password: p,
 				})
-			}).then((data) => {
+			})
+				.then((response) => response.json())
+			.then((data) => {
 				if (data.role != null && data.role != undefined) {
-					document.cookie = `web-at=${data.accessToken.toString()}; path=/`;
-					document.cookie = `web-rt=${data.refreshToken.toString()}; path=/`;
-					if (data.role.toString() == "Student") {
-						window.location.href = "/";
+					document.cookie = `web-at=${data.accessToken}; path=/`;
+					document.cookie = `web-rt=${data.refreshToken}; path=/`;
+						if (data.role == "Student") {
+					window.location.href = "/";
+						return;
 					}
 					window.location.href = "/" + data.role + '/dashboard';
+				}else{
+						document.getElementById('login-message').innerHTML = "Wrong email or password";
 				}
-			}).catch(e => console.log("error::", e));
+			}).catch(e => {
+				document.getElementById('login-message').innerHTML();
+			});
 		});
 
 	signUpButton.addEventListener('click', () => {
