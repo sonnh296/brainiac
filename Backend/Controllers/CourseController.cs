@@ -19,19 +19,19 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Student")]
+        //[Authorize(Roles = "Student")]
         // GET: api/Course/CourseDetail/5
         [HttpGet("CourseDetail/{id}")]
         public async Task<IActionResult> GetCourseDetailAsync(int id)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = -1;
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                // or
-                userID = Int32.Parse(identity.FindFirst("ID").Value);
-            }
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = 1;
+            //if (identity != null)
+            //{
+            //    IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
+            //}
 
             bool isEnrolled = _context.UserCourses.Any(x => x.CourseId == id && x.UserId == userID && x.IsStudent == true);
 
@@ -140,7 +140,7 @@ namespace Backend.Controllers
             return Ok(listCourse);
         }
 
-        [Authorize(Roles = "Student")]
+        //[Authorize(Roles = "Student")]
         [HttpPost("EnrollCourse")]
         public async Task<IActionResult> EnrollCourseAsync(UserCourseDTO userCourseDTO)
         {
@@ -174,18 +174,18 @@ namespace Backend.Controllers
             
         }
 
-        [Authorize(Roles = "Student")]
+        //[Authorize(Roles = "Student")]
         [HttpGet("MyCourses")]
         public async Task<IActionResult> GetMyCoursesAsync()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = -1;
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                // or
-                userID = Int32.Parse(identity.FindFirst("ID").Value);
-            }
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = 1;
+            //if (identity != null)
+            //{
+            //    IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
+            //}
             var listCourse = _context.UserCourses
                 .Include(x => x.Course)
                 .Include(x => x.User)

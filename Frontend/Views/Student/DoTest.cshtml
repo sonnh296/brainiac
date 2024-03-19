@@ -1,0 +1,297 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        .progress-bar {
+            width: 100%;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .progress {
+            width: 0%;
+            height: 30px;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-test">
+        <div class="test-name"></div>
+        <div class="duration"></div>
+        <div class="question-no"></div>
+        <div class="mark"></div>
+        <div class="time-left"></div>
+        <div class="time-left1"></div>
+    </div>
+    <div class="question-container"></div>
+    <div class="control">
+        <button class="prev">Prev</button>
+        <button class="next">Next</button>
+        <button class="close">Close</button>
+        <button class="submit">Submit</button>
+    </div>
+    <div class="progress-bar">
+        <div class="progress">0%</div>
+    </div>
+    <div class="result" style="display: none">
+        <h1>Result</h1>
+        <div class="correct-answers"></div>
+        <div class="score"></div>
+        <button class="btnBack">Back</button>
+    </div>
+    <script>
+        const startTime = new Date();
+        var token =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEyNTU5NDA2LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.H1JkX5QuqhFZQRG87-UHBHGPuXNVZ-m55n8wb5OuU5I";
+        var testId = new URLSearchParams(window.location.search).get("testId");
+        var userId = -1;
+        var courseId = -1;
+        getUser();
+        function getUser() {
+            fetch("http://localhost:5020/api/User/CurrentUser", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    userId = data.userId;
+                });
+        }
+
+        var numberQuestion = 0;
+        var questionsData = [];
+        var currentQuestionIndex = 0;
+        var userAnswers = []; // Array to store user's answers
+
+        // Initial call to fetch test information and questions
+        testInfor();
+
+        function testInfor() {
+            fetch(`http://localhost:5020/api/Test/TestDetail/${testId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    var testName = document.querySelector(".info-test .test-name");
+                    testName.textContent = `Test Name: ${data.testName}`;
+                    var duration = document.querySelector(".info-test .duration");
+                    duration.textContent = `Duration: ${data.time}m`;
+                    var questionNo = document.querySelector(".info-test .question-no");
+                    questionNo.textContent = `Question No: ${data.numberQuestion}`;
+                    numberQuestion = data.numberQuestion;
+courseId = data.courseId;
+                    var mark = document.querySelector(".info-test .mark");
+                    mark.textContent = `Mark: ${data.percentPoint}`;
+
+                    // Calculate remaining time
+                    var endTime = new Date(new Date().getTime() + data.time * 60000);
+                    updateTimer(endTime);
+                });
+
+            // Fetch questions and answers
+            fetch(`http://localhost:5020/api/Test/Question/${testId}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    questionsData = data;
+                    showQuestion(currentQuestionIndex);
+                });
+        }
+
+        function showQuestion(index) {
+            var questionContainer = document.querySelector(".question-container");
+            questionContainer.innerHTML = ``;
+            var question = questionsData[index];
+            var questionElement = document.createElement("div");
+            questionElement.classList.add("question");
+            questionElement.innerHTML = `
+                  <div class="question-content">${question.questionContent}</div>
+                  <div class="answers">
+                    ${question.answers
+                    .map(
+                        (answer) => `
+                        <div class="answer">
+                          <input type="checkbox" name="question${question.questionId
+                            }" value="${answer.answerId}" ${userAnswers[index] &&
+                                userAnswers[index].some(
+                                    (ans) => ans.answerId === answer.answerId
+                                )
+                                ? "checked"
+                                : ""
+                            } onchange="updateUserAnswer(${index}, ${answer.answerId
+                            }, this)">
+                          <label>${answer.answerContent}</label>
+                        </div>
+                      `
+                    )
+                    .join("")}
+                  </div>
+                `;
+            questionContainer.appendChild(questionElement);
+            updateProgressBar();
+        }
+
+        function updateUserAnswer(index, answerId, checkbox) {
+            if (!userAnswers[index]) {
+                userAnswers[index] = [];
+            }
+
+            if (checkbox.checked) {
+                userAnswers[index].push({
+                    questionId: questionsData[index].questionId,
+                    answerId: answerId,
+                });
+            } else {
+                userAnswers[index] = userAnswers[index].filter(
+                    (answer) => answer.answerId !== answerId
+                );
+            }
+
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            var answeredQuestions = userAnswers.filter(
+                (answer) => answer.length > 0
+            ).length;
+            var progress = (answeredQuestions / questionsData.length) * 100;
+            var progressBar = document.querySelector(".progress");
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${Math.round(progress)}%`;
+        }
+
+        function updateTimer(endTime) {
+            var timeLeftElement = document.querySelector(".time-left");
+            function update() {
+                var now = new Date().getTime();
+                var distance = endTime - now;
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                timeLeftElement.textContent = `Time Left: ${minutes}m ${seconds}s`;
+
+                if (distance < 0) {
+                    clearInterval(timerInterval);
+                    timeLeftElement.textContent = "Time's up!";
+                    result(userAnswers);
+                }
+            }
+            update();
+            var timerInterval = setInterval(update, 1000);
+        }
+
+        // Event listeners for navigation buttons
+        document.querySelector(".prev").addEventListener("click", function () {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+            } else {
+                currentQuestionIndex = questionsData.length - 1; // Set currentQuestionIndex to the last question index
+            }
+            showQuestion(currentQuestionIndex);
+        });
+
+        document.querySelector(".next").addEventListener("click", function () {
+            if (currentQuestionIndex < questionsData.length - 1) {
+                currentQuestionIndex++;
+            } else {
+                currentQuestionIndex = 0; // Set currentQuestionIndex to the first question index
+            }
+            showQuestion(currentQuestionIndex);
+        });
+
+        document.querySelector(".submit").addEventListener("click", function () {
+            var confirmSubmit = confirm("Are you sure you want to submit?");
+
+            if (confirmSubmit) {
+                //   console.log(userAnswers);
+                var timeLeftElement = document.querySelector(".time-left");
+                var timeLeft1 = document.querySelector(".time-left1");
+                timeLeft1.textContent = timeLeftElement.textContent;
+                timeLeftElement.style.display = "none";
+                result(userAnswers);
+            }
+        });
+
+        function result(userAnswers) {
+            var questionContainer = document.querySelector(".question-container");
+            questionContainer.style.display = "none";
+            var progress = document.querySelector(".progress-bar");
+            progress.style.display = "none";
+            var control = document.querySelector(".control");
+            control.style.display = "none";
+
+            var result = document.querySelector(".result");
+            result.style.display = "block";
+            var correctAnswers = document.querySelector(".correct-answers");
+            var score = document.querySelector(".score");
+            var correct = 0;
+            var wrong = 0;
+            var scoreValue = 0;
+
+            const endTime = new Date();
+            var timeElapsed = endTime - startTime; // Time difference in milliseconds
+
+            // Convert time difference to minutes as a fraction
+            var timeElapsedMinutes = timeElapsed / (1000 * 60);
+            var data = {
+                userId: userId,
+                testId: testId,
+                testDate: startTime,
+                timeDoTest: timeElapsedMinutes.toFixed(2),
+                answers: userAnswers,
+                numberQuestion: numberQuestion,
+            };
+            console.log(data);
+            fetch(`http://localhost:5020/api/Test/SubmitTest`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    correctAnswers.textContent = `Correct answers: ${data.numberCorrectAnswer}/${numberQuestion}`;
+                    score.textContent = `Score: ${data.point}`;
+                    document
+                        .querySelector(".btnBack")
+                        .addEventListener("click", function () {
+                            window.location.href = "/Student/Course?courseId=" + data.courseId;
+                        });
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert("An error occurred while fetching the order detail.");
+                });
+        }
+
+        var btnClose = document.querySelector(".close");
+        btnClose.addEventListener("click", function () {
+            var confirmClose = confirm("Are you sure you want to close this test. Result will not be saved?");
+            if (confirmClose) {
+                window.location.href = "/Student/Course?courseId=" + courseId;
+            }
+        });
+
+        // Call testInfor function every 5 minutes to update the test information
+        setInterval(testInfor, 300000); // 300000 milliseconds = 5 minutes
+    </script>
+</body>
+</html>

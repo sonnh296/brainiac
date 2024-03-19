@@ -1,93 +1,82 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        .detail {
-            display: none;
+      .detail {
+        display: none;
+      }
+      .youtube-container {
+        overflow: hidden;
+        width: 50%;
+        /* Keep it the right aspect-ratio */
+        aspect-ratio: 16/9;
+        position: relative;
+        /* No clicking/hover effects */
+        /* pointer-events: none; */
+        iframe {
+          /* Extend it beyond the viewport... */
+          width: 300%;
+          height: 100%;
+          /* ...and bring it back again */
+          margin-left: -100%;
         }
-
-        .youtube-container {
-            overflow: hidden;
-            width: 50%;
-            /* Keep it the right aspect-ratio */
-            aspect-ratio: 16/9;
-            position: relative;
-            /* No clicking/hover effects */
-            /* pointer-events: none; */
-
-            iframe
-
-        {
-            /* Extend it beyond the viewport... */
-            width: 300%;
-            height: 100%;
-            /* ...and bring it back again */
-            margin-left: -100%;
-        }
-
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="sidebar-resources-tests">
-        <div class="list-resources"></div>
-        <div class="list-tests">
-            <h3>Tests</h3>
-        </div>
+      <div class="list-resources"></div>
+      <div class="list-tests">
+        <h3>Tests</h3>
+      </div>
     </div>
 
     <div class="lesson-detail detail">
-        <div class="lesson-content"></div>
-        <div class="lesson-navigation">
-            <button class="prev-lesson-btn">Previous Lesson</button>
-            <button class="next-lesson-btn">Next Lesson</button>
-        </div>
-        <button class="mark-complete-btn">Mark as Completed</button>
+      <div class="lesson-content"></div>
+      <div class="lesson-navigation">
+        <button class="prev-lesson-btn">Previous Lesson</button>
+        <button class="next-lesson-btn">Next Lesson</button>
+      </div>
+      <button class="mark-complete-btn">Mark as Completed</button>
     </div>
 
     <div class="test-detail detail">
-        <div class="test-history"></div>
-        <div class="test-info"></div>
+      <div class="test-history"></div>
+      <div class="test-info"></div>
     </div>
 
     <script>
-        const token =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEyNTU5NDA2LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.H1JkX5QuqhFZQRG87-UHBHGPuXNVZ-m55n8wb5OuU5I";
-        const urlParam = new URLSearchParams(window.location.search);
-        const courseId = urlParam.get("courseId");
-        let lessonIndex = 0;
-        let lessons = [];
-
-        loadListLessons();
-        loadListTests();
-
-        function loadListLessons() {
-          fetch(`http://localhost:5020/api/Resource/Course/${courseId}`, {
-              method: "GET",
-              headers: {
-                  Authorization: `Bearer ${token}`,
-              },
-          })
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdHVkZW50IiwiSUQiOiIxIiwiZXhwIjoxNzEwNjg4MzQ3LCJpc3MiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20iLCJhdWQiOiJodHRwczovL3Byb3ZpZGVyLmRvbWFpbi5jb20ifQ.JcUMGxhhKMNOb0qVpRPdqO-4VZzIREUJIgR0nln7-Zw";
+      const urlParam = new URLSearchParams(window.location.search);
+      const courseId = urlParam.get("courseId");
+      let lessonIndex = 0;
+      let lessons = [];
+      loadListLessons();
+      loadListTests();
+      function loadListLessons() {
+        fetch(`http://localhost:5020/api/Resource/Course/${courseId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
           .then((response) => response.json())
           .then((data) => {
-              lessons = data;
-              const listLessons = document.querySelector(".list-resources");
-              const h3 = document.createElement("h3");
-              h3.textContent = "Lessons";
-              listLessons.appendChild(h3);
-              data.forEach((lesson) => {
-                  const lessonItem = document.createElement("div");
-                  lessonItem.classList.add("resource-info");
-                  lessonItem.innerHTML = `
+            lessons = data;
+            const listLessons = document.querySelector(".list-resources");
+            const h3 = document.createElement("h3");
+            h3.textContent = "Lessons";
+            listLessons.appendChild(h3);
+            data.forEach((lesson) => {
+              const lessonItem = document.createElement("div");
+              lessonItem.classList.add("resource-info");
+              lessonItem.innerHTML = `
                       <a href="#" class="lesson-link" data-type="lesson" data-id="${lesson.resourceId}">
                           <div>
                               <h5>${lesson.type}</h5>
@@ -96,136 +85,129 @@
                           </div>
                       </a>--------
                   `;
-                  listLessons.appendChild(lessonItem);
-              });
-              // Attach event listeners after loading lessons
-              attachLessonEventListeners();
-              updateLessonNavigation();
+              listLessons.appendChild(lessonItem);
+            });
+            // Attach event listeners after loading lessons
+            attachLessonEventListeners();
+            updateLessonNavigation();
           });
-        }
-
-        function loadListTests() {
-              fetch(`http://localhost:5020/api/Test/Course/${courseId}`, {
-                  method: "GET",
-                  headers: {
-                      Authorization: `Bearer ${token}`,
-                  },
-              })
-              .then((response) => response.json())
-              .then((data) => {
-                  const listTests = document.querySelector(".list-tests");
-                  data.forEach((test) => {
-                      const testItem = document.createElement("div");
-                      testItem.classList.add("test-info");
-                      testItem.innerHTML = `
+      }
+      function loadListTests() {
+        fetch(`http://localhost:5020/api/Test/Course/${courseId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const listTests = document.querySelector(".list-tests");
+            data.forEach((test) => {
+              const testItem = document.createElement("div");
+              testItem.classList.add("test-info");
+              testItem.innerHTML = `
                           <a href="#" class="test-link" data-type="test" data-id="${test.testId}">
                               <h5>Practice quiz:</h5>
                               <p>${test.testName}</p>
                           </a>-----
                       `;
-                      listTests.appendChild(testItem);
-                  });
-                  attachTestEventListeners();
-              });
-          }
-
-        function attachLessonEventListeners() {
-          // Add event listeners to lesson links
-          document.querySelectorAll(".lesson-link").forEach((link) => {
-            link.addEventListener("click", (event) => {
-              event.preventDefault();
-              const lessonId = link.getAttribute("data-id");
-              const lesson = lessons.find(
-                (lesson) => lesson.resourceId === parseInt(lessonId)
-              );
-              lessonIndex = lessons.indexOf(lesson);
-              loadLessonDetail(lessonId);
-              updateLessonNavigation();
+              listTests.appendChild(testItem);
             });
+            attachTestEventListeners();
           });
-        }
-
-        function updateLessonNavigation() {
-          const prevLessonBtn = document.querySelector(".prev-lesson-btn");
-          const nextLessonBtn = document.querySelector(".next-lesson-btn");
-
-          if (lessons.length === 0) {
-            prevLessonBtn.style.display = "none";
-            nextLessonBtn.style.display = "none";
-            return;
-          }
-
-          prevLessonBtn.style.display = lessonIndex === 0 ? "none" : "inline";
-          nextLessonBtn.style.display =
-            lessonIndex === lessons.length - 1 ? "none" : "inline";
-        }
-
-        function navigateToPreviousLesson() {
-          if (lessonIndex > 0) {
-            lessonIndex--;
-            const lessonId = lessons[lessonIndex].resourceId;
+      }
+      function attachLessonEventListeners() {
+        // Add event listeners to lesson links
+        document.querySelectorAll(".lesson-link").forEach((link) => {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            const lessonId = link.getAttribute("data-id");
+            const lesson = lessons.find(
+              (lesson) => lesson.resourceId === parseInt(lessonId)
+            );
+            lessonIndex = lessons.indexOf(lesson);
             loadLessonDetail(lessonId);
             updateLessonNavigation();
-          }
-        }
-        function navigateToNextLesson() {
-          if (lessonIndex < lessons.length - 1) {
-            lessonIndex++;
-            const lessonId = lessons[lessonIndex].resourceId;
-            loadLessonDetail(lessonId);
-            updateLessonNavigation();
-          }
-        }
-
-        function attachTestEventListeners() {
-          // Add event listeners to test links
-          document.querySelectorAll(".test-link").forEach((link) => {
-            link.addEventListener("click", (event) => {
-              event.preventDefault();
-              const testId = link.getAttribute("data-id");
-              loadTestDetail(testId);
-            });
           });
+        });
+      }
+      function updateLessonNavigation() {
+        const prevLessonBtn = document.querySelector(".prev-lesson-btn");
+        const nextLessonBtn = document.querySelector(".next-lesson-btn");
+        if (lessons.length === 0) {
+          prevLessonBtn.style.display = "none";
+          nextLessonBtn.style.display = "none";
+          return;
         }
-
-        document
-          .querySelector(".prev-lesson-btn")
-          .addEventListener("click", navigateToPreviousLesson);
-        document
-          .querySelector(".next-lesson-btn")
-          .addEventListener("click", navigateToNextLesson);
-
-        function loadLessonDetail(lessonId) {
-          // Hide other detail sections
-          document.querySelectorAll(".detail").forEach((detail) => {
-            detail.style.display = "none";
+        prevLessonBtn.style.display = lessonIndex === 0 ? "none" : "inline";
+        nextLessonBtn.style.display =
+          lessonIndex === lessons.length - 1 ? "none" : "inline";
+      }
+      function navigateToPreviousLesson() {
+        if (lessonIndex > 0) {
+          lessonIndex--;
+          const lessonId = lessons[lessonIndex].resourceId;
+          loadLessonDetail(lessonId);
+          updateLessonNavigation();
+        }
+      }
+      function navigateToNextLesson() {
+        if (lessonIndex < lessons.length - 1) {
+          lessonIndex++;
+          const lessonId = lessons[lessonIndex].resourceId;
+          loadLessonDetail(lessonId);
+          updateLessonNavigation();
+        }
+      }
+      function attachTestEventListeners() {
+        // Add event listeners to test links
+        document.querySelectorAll(".test-link").forEach((link) => {
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            const testId = link.getAttribute("data-id");
+            loadTestDetail(testId);
           });
-
-          fetch(`http://localhost:5020/api/Resource/Resource/${lessonId}`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              const lessonDetail = document.querySelector(".lesson-detail");
-              const lessonContent = lessonDetail.querySelector(".lesson-content");
-
-              if (data.type === "Reading") {
-                lessonContent.innerHTML = `
+        });
+      }
+      document
+        .querySelector(".prev-lesson-btn")
+        .addEventListener("click", navigateToPreviousLesson);
+      document
+        .querySelector(".next-lesson-btn")
+        .addEventListener("click", navigateToNextLesson);
+      function loadLessonDetail(lessonId) {
+        // Hide other detail sections
+        document.querySelectorAll(".detail").forEach((detail) => {
+          detail.style.display = "none";
+        });
+        fetch(`http://localhost:5020/api/Resource/Resource/${lessonId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const lessonDetail = document.querySelector(".lesson-detail");
+            const lessonContent = lessonDetail.querySelector(".lesson-content");
+            if (data.type === "Reading") {
+              lessonContent.innerHTML = `
                           <h3>${data.name}</h3>
-                          <p><strong>Description:</strong> ${data.description}</p>
+                          <p><strong>Description:</strong> ${
+                            data.description
+                          }</p>
                           <p><strong>Type:</strong> ${data.type}</p>
                           <p><strong>Content:</strong> ${data.content}</p>
                           <p><strong>Complete:</strong> ${
                             data.isComplete ? "Yes" : "No"
                           }</p>
                       `;
-              } else if (data.type === "Video") {
-                lessonContent.innerHTML = `
+            } else if (data.type === "Video") {
+              lessonContent.innerHTML = `
                           <h3>${data.name}</h3>
-                          <p><strong>Description:</strong> ${data.description}</p>
+                          <p><strong>Description:</strong> ${
+                            data.description
+                          }</p>
                           <div class="youtube-container">
                               <iframe class="youtube-video" src="${
                                 data.content
@@ -235,121 +217,114 @@
                             data.isComplete ? "Yes" : "No"
                           }</p>
                       `;
-              }
-              if (data.isComplete) {
-                lessonDetail.querySelector(".mark-complete-btn").style.display =
-                  "none";
-              } else {
-                lessonDetail.querySelector(".mark-complete-btn").style.display =
-                  "block";
-              }
-              lessonDetail.style.display = "block"; // Show the lesson detail section
-              const markCompleteBtn =
-                lessonDetail.querySelector(".mark-complete-btn");
-              markCompleteBtn.addEventListener("click", () => {
-                markLessonAsCompleted(lessonId);
-              });
-            })
-            .catch((error) => {
-              console.error("Error fetching lesson detail:", error);
-            });
-        }
-
-        function markLessonAsCompleted(lessonId) {
-          // Send request to mark lesson as completed
-          // You can implement this part based on your backend API
-          // For example:
-          fetch(
-            `http://localhost:5020/api/Resource/CompleteResource/${lessonId}`,
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
             }
-          )
-            .then((response) => {
-              if (response.ok) {
-                // Update UI to indicate lesson is completed
-                const lessonDetail = document.querySelector(".lesson-detail");
-                const completeStatus = lessonDetail.querySelector(
-                  ".lesson-content p:last-child"
-                );
-                completeStatus.textContent = "Complete: Yes";
-                const listLessons = document.querySelector(".list-resources");
-                listLessons.innerHTML = "";
-                lessonDetail.querySelector(".mark-complete-btn").style.display =
-                  "none";
-                loadListLessons(); // Reload the list of lessons to update the status
-              } else {
-                throw new Error("Failed to mark lesson as completed");
-              }
-            })
-            .catch((error) => {
-              console.error("Error marking lesson as completed:", error);
+            if (data.isComplete) {
+              lessonDetail.querySelector(".mark-complete-btn").style.display =
+                "none";
+            } else {
+              lessonDetail.querySelector(".mark-complete-btn").style.display =
+                "block";
+            }
+            lessonDetail.style.display = "block"; // Show the lesson detail section
+            const markCompleteBtn =
+              lessonDetail.querySelector(".mark-complete-btn");
+            markCompleteBtn.addEventListener("click", () => {
+              markLessonAsCompleted(lessonId);
             });
-        }
-
-        function loadTestDetail(testId) {
-          // Hide other detail sections
-          document.querySelectorAll(".detail").forEach((detail) => {
-            detail.style.display = "none";
+          })
+          .catch((error) => {
+            console.error("Error fetching lesson detail:", error);
           });
-
-          const testDetail = document.querySelector(".test-detail");
-          // Fetch and display test history and test info
-          fetch(`http://localhost:5020/api/Test/HistoryTest/${testId}`, {
-            method: "GET",
+      }
+      function markLessonAsCompleted(lessonId) {
+        // Send request to mark lesson as completed
+        // You can implement this part based on your backend API
+        // For example:
+        fetch(
+          `http://localhost:5020/api/Resource/CompleteResource/${lessonId}`,
+          {
+            method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
             },
+          }
+        )
+          .then((response) => {
+            if (response.ok) {
+              // Update UI to indicate lesson is completed
+              const lessonDetail = document.querySelector(".lesson-detail");
+              const completeStatus = lessonDetail.querySelector(
+                ".lesson-content p:last-child"
+              );
+              completeStatus.textContent = "Complete: Yes";
+              const listLessons = document.querySelector(".list-resources");
+              listLessons.innerHTML = "";
+              lessonDetail.querySelector(".mark-complete-btn").style.display =
+                "none";
+              loadListLessons(); // Reload the list of lessons to update the status
+            } else {
+              throw new Error("Failed to mark lesson as completed");
+            }
           })
-            .then((response) => response.json())
-            .then((testHistory) => {
-              const testHistoryDiv = testDetail.querySelector(".test-history");
-              testHistoryDiv.innerHTML = "<h3>Test History</h3>";
-              testHistory.forEach((history) => {
-                const historyItem = document.createElement("div");
-                historyItem.innerHTML = `
+          .catch((error) => {
+            console.error("Error marking lesson as completed:", error);
+          });
+      }
+      function loadTestDetail(testId) {
+        // Hide other detail sections
+        document.querySelectorAll(".detail").forEach((detail) => {
+          detail.style.display = "none";
+        });
+        const testDetail = document.querySelector(".test-detail");
+        // Fetch and display test history and test info
+        fetch(`http://localhost:5020/api/Test/HistoryTest/${testId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((testHistory) => {
+            const testHistoryDiv = testDetail.querySelector(".test-history");
+            testHistoryDiv.innerHTML = "<h3>Test History</h3>";
+            testHistory.forEach((history) => {
+              const historyItem = document.createElement("div");
+              historyItem.innerHTML = `
                           <p>Test Date: ${history.testDate}</p>
                           <p>Points: ${history.point}</p>
                           <p>Time Spent: ${history.timeDoTest} minutes</p>-------
                       `;
-                testHistoryDiv.appendChild(historyItem);
-              });
-            })
-            .catch((error) => {
-              console.error("Error fetching test history:", error);
+              testHistoryDiv.appendChild(historyItem);
             });
-
-          fetch(`http://localhost:5020/api/Test/TestDetail/${testId}`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
           })
-            .then((response) => response.json())
-            .then((testDetailData) => {
-              const testInfoDiv = testDetail.querySelector(".test-info");
-              testInfoDiv.innerHTML = "<h3>Test Info</h3>";
-              testDetailData.forEach((detail) => {
-                const detailItem = document.createElement("div");
-                detailItem.innerHTML = `
+          .catch((error) => {
+            console.error("Error fetching test history:", error);
+          });
+        fetch(`http://localhost:5020/api/Test/TestDetail/${testId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((detail) => {
+            const testInfoDiv = testDetail.querySelector(".test-info");
+            testInfoDiv.innerHTML = "<h3>Test Info</h3>";
+            const detailItem = document.createElement("div");
+            detailItem.innerHTML = `
                           <p>Test Name: ${detail.testName}</p>
                           <p>Time Limit: ${detail.time} minutes</p>
                           <p>Percent Point: ${detail.percentPoint}%</p>
                           <p>Number of Questions: ${detail.numberQuestion}</p>
                           <a href="/Student/DoTest?testId=${detail.testId}">Do Test</a>
                       `;
-                testInfoDiv.appendChild(detailItem);
-              });
-            })
-            .catch((error) => {
-              console.error("Error fetching test detail:", error);
-            });
-
-          testDetail.style.display = "block"; // Show the test detail section
-        }
+            testInfoDiv.appendChild(detailItem);
+          })
+          .catch((error) => {
+            console.error("Error fetching test detail:", error);
+          });
+        testDetail.style.display = "block"; // Show the test detail section
+      }
     </script>
-</body>
+  </body>
 </html>

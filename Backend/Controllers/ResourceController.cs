@@ -20,14 +20,14 @@ namespace Backend.Controllers
         [HttpGet("Course/{courseId}")]
         public async Task<IActionResult> GetResourcesOfCourseAsync(int courseId)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = -1;
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                // or
-                userID = Int32.Parse(identity.FindFirst("ID").Value);
-            }
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = 1;
+            //if (identity != null)
+            //{
+            //    IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
+            //}
 
             var resources = _context.ResourceUsers
                 .Include(x => x.Resource)
@@ -52,14 +52,14 @@ namespace Backend.Controllers
         [HttpGet("Resource/{resourceId}")]
         public async Task<IActionResult> GetResourceDetailAsync(int resourceId)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = -1;
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                // or
-                userID = Int32.Parse(identity.FindFirst("ID").Value);
-            }
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = 1;
+            //if (identity != null)
+            //{
+            //    IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
+            //}
 
             var resource = _context.ResourceUsers
                 .Include(x => x.Resource)
@@ -84,14 +84,14 @@ namespace Backend.Controllers
         [HttpPost("CompleteResource/{resourceId}")]
         public async Task<IActionResult> CompleteResourceAsync(int resourceId)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = -1;
-            if (identity != null)
-            {
-                IEnumerable<Claim> claims = identity.Claims;
-                // or
-                userID = Int32.Parse(identity.FindFirst("ID").Value);
-            }
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            int userID = 1;
+            //if (identity != null)
+            //{
+            //    IEnumerable<Claim> claims = identity.Claims;
+            //    // or
+            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
+            //}
 
             var resourceUser = _context.ResourceUsers
                 .FirstOrDefault(x => x.ResourceId == resourceId && x.UserId == userID);
