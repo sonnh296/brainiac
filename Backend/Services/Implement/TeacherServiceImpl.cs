@@ -1,5 +1,6 @@
 ﻿using Backend.CustomizedExceptions;
 using Backend.DTOs;
+using Backend.DTOs.Course;
 using Backend.Models;
 using Backend.Repositories;
 
@@ -24,7 +25,7 @@ namespace Backend.Services.Implement
             return await repository.GetSingleCourseByIdAsync(teacherid, courseid);
         }
 
-        public Task<Course> CreateCourseDraft(int teacherid, CourseDTO course)
+        public Task<Course> CreateCourseDraft(int teacherid, CourseCreateDTO course)
         {
             if (string.IsNullOrEmpty(course.CourseName))
             {
@@ -38,7 +39,12 @@ namespace Backend.Services.Implement
                     throw new RepeatedExeption("This course name has already existed");
                 }
             }
-            return repository.CreateCourseDraft(teacherid, course);
+            return repository.CreateCourse(teacherid, course);
+        }
+
+        public Task<Resource> CreateResource(ResourceDTO resource)
+        {
+            return null;
         }
     }
 }

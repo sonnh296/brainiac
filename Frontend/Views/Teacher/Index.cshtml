@@ -12,7 +12,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="~/js/weatherforecast.js"></script>
+    <script src="~/js/teacher/teacherIndex.js"></script>
     <link rel="stylesheet" href="~/css/teacher/style.css" />
 </head>
 
@@ -28,6 +28,10 @@
                     Search
                 </button>
             </form>
+        </div>
+        <div class="add-course">
+            <a class="btn btn-outline-success my-2 my-sm-0" href="@Url.Action("AddCourse", "Teacher")">Add course</a>
+ 
         </div>
 
         <div class="course-list">
@@ -56,83 +60,8 @@
                 <div>
                     <p class="course-price">Price: 100.000 vnd</p>
                 </div>
-            </div>
-            <div class="course-item">
-                <div class="course-title">
-                    <strong>Network communication</strong>
-                </div>
-                <div class="category-list">
-                    <div class="category-chip">
-                        <p>Networking</p>
-                    </div>
-                    <div class="category-chip">
-                        <p>Software</p>
-                    </div>
-                    <div class="category-chip">
-                        <p>IT</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="course-description">
-                        Brainport Eindhoven is Europe's most innovative technology region.
-                        Over 5000 high tech and IT companies work together in a unique
-                        ecosystem.
-                    </p>
-                </div>
-                <div>
-                    <p class="course-price">Price: 100.000 vnd</p>
-                </div>
-            </div>
-            <div class="course-item">
-                <div class="course-title">
-                    <strong>Network communication</strong>
-                </div>
-                <div class="category-list">
-                    <div class="category-chip">
-                        <p>Networking</p>
-                    </div>
-                    <div class="category-chip">
-                        <p>Software</p>
-                    </div>
-                    <div class="category-chip">
-                        <p>IT</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="course-description">
-                        Brainport Eindhoven is Europe's most innovative technology region.
-                        Over 5000 high tech and IT companies work together in a unique
-                        ecosystem.
-                    </p>
-                </div>
-                <div>
-                    <p class="course-price">Price: 100.000 vnd</p>
-                </div>
-            </div>
-            <div class="course-item">
-                <div class="course-title">
-                    <strong>Network communication</strong>
-                </div>
-                <div class="category-list">
-                    <div class="category-chip">
-                        <p>Networking</p>
-                    </div>
-                    <div class="category-chip">
-                        <p>Software</p>
-                    </div>
-                    <div class="category-chip">
-                        <p>IT</p>
-                    </div>
-                </div>
-                <div>
-                    <p class="course-description">
-                        Brainport Eindhoven is Europe's most innovative technology region.
-                        Over 5000 high tech and IT companies work together in a unique
-                        ecosystem.
-                    </p>
-                </div>
-                <div>
-                    <p class="course-price">Price: 100.000 vnd</p>
+                <div class="view-details">
+                    <a href="@Url.Action("SingleCourseDetails", "Teacher", new { courseId = 1 })">View details</a>
                 </div>
             </div>
         </div>

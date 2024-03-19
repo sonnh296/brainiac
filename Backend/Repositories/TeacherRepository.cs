@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.App.Constants;
 using Backend.DTOs;
+using Backend.DTOs.Course;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +22,7 @@ namespace Backend.Repositories
         {
             var courses = await context.Courses
                                        .Where(c => c.UserCourses.Any(uc => uc.UserId == teacherId && uc.IsStudent == false))
+                                       .Include(c => c.Resources)
                                        .Include(c => c.CategoryCourses)
                                        .ThenInclude(cc => cc.Category)
                                        .ToListAsync();
@@ -39,6 +41,7 @@ namespace Backend.Repositories
         {
             var course = await context.Courses
             .Where(c => c.CourseId == courseid && c.UserCourses.Any(uc => uc.UserId == teacherid && uc.IsStudent == false))
+            .Include(c => c.Resources)
             .Include(c => c.CategoryCourses)
             .ThenInclude(cc => cc.Category)
             .FirstOrDefaultAsync();
@@ -46,10 +49,11 @@ namespace Backend.Repositories
             return course;
         }
 
-        public async Task<Course> CreateCourseDraft(int teacherid, CourseDTO courseDto)
+        public async Task<Course> CreateCourse(int teacherid, CourseCreateDTO courseDto)
         {
             var course = mapper.Map<Course>(courseDto);
             var selectedCategories = courseDto.Categories;
+            course.Status = CourseConstants.CourseDraft;
             context.Courses.Add(course);
             await context.SaveChangesAsync();
             await ModifyUserCourseInfo(teacherid, course, CourseConstants.CourseDraft);
@@ -67,7 +71,7 @@ namespace Backend.Repositories
                 Status = status
             };
             context.UserCourses.Add(userCourse);
-            //await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return userCourse;
         }
 
@@ -85,8 +89,16 @@ namespace Backend.Repositories
             }
             // add cate course into db
             context.CategoryCourses.AddRange(listToAdd);
-            //await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
             return listToAdd;
+        }
+
+        public async Task<Resource> CreateResourceDraft(ResourceDTO resourcedto)
+        {
+            Resource res = mapper.Map<Resource>(resourcedto);
+            context.Resources.Add(res);
+            await context.SaveChangesAsync();
+            return res;
         }
     }
 }

@@ -1,20 +1,18 @@
 ﻿// teacher save draft new course
 $(document).ready(function () {
-    SaveDraftCourse();
-    PublishCourse();
     GetCategories();
-    
+    SaveDraftCourse();
 });
 
 function SaveDraftCourse() {
     $("#btn-save-draft").click(function () {
         var catesSeltected = getCategoryChecked();
-        let teacherId = getParameter("teacherId");
+        const teacherId = 16;
         let course = GetCourseInfo();
-        if (!course.title || !course.courseName || !course.price) {
+
+        if (!course.title || !course.courseName || !course.price || catesSeltected.length < 1) {
             alert("Course infos are missing");
         }
-        //console.log(catesSeltected);
 
         else {
             course.categories = catesSeltected;
@@ -25,58 +23,32 @@ function SaveDraftCourse() {
                 },
                 data: JSON.stringify(course),
                 type: "POST",
-                url: "http://localhost:5020/Teacher/course/add/" + teacherId,
-                success: function (result) {
+                url: "http://localhost:5020/Teacher/addCourse/" + teacherId,
+                success: function () {
                     alert("Added successfully");
-                    console.log(result);
+                    location.href = "/teacher";
                 },
-                error: function (error) {
-                    console.log(error);
+                error: function (jqXHR) {
+                    if (jqXHR.status === 400) {
+                        if (jqXHR.responseText.includes("existed")) {
+                            alert("The course name is duplicated");
+                        }
+                        else {
+                            console.log("Unknown Bad Request occurred");
+                        }
+                    } else {
+                        console.log("Unexpected Error:", jqXHR.responseText);
+                    }
                 }
             });
         }
     });
 }
 
-function PublishCourse() {
-    $("#btn-publish").click(function () {
-        console.log("Publish clicked");
-        const course = GetCourseInfo();
-
-        if (!course.title || !course.courseName || !course.price) {
-            alert("Course infos are missing");
-        }
-        //else {
-        //    alert("name:" + name);
-        //    let course = {
-        //        name: name,
-        //        title: title,
-        //        price: price,
-        //        status: "draft"
-        //    };
-        //    $.ajax({
-        //        headers: {
-        //            'Accept': '*/*',
-        //            'Content-Type': 'application/json'
-        //        },
-        //        data: JSON.stringify(course),
-        //        type: "POST",
-        //        url: "http://localhost:5020/Teacher/course/add/2",
-        //        success: function () {
-        //            alert("Added successfully");
-        //        },
-        //        error: function (error) {
-        //            console.log(error);
-        //        }
-        //    });
-        //}
-    });
-}
-
 function GetCourseInfo() {
-    let title = $("#courseTitle").val();
-    let name = $("#courseName").val();
-    let price = $("#coursePrice").val();
+    let title = $("#courseTitle").val().trim();
+    let name = $("#courseName").val().trim();
+    let price = $("#coursePrice").val().trim();
 
     const course = {
         title: title,
@@ -106,7 +78,6 @@ function GetCategories() {
                     </label>`;
                 biggest += a;
             }
-            //console.log(biggest);
             $("#set-cate").html(biggest);
         },
         error: function (error) {
