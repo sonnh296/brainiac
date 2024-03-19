@@ -11,7 +11,7 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : Controller
+    public class CourseController : BaseApiController
     {
         private readonly PRN231_V2Context _context;
         public CourseController(PRN231_V2Context context)
@@ -19,21 +19,11 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        //[Authorize(Roles = "Student")]
-        // GET: api/Course/CourseDetail/5
+        [Authorize(Roles = "Student")]
         [HttpGet("CourseDetail/{id}")]
         public async Task<IActionResult> GetCourseDetailAsync(int id)
         {
-            //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
-            //if (identity != null)
-            //{
-            //    IEnumerable<Claim> claims = identity.Claims;
-            //    // or
-            //    userID = Int32.Parse(identity.FindFirst("ID").Value);
-            //}
-
-            bool isEnrolled = _context.UserCourses.Any(x => x.CourseId == id && x.UserId == userID && x.IsStudent == true);
+            bool isEnrolled = _context.UserCourses.Any(x => x.CourseId == id && x.UserId == UserID && x.IsStudent == true);
 
             var course = _context.Courses
                 .Include(x => x.Resources)
@@ -50,7 +40,7 @@ namespace Backend.Controllers
             var listCategory = _context.CategoryCourses
                 .Where(x => x.Course.CourseId == id).Select(x => x.Category);
             int countEnrolled = _context.UserCourses.Where(x => x.CourseId == id && x.IsStudent == true).Count();
-            bool isRated = _context.Ratings.Any(x => x.CourseId == id && x.UserId == userID);
+            bool isRated = _context.Ratings.Any(x => x.CourseId == id && x.UserId == UserID);
 
             var obj = new
             {
@@ -63,7 +53,7 @@ namespace Backend.Controllers
                 Categories = listCategory,
                 Enrolled = countEnrolled,
                 IsEnrolled = isEnrolled,
-                UserId = userID,
+                UserId = UserID,
                 IsRated = isRated,
             };
             return Ok(obj);
