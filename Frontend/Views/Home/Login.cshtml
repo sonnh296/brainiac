@@ -778,8 +778,9 @@
 				if (data.role != null && data.role != undefined) {
 					document.cookie = `web-at=${data.accessToken}; path=/`;
 					document.cookie = `web-rt=${data.refreshToken}; path=/`;
+					document.cookie = `user-id=${data.userid}; path=/`;
 					if (data.role == "Student") {
-							window.location.href = "/home2";
+						window.location.href = "/home2";
 						return;
 					}
 					window.location.href = "/" + data.role + '/dashboard';
