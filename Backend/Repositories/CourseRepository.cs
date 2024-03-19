@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.DTOs;
+using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repositories
@@ -30,5 +31,6 @@ namespace Backend.Repositories
             _context.Courses.Remove(course);
             _context.SaveChanges();
         }
+
     }
 }

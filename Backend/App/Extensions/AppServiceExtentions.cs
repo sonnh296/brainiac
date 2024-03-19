@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Backend.DTOs;
-using Backend.Repositories;
+﻿using Backend.Repositories;
 using Backend.Services;
 using Backend.Services.Implement;
 
@@ -18,6 +16,9 @@ namespace Backend.App.Extensions
             services.AddScoped<CategoryRepository>();
             services.AddScoped<IStudentService, StudentServiceImpl>();
             services.AddScoped<StudentRepository>();
+
+            services.AddScoped<IResourceService, ResourceServiceImpl>();
+            services.AddScoped<ResourceRepository>();
         }
     }
 }

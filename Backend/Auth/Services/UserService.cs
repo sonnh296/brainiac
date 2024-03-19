@@ -36,6 +36,7 @@ namespace Backend.Auth.Services {
                 AccessToken = token.Item1,
                 RefreshToken = token.Item2,
                 Role = user.Role.RoleName,
+                Userid = user.UserId,
             };
         }
         public async Task<LogoutResponse> LogoutAsync(int userId) {

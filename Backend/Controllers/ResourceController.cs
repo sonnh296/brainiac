@@ -1,4 +1,6 @@
-﻿using Backend.Models;
+﻿using AutoMapper;
+using Backend.DTOs;
+using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +11,7 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourceController : Controller
+    public class ResourceController : BaseApiController
     {
         private readonly PRN231_V2Context _context;
         public ResourceController(PRN231_V2Context context)
@@ -21,7 +23,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> GetResourcesOfCourseAsync(int courseId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;
@@ -53,7 +55,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> GetResourceDetailAsync(int resourceId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;
@@ -85,7 +87,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> CompleteResourceAsync(int resourceId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;
@@ -104,5 +106,7 @@ namespace Backend.Controllers
             await _context.SaveChangesAsync();
             return Ok("Completed successfully!!!");
         }
+
+
     }
 }
