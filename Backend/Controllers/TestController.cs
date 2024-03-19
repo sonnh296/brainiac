@@ -8,7 +8,7 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestController : Controller
+    public class TestController : BaseApiController
     {
         private readonly PRN231_V2Context _context;
         public TestController(PRN231_V2Context context)
@@ -37,7 +37,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> HistoryTestlAsync(int testId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;

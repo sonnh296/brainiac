@@ -9,7 +9,7 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourceController : Controller
+    public class ResourceController : BaseApiController
     {
         private readonly PRN231_V2Context _context;
         public ResourceController(PRN231_V2Context context)
@@ -21,7 +21,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> GetResourcesOfCourseAsync(int courseId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;
@@ -53,7 +53,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> GetResourceDetailAsync(int resourceId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;
@@ -85,7 +85,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> CompleteResourceAsync(int resourceId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;

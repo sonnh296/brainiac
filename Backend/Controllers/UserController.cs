@@ -9,7 +9,7 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : BaseApiController
     {
         private readonly PRN231_V2Context _context;
         public UserController(PRN231_V2Context context)
@@ -20,7 +20,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> GetCurrentUserAsyn()
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            int userID = 1;
+            int userID = UserID;
             //if (identity != null)
             //{
             //    IEnumerable<Claim> claims = identity.Claims;
