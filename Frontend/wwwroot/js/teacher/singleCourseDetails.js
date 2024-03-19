@@ -11,6 +11,7 @@ function getParameter(param) {
     }
 }
 function GetCourseDetails() {
+    let teacherId = 2;
     let courseId = getParameter("courseId");
     $.ajax({
         headers: {
@@ -18,25 +19,30 @@ function GetCourseDetails() {
             'Content-Type': 'application/json'
         },
         type: "GET",
-        //url: "http://localhost:5020/Teacher/GetSingleCourse/" + courseId,
-        url: "https://jsonplaceholder.typicode.com/posts/1",
+        url: "http://localhost:5020/Teacher/GetSingleCourse?teacherId=" + teacherId + "&courseId=" + courseId,
         success: function (result) {
-            debugger;
-            var title = "";
-            console.log(result);
-            for (let i = 0; i < result.length; i++){
-                title = result[i].title;
-                //$('#course-description').val(r.body);
-                //$('#course-author').val(r.userId);
-                //$('#course-price').val(r.id);
+            //console.log(result);
+            let biggest = "";
+            for (let i = 0; i < result.resources.length; i++) {
+                const a = `
+                    <div class="single-lesson">
+                    <button class="accordion">Lesson ${i+1}</button>
+                    <div class="panel">
+                        <p>${result.resources[i].description}</p>
+                        <div class="edit-lesson">
+                            <button>Edit</button>
+                        </div>
+                    </div>
+                </div>`;
+                biggest += a;
             }
-            console.log(title);
-            $('#course-title-name').val(title);
-            //$('#course-description').val(result.title);
-            //$('#course-author').val(result.userId);
-            //$('#course-price').val(result.id);
+            $('#course-title-name').val(result.courseName);
+            $('#course-description').val(result.title);
+            $('#price').val(result.price + " vnd");
+            $('.lessons').html(biggest);
         },
         error: function (error) {
+            console.log(this.url);
             console.log(error);
         }
     });

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Backend.DTOs;
 using Backend.Services;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using Backend.DTOs.Course;
 
 namespace Backend.Controllers
 {

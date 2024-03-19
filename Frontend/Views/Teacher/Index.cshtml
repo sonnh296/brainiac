@@ -29,6 +29,10 @@
                 </button>
             </form>
         </div>
+        <div class="add-course">
+            <a class="btn btn-outline-success my-2 my-sm-0" href="@Url.Action("AddCourse", "Teacher")">Add course</a>
+ 
+        </div>
 
         <div class="course-list">
             <div class="course-item">
@@ -55,6 +59,9 @@
                 </div>
                 <div>
                     <p class="course-price">Price: 100.000 vnd</p>
+                </div>
+                <div class="view-details">
+                    <a href="@Url.Action("SingleCourseDetails", "Teacher", new { courseId = 1 })">View details</a>
                 </div>
             </div>
         </div>

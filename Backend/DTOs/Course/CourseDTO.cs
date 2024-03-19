@@ -1,4 +1,4 @@
-﻿namespace Backend.DTOs
+﻿namespace Backend.DTOs.Course
 {
     public class CourseDTO
     {
@@ -8,6 +8,7 @@
         public decimal Price { get; set; }
         public string? Status { get; set; }
         public List<CategoryDTO> Categories { get; set; }
+        public List<ResourceDisplayDTO> Resources { get; set; }
 
     }
 }

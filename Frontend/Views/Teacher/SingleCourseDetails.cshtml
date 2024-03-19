@@ -18,12 +18,12 @@
     <main>
         <div class="course-detail">
             <div>
-                <h2>General information</h2>
+                <h2>Course general information</h2>
             </div>
             <div class="general-info">
                 <div class="course-title">
-                    <label for="course-title-name">Course title:</label>
-                    <input type="text" id="course-title-name" name="course-title-name" readonly/>
+                    <label for="course-title-name">Course name:</label>
+                    <input type="text" id="course-title-name" name="course-title-name" disable="true" />
                 </div>
                 <div class="course-description">
                     <label for="course-description">Description:</label>
@@ -31,29 +31,19 @@
                               name="course-description"
                               rows="4"
                               cols="50"
-                              disabled="true"
-                    >
-                              
+                              disable="true"
+                    >      
                     </textarea>
-                </div>
-                <div class="course-author">
-                    <label for="author-name">Author:</label>
-                    <input type="text"
-                           id="author-name"
-                           name="author-name"
-                           value="John Doe"
-                           disabled="true" />
                 </div>
                 <div class="course-price">
                     <label for="price">Price:</label>
                     <input type="text"
                            id="price"
                            name="price"
-                           value="$100"
-                           disabled="true" />
+                           disable="true" />
                 </div>
                 <div>
-                    <button id="edit-button">edit info</button>
+                    <button id="edit-button">Edit</button>
                     <button id="save-button" disabled>Save</button>
                 </div>
             </div>
@@ -62,16 +52,16 @@
                 <h2>Lessons</h2>
             </div>
             <div class="lessons">
-                <button class="accordion">Section 1</button>
-                <div class="panel">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                        enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat.
-                    </p>
-                    <div class="editlesson">
-                        <button>[  Edit  ]</button>
+                <div class="single-lesson">
+                    <button class="accordion">Lesson 1</button>
+                    <div class="panel">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                        <div class="edit-lesson">
+                            <button>Edit</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,10 +70,10 @@
 
     <script>
         var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
+        console.log(acc);
+        for (var i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function () {
+                console.log("Clicked aaa");
                 this.classList.toggle("active");
                 var panel = this.nextElementSibling;
                 if (panel.style.display === "block") {

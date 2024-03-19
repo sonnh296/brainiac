@@ -1,4 +1,5 @@
 ﻿using Backend.DTOs;
+using Backend.DTOs.Course;
 using Backend.Models;
 
 namespace Backend.Services
@@ -7,7 +8,7 @@ namespace Backend.Services
     {
         public Task<List<Course>> GetCourseListByTeacherAsync(int id);
         public Task<Course> GetSingleCourseByIdAsync(int teacherid, int courseid);
-        public Task<Course> CreateCourseDraft(int teacherid, CourseDTO course);
+        public Task<Course> CreateCourseDraft(int teacherid, CourseCreateDTO course);
         public Task<Resource> CreateResource(ResourceDTO resource);
     }
 }

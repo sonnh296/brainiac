@@ -18,33 +18,29 @@ function GetAllCoursesOfTeacher() {
             'Content-Type': 'application/json'
         },
         type: "GET",
-        url: "http://localhost:5020/Teacher/course/" + teacherId,
+        url: "http://localhost:5020/Teacher/GetAllCourses" ,
         success: function (result) {
-            console.log(result);
+            //console.log(result);
             let biggest = "";
             for (let i = 0; i < result.length; i++) {
+                const actionUrl = "http://localhost:5016/Teacher/SingleCourseDetails?courseId=" + result[i].courseId;
                 const a = `
                     <div class="course-item">
                         <div class="course-name">
-                            <strong>${result.courseName}</strong>
+                            <strong>${result[i].courseName}</strong>
                         </div>
-                        <div class="category-list">
-                            <div class="category-chip">
-                                <p>${result.categories.categoryName}</p>
-                            </div>
+                        <div class="course-description">
+                            <p>${result[i].title}</p>
                         </div>
-                        <div>
-                            <p class="course-description">
-                                ${result.title}
-                            </p>
+                        <div class="course-price">
+                            <p>Price: ${result[i].price} vnd</p>
                         </div>
-                        <div>
-                            <p class="course-price">Price: ${result.price} vnd</p>
+                        <div class="view-details">
+                            <a href="${actionUrl}" class="btn btn-primary">View details</a>
                         </div>
                     </div>`;
                 biggest += a;
             }
-            console.log(biggest);
             $(".course-list").html(biggest);
         },
         error: function (error) {
@@ -53,31 +49,63 @@ function GetAllCoursesOfTeacher() {
     });
 }
 
+function ViewCourseDetails() {
+    $("#btn-details").click(function () {
+        var catesSeltected = getCategoryChecked();
+        let teacherId = getParameter("teacherId");
+        let course = GetCourseInfo();
+        if (!course.title || !course.courseName || !course.price) {
+            alert("Course infos are missing");
+        }
+        //console.log(catesSeltected);
 
-    $(document).ready(function () {
-        $.ajax({
-            url: 'http://localhost:5020/Teacher/course/2',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                displayCourses(data);
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-
-        function displayCourses(courses) {
-            var courseListHtml = '';
-            courses.forEach(function (course) {
-                courseListHtml += '<h2>' + course.courseName + '</h2>';
-                courseListHtml += '<ul>';
-                course.categories.forEach(function (category) {
-                    courseListHtml += '<li>' + category.categoryName + '</li>';
-                });
-                courseListHtml += '</ul>';
+        else {
+            course.categories = catesSeltected;
+            $.ajax({
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(course),
+                type: "POST",
+                url: "http://localhost:5020/Teacher/course/add/" + teacherId,
+                success: function (result) {
+                    alert("Added successfully");
+                    console.log(result);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
             });
-
-            $('#courseList').html(courseListHtml);
         }
     });
+}
+
+
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        url: 'http://localhost:5020/Teacher/course/2',
+    //        type: 'GET',
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            displayCourses(data);
+    //        },
+    //        error: function (xhr, status, error) {
+    //            console.error(xhr.responseText);
+    //        }
+    //    });
+
+    //    function displayCourses(courses) {
+    //        var courseListHtml = '';
+    //        courses.forEach(function (course) {
+    //            courseListHtml += '<h2>' + course.courseName + '</h2>';
+    //            courseListHtml += '<ul>';
+    //            course.categories.forEach(function (category) {
+    //                courseListHtml += '<li>' + category.categoryName + '</li>';
+    //            });
+    //            courseListHtml += '</ul>';
+    //        });
+
+    //        $('#courseList').html(courseListHtml);
+    //    }
+    //});

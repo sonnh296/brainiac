@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.CustomizedExceptions;
 using Backend.DTOs;
+using Backend.DTOs.Course;
 using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Http;
@@ -42,8 +43,8 @@ namespace Backend.Controllers
         }
 
         // add a new course
-        [HttpPost("course/addCourse/{teacherId}")]
-        public async Task<ActionResult<CourseDTO>> CreateNewCourseDraft(int teacherId, [FromBody] CourseDTO course)
+        [HttpPost("addCourse/{teacherId}")]
+        public async Task<ActionResult<CourseDTO>> CreateNewCourseDraft(int teacherId, CourseCreateDTO course)
         {
             try
             {

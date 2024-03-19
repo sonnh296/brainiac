@@ -17,9 +17,14 @@ namespace Frontend.Controllers
             return View();
         }
 
-        public IActionResult SingleCourseDetails()
+        public IActionResult SingleCourseDetails(int? courseId)
         {
-            return View();
+            if (courseId.HasValue)
+            {
+                ViewBag.CourseId = courseId;
+                return View();
+            }
+            return View("/Views/Shared/Error.cshtml");
         }
 
         public IActionResult AddResource(int? courseid)
