@@ -2,22 +2,26 @@
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
-        if (cookie.startsWith("web-at" + '=')) {
+        if (cookie.startsWith("web-at=")) {
+            return cookie.substring(7);
+        }
+    }
+    var rt = getRefreshToken();
+    if (rt != null && rt != undefined) {
+
+    }
+    return null;
+}` `
+
+function getRefreshToken() {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("web-rt=")) {
             return cookie.substring(7);
         }
     }
     return null;
-}
-
-function getRefreshToken() {
-    const cookies = document.cookie.split(';').map(cookie => cookie.trim());
-    for (const cookie of cookies) {
-        const [name, value] = cookie.split('=');
-        if (name === 'web-rt') {
-            return value;
-        }
-    }
-    return null; // Return null if refresh token cookie is not found
 }
 
 function setCookie(name, value, days) {
