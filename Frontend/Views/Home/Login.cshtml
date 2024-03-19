@@ -707,7 +707,7 @@
 		</div>
 	</div>
 	<!-- partial -->
-
+	<script src="~/js/auth/api.js"></script>
 <script>
 	const signUpButton = document.getElementById('signUp');
 	const signInButton = document.getElementById('signIn');
@@ -779,8 +779,9 @@
 				if (data.role != null && data.role != undefined) {
 					document.cookie = `web-at=${data.accessToken}; path=/`;
 					document.cookie = `web-rt=${data.refreshToken}; path=/`;
-						if (data.role == "Student") {
-					window.location.href = "/";
+					if (data.role == "Student") {
+						window.location.href = "/";
+						var t = getAccessToken()
 						return;
 					}
 					window.location.href = "/" + data.role + '/dashboard';
