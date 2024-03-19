@@ -98,5 +98,16 @@ namespace Backend.Auth.Services {
                 ErrorCode = "S05"
             };
         }
+        public async Task<ResetPassRequest> ResetPassAsync(ResetPassRequest resetPassRequest)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(user => user.UserId == resetPassRequest.UserId);
+            var salt = PasswordHelper.GetSecureSalt();
+            var passwordHash = PasswordHelper.HashUsingPbkdf2(resetPassRequest.Password, salt);
+            user.PasswordSalt = Convert.ToBase64String(salt);
+            user.Password = passwordHash;
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return resetPassRequest;
+        }
     }
 }

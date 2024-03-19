@@ -51,6 +51,8 @@ namespace Backend.Controllers.Admin
                     u.UserId,
                     u.UserName,
                     u.Email,
+                    u.IsActive,
+                    u.Balance,
                     Role = new
                     {
                         u.Role?.RoleId,
@@ -153,6 +155,52 @@ namespace Backend.Controllers.Admin
             else
             {
                 return NotFound("User not found");
+            }
+        }
+        [HttpPut("UpdateUserStatus/{id}")]
+        public async Task<IActionResult> UpdateStatus(int id, [FromBody] int status)
+        {
+           
+
+            if (ModelState.IsValid)
+            {
+                // Check if the course with the given ID exists
+                User existingUser = await _userRepository.GetByIdAsync(id);
+
+                if (existingUser == null)
+                {
+                    return NotFound("User not found");
+                }
+
+                // Update the course's status
+                if(status == 1)
+                {                    
+                    existingUser.IsActive = true;
+                }else if (status == 0) {
+                    existingUser.IsActive = false;
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+                
+
+                try
+                {
+                    // Save changes to the database
+                    await _context.SaveChangesAsync();
+                    return Ok(existingUser);
+                }
+                catch (DbUpdateException ex)
+                {
+                    // Handle exceptions if any
+                    return StatusCode(500, $"Failed to update user status: {ex.Message}");
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
 

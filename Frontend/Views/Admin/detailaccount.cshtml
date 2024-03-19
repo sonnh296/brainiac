@@ -139,56 +139,66 @@
 			</ol>
 		</div><!--/.row-->
 
-		<div>
-			<form id="accountForm">
-				<div class="form-group">
-					<label for="userName">User Name:</label>
-					<input type="text" class="form-control" id="userName" value="" readonly>
-				</div>
-
-				<div class="form-group">
-					<label for="status">Status:</label>
-					<input type="text" class="form-control" id="status" value="Active" readonly>
-				</div>
-
-				<div class="form-group">
-					<label for="email">Email:</label>
-					<input type="email" class="form-control" id="email" value="johndoe@example.com" readonly>
-				</div>
-				<div class="form-group">
-					<label for="password">Password:</label>
-					<div class="input-group">
-						<input type="password" class="form-control" id="password" value="password123" readonly>
-						<div class="input-group-append">
-							<button class="btn btn-outline-secondary" type="button" id="togglePassword">
-								<i class="fa fa-eye" aria-hidden="true"></i>
-							</button>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">Account Information</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="user_id"><strong>User ID:</strong></label>
+							<span id="user_id"></span>
+						</div>
+						<div class="form-group">
+							<label for="user_name"><strong>User Name:</strong></label>
+							<span id="user_name"></span>
+						</div>
+						<div class="form-group">
+							<label for="email"><strong>Email:</strong></label>
+							<span id="email"></span>
+						</div>
+						<div class="form-group">
+							<label for="balance"><strong>Balance:</strong></label>
+							<span id="balance"></span>
+						</div>
+						<div class="form-group">
+							<label for="num_tests"><strong>Number of Tests:</strong></label>
+							<span id="num_tests"></span>
+							<button id="show_tests_button" class="btn btn-default"><img src="/imgs/admin-img/list.png" width="20" height="20" alt="acc Icon"></button>
+						</div>
+						<div class="form-group">
+							<label for="num_resources"><strong>Number of Resource:</strong></label>
+							<span id="num_resources"></span>
+							<button id="show_resources_button" class="btn btn-default"><img src="/imgs/admin-img/list.png" width="20" height="20" alt="acc Icon"></button>
+						</div>
+						<div class="form-group row">
+							<div class="col-md-6">
+								<label for="status"><strong>Status:</strong></label>
+								<span id="status"></span>
+							</div>
+							<div class="col-md-6">
+								<label for="statusSelect"><strong>Edit Status:</strong></label>
+								<select class="form-control" id="statusSelect">
+									<option value="1">Active</option>
+									<option value="0">Unactive</option>
+							
+									<!-- Add other status options as needed -->
+								</select>
+								<button id="saveStatus" onclick="updateUserStatus()" class="btn btn-primary"><img src="/imgs/admin-img/save.png" width="20" height="20" alt="acc Icon"> Save</button>
+								<div style="color: green; font-weight: bold;" id="successMessage"></div>
+							</div>
+						</div>
+						<div class="form-group">
+							
 						</div>
 					</div>
 				</div>
+			</div>
+		
 
 
-				<div class="form-group">
-					<label for="role">Role:</label>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="teacherCheckbox">
-						<label class="form-check-label" for="teacherCheckbox">Teacher</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="adminCheckbox">
-						<label class="form-check-label" for="adminCheckbox">Admin</label>
-					</div>
-					<div class="form-check">
-						<input type="checkbox" class="form-check-input" id="studentCheckbox">
-						<label class="form-check-label" for="studentCheckbox">Student</label>
-					</div>
-				</div>
 
-				<button type="button" class="btn btn-primary" id="editButton">Edit</button>
-				<button type="button" class="btn btn-success" id="saveButton">Save</button>
-				<button type="button" class="btn btn-secondary" id="cancelButton">Cancel</button>
-			</form>
-		</div><!--/.row-->
+			<ul id="test_list"></ul>
+		</div><!--/.main-->
 
 
 		
@@ -197,27 +207,24 @@
 	</div><!--/.main-->
 	
 <script>
+		var urlParams = new URLSearchParams(window.location.search);
+		var userId = urlParams.get('id');
         $(document).ready(function () {
-            // Lấy user ID từ URL (tham số truyền vào)
-            var urlParams = new URLSearchParams(window.location.search);
-            var userId = urlParams.get('accid');
 
             // Kiểm tra nếu có user ID thì thực hiện AJAX request để lấy thông tin người dùng
             if (userId) {
                 $.ajax({
+					// console.log("userid : " + userId);
                     url: 'http://localhost:5020/Admin/ManageUser/GetUser/' + userId,
                     method: 'GET',
                     dataType: 'json',
                     success: function (userData) {
-                        // Điền thông tin người dùng vào các trường trong form
-                        $('#userName').val(userData.userName);
-                        @* $('#status').val(userData.status); *@
-                        $('#email').val(userData.email);
-                        $('#password').val(userData.password); // Lưu ý: Không nên hiển thị mật khẩu như này
-                        // Xử lý checkbox roles tùy thuộc vào dữ liệu từ API
-                        $('#teacherCheckbox').prop('checked', userData.roles.includes('Teacher'));
-                        $('#adminCheckbox').prop('checked', userData.roles.includes('Admin'));
-                        $('#studentCheckbox').prop('checked', userData.roles.includes('Student'));
+						$('#user_id').text(userData.userId);
+						$('#user_name').text(userData.userName);
+						$('#email').text(userData.email);
+						$('#balance').text(userData.balance);
+						var status = userData.isActive == 1 ? "Active" : "Unactive"
+						$('#status').text(status);
                     },
                     error: function () {
                         console.error('Error fetching detailed user information');
@@ -225,6 +232,38 @@
                 });
             }
         });
+		function updateUserStatus() {
+
+			var status1 = document.getElementById("statusSelect").value;
+
+			console.log("usser status"+status1);
+			$.ajax({
+				url: `http://localhost:5020/Admin/ManageUser/UpdateUserStatus/${userId}`,
+				type: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(status1),
+				success: function (response) {
+					console.log('User status updated:', response);
+					// Thực hiện các hành động khác sau khi cập nhật thành công
+					// Store success message in sessionStorage
+					sessionStorage.setItem('successMessage', 'Change status successfully!');
+					location.reload();
+				},
+				error: function (xhr, status, error) {
+					console.error('There was a problem updating course status:', error);
+				}
+			});
+		}
+		window.onload = function () {
+			var successMessage = sessionStorage.getItem('successMessage');
+			if (successMessage) {
+				// Display success message in <div> element
+				var successDiv = document.getElementById("successMessage");
+				successDiv.innerText = successMessage;
+				// Clear success message from sessionStorage
+				sessionStorage.removeItem('successMessage');
+			}
+		};
     </script>
 	<script src="/js/jquery-1.11.1.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>

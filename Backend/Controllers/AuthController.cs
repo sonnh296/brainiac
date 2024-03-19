@@ -89,5 +89,21 @@ namespace Backend.Controllers {
             }
             return Ok();
         }
+
+        [HttpPut]
+        [Route("reset_password")]
+        public async Task<IActionResult> ResetPassword(ResetPassRequest resetPasswordRequest)
+        {
+            try
+            {
+                var resetPasswordResponse = await userService.ResetPassAsync(resetPasswordRequest);
+                return Ok(resetPasswordResponse);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
     }
 }
