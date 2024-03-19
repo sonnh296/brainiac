@@ -185,6 +185,7 @@
                                     <!-- Add other status options as needed -->
                                 </select>
                                 <button id="saveStatus" onclick="updateCourseStatus()" class="btn btn-primary"><img src="/imgs/admin-img/save.png" width="20" height="20" alt="acc Icon"> Save</button>
+                                <div style="color: green; font-weight: bold;" id="successMessage"></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -402,6 +403,7 @@
                     data: JSON.stringify(status1),
                     success: function (response) {
                         console.log('Course status updated:', response);
+                        sessionStorage.setItem('successMessage', 'Change status successfully!');
                         // Thực hiện các hành động khác sau khi cập nhật thành công
                         location.reload();
                     },
@@ -410,6 +412,16 @@
                     }
                 });
             }
+            window.onload = function () {
+                var successMessage = sessionStorage.getItem('successMessage');
+                if (successMessage) {
+                    // Display success message in <div> element
+                    var successDiv = document.getElementById("successMessage");
+                    successDiv.innerText = successMessage;
+                    // Clear success message from sessionStorage
+                    sessionStorage.removeItem('successMessage');
+                }
+            };
 
         </script>
         <script src="/js/jquery-1.11.1.min.js"></script>
