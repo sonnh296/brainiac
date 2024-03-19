@@ -76,7 +76,7 @@
                         return;
                     } else {
                         addedMoney = parseFloat(addedMoney);
-                        if (isNaN(addedMoney) || addedMoney < 5) {
+                        if (isNaN(addedMoney) || addedMoney < 10) {
                             alert("Invalid input. Please enter a valid amount.");
                         } else {
                             window.location.href = `http://localhost:5016/Student/CreatePaymentUrl?userId=${userId}&amount=${addedMoney}&isCheckout=true&courseId=${courseId}`;
