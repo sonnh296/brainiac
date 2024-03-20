@@ -1,4 +1,6 @@
-﻿namespace Backend.DTOs.Course
+﻿using Backend.DTOs.Resource;
+
+namespace Backend.DTOs.Course
 {
     public class CourseDTO
     {

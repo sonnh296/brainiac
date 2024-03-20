@@ -2,6 +2,7 @@
 using Backend.App.Constants;
 using Backend.DTOs;
 using Backend.DTOs.Course;
+using Backend.DTOs.Resource;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -93,9 +94,16 @@ namespace Backend.Repositories
             return listToAdd;
         }
 
-        public async Task<Resource> CreateResourceDraft(ResourceDTO resourcedto)
+        public List<Resource> GetResourceListInACourse(int courseId)
         {
-            Resource res = mapper.Map<Resource>(resourcedto);
+            var resources = context.Resources.Where(r => r.CourseId == courseId).ToList();
+            return resources;
+        }
+
+        public async Task<Resource> CreateResourceDraft(int courseid, ResourceCreateDTO rsCreate)
+        {
+            Resource res = mapper.Map<Resource>(rsCreate);
+            res.CourseId = courseid;
             context.Resources.Add(res);
             await context.SaveChangesAsync();
             return res;
