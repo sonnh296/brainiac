@@ -4,6 +4,8 @@ using Backend.Auth.Requests;
 using Backend.Auth.Responses;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
+using System.Net;
 
 namespace Backend.Auth.Services {
     public class UserService : IUserService{
@@ -98,9 +100,20 @@ namespace Backend.Auth.Services {
                 ErrorCode = "S05"
             };
         }
+
+        public async Task<User> FindUserAsync(string email)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(user => user.Email == email);
+            if (user == null)
+            {
+                return null;
+            }
+            return user;
+        }
+
         public async Task<ResetPassRequest> ResetPassAsync(ResetPassRequest resetPassRequest)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(user => user.UserId == resetPassRequest.UserId);
+            User user = await _context.Users.SingleOrDefaultAsync(user => user.UserId == resetPassRequest.UserId);
             var salt = PasswordHelper.GetSecureSalt();
             var passwordHash = PasswordHelper.HashUsingPbkdf2(resetPassRequest.Password, salt);
             user.PasswordSalt = Convert.ToBase64String(salt);
@@ -110,4 +123,5 @@ namespace Backend.Auth.Services {
             return resetPassRequest;
         }
     }
+
 }

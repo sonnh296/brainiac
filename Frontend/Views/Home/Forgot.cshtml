@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Reset password</h1>
+<p>Enter your email</p>
+<form id="resetForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="submit" value="Reset password">
+</form>
+
+<script>
+    document.getElementById("resetForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        fetch(`http://localhost:5020/api/request_reset_pass/${email}`)
+            .then(response => {
+                if (response.ok) {
+                    alert("An email has just sent you. Please check");
+                } else {
+                    alert("Don't have email in system!");
+                }
+            });
+    });
+</script>
