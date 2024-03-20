@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Backend.CustomizedExceptions;
-using Backend.DTOs;
 using Backend.DTOs.Course;
+using Backend.DTOs.Resource;
 using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Http;
@@ -62,11 +62,23 @@ namespace Backend.Controllers
         }
 
         // add a new resource to a course
-        [HttpPost("Resource/AddResource")]
-        public async Task<ActionResult<ResourceDTO>> CreateResourceDraft(ResourceDTO resource)
+        [HttpPost("Resource/AddResource/{courseId}")]
+        public async Task<ActionResult<ResourceDTO>> CreateResourceDraft(int courseId, ResourceCreateDTO resource)
         {
-
-            return Ok();
+            try
+            {
+                var res = service.CreateResource(courseId, resource);
+                return Ok(resource);
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest("Resource name cannot be empty");
+            }
+            catch (RepeatedExeption)
+            {
+                return BadRequest("Resource name has already existed");
+            }
+            
         }
     }
 }

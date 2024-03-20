@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.DTOs;
 using Backend.DTOs.Course;
+using Backend.DTOs.Resource;
 using Backend.Models;
 using System.IO;
 
@@ -24,6 +25,8 @@ namespace Backend.Configurations
             CreateMap<ResourceDTO, Resource>();
             CreateMap<Resource, ResourceDisplayDTO>();
             CreateMap<ResourceDisplayDTO, Resource>();
+            CreateMap<Resource, ResourceCreateDTO>();
+            CreateMap<ResourceCreateDTO, Resource>();
         }
     }
 }
