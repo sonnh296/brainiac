@@ -91,7 +91,7 @@
             money = parseFloat(money);
             if (money != null && money > 10) {
                 window.location.href = `http://localhost:5016/Student/CreatePaymentUrl?userId=${userId}&amount=${money}`;
-            }else
+            } else { 
                 alert("The amount of money must be greater than 10");
             }
         }
