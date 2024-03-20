@@ -1,7 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout = "_LayoutHome";
 }
 
 <!DOCTYPE html>
@@ -27,24 +25,199 @@
             color: white;
             border-radius: 5px;
         }
+
+
+        .box1 {
+            background: rgba(255,255,255,0.6);
+            padding: 20px 20px 20px 20px;
+            border: 1px;
+            border-radius: 0px;
+            word-wrap: break-word;
+            box-shadow: 0 3px 6px #dadada;
+            min-height: 360px;
+        }
+
+        .box2 {
+            background-color: transparent;
+            border: 1px solid #c9cacc;
+            padding: 5px 5px 5px 5px;
+            min-height: 360px;
+            border-radius: 0px;
+            word-wrap: break-word;
+        }
+
+        p.background {
+            background: #efefef;
+            border-radius: 2px;
+            padding: 10px 10px 10px 10px;
+            margin-top: 5px;
+            word-wrap: break-word;
+        }
+
+        .logo-main {
+            display: block;
+            margin: 5px auto;
+            margin-left: :50%
+        }
+
+        #footer {
+            position: fixed;
+            z-index: 1;
+            height: 80px;
+            background: rgba(255,255,255,0.9);
+            bottom: 0px;
+            left: 0px;
+            padding: 5px 5px 5px 5px;
+            right: 0px;
+            margin-bottom: 0px;
+            -webkit-box-shadow: -1px -9px 20px -15px rgba(0,0,0,0.75);
+            -moz-box-shadow: -1px -9px 20px -15px rgba(0,0,0,0.75);
+            box-shadow: -1px -9px 20px -15px rgba(0,0,0,0.75);
+        }
+
+        hr.style18 {
+            border-top: 1px solid #c9cacc;
+        }
+
+        ::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px #fff;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: steelblue;
+            -webkit-box-shadow: inset 0 0 6px #fff;
+        }
+
+            ::-webkit-scrollbar-thumb:window-inactive {
+                background: rgba(255,0,0,0.4);
+            }
     </style>
 </head>
 <body>
-    <div class="info-test">
-        <div class="test-name"></div>
-        <div class="duration"></div>
-        <div class="question-no"></div>
-        <div class="mark"></div>
-        <div class="time-left"></div>
-        <div class="time-left1"></div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <nav class="navbar navbar-default navbar-fixed-top" style="-webkit-box-shadow: -2px 18px 24px -28px rgba(0,0,0,0.75);
+		-moz-box-shadow: -2px 18px 24px -28px rgba(0,0,0,0.75);
+		box-shadow: -2px 18px 24px -28px rgba(0,0,0,0.75);background:rgba(255,255,255,0.9);">
+
+        <div class="container-fluid">
+            <header role="banner" style="margin-left: 10%;">
+                <div class="logo-main">
+                    <ul class="nav navbar-nav navbar-right" style="margin-top: 10px;margin-right: 20px;">
+                        <div class="info-test">
+                            <div class="test-name"></div>
+                            <div class="duration"></div>
+                            <div class="mark"></div>
+                            <div class="question-no"></div>
+                           
+                        </div>
+                        
+                     
+                    </ul>
+                    
+                </div>
+            </header>
+            <div class="time-left"></div>
+            <div class="time-left1"></div>
+        </div>
+    </nav>
+    
+
+    <div class="container-fluid " style="margin-bottom: 100px;">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="box1">
+                    <div class="box2">
+                        
+                        <div class="container-fluid question-container">
+                            <p class="background ">Loading.....</p>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="box1">
+                    <div class="box2">
+                        <div class="rox">
+                            <div style="text-align: center;">
+                                <h4>Questions</h4>
+                                <hr>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 20%;     margin-left: 30%;">
+                            <div class="" style="text-align: center; margin-left: 18%;">
+                                <div class="control">
+                                <button class="prev  btn btn-primary" data-toggle="tooltip" title="Previous"><</button>
+                                <button class="next btn btn-primary" data-toggle="tooltip" title="Next">></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 15%;     margin-left: 10%;">
+                            <div class="" style="text-align: center;     margin-left: 25%;">
+                                <div class="control">
+                              
+                               
+                                <button class="submit btn btn-danger" data-toggle="modal" data-target="#teamviewmodal">Submit</button>
+                                    <button class="closesss btn btn-primary">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
     </div>
-    <div class="question-container"></div>
-    <div class="control">
-        <button class="prev">Prev</button>
-        <button class="next">Next</button>
-        <button class="close">Close</button>
-        <button class="submit">Submit</button>
+
+    <!--modal-->
+    <div class="modal fade" id="teamviewmodal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title textfont" style="text-align: center;"><strong style="font-size: 25px">Warning</strong></h4>
+                </div>
+                <div class="modal-body" style="text-align: center;">
+                    <h5>Do You Really Want to Submit Test?</h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+
+        </div>
     </div>
+   
+
+    
     <div class="progress-bar">
         <div class="progress">0%</div>
     </div>
@@ -54,6 +227,11 @@
         <div class="score"></div>
         <button class="btnBack">Back</button>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+
     <script src="~/js/auth/api.js"></script>
     <script>
         const startTime = new Date();
@@ -122,8 +300,8 @@ courseId = data.courseId;
             var questionElement = document.createElement("div");
             questionElement.classList.add("question");
             questionElement.innerHTML = `
-                  <div class="question-content">${question.questionContent}</div>
-                  <div class="answers">
+                           <div style='font-size: 30px;' class="background question-content">${question.questionContent}</div>
+                                  <div class="radio answers">
                     ${question.answers
                     .map(
                         (answer) => `
@@ -282,7 +460,7 @@ courseId = data.courseId;
                 });
         }
 
-        var btnClose = document.querySelector(".close");
+        var btnClose = document.querySelector(".closesss");
         btnClose.addEventListener("click", function () {
             var confirmClose = confirm("Are you sure you want to close this test. Result will not be saved?");
             if (confirmClose) {
