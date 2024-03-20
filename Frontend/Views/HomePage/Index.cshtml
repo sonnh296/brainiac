@@ -168,7 +168,7 @@
             </div>
             <div class="modal-footer">
                 <button onclick="closePopup()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>    
+            </div>
         </div>
 
         <div id="overlay" class="overlay"></div>
@@ -720,28 +720,28 @@
                         if (count == 0) {
                             rows1 += `  <li id="${item.courseId}" class="flex-active-slide" style="width: 210px; margin-right: 5px; float: left; display: block;">
 
-                                    <div class="imagecontainer">
+                                            <div class="imagecontainer">
 
-                                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
-                                                <div class="centeredimage">${item.courseName}</div>
-                                                        <div class="bottomimage">${item.title}</div>
+                                                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                                                        <div class="centeredimage">${item.courseName}</div>
+                                                                <div class="bottomimage">${item.title}</div>
 
-                                        </div>
+                                                </div>
 
-                                        </li>`;
+                                                </li>`;
                             count++;
                         } else {
                             rows1 += `<li id="${item.courseId}" style="width: 210px; margin-right: 5px; float: left; display: block;">
 
-                                    <div class="imagecontainer">
+                                            <div class="imagecontainer">
 
-                                        <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
-                                                <div class="centeredimage">${item.courseName}</div>
-                                                                <div class="bottomimage">${item.title}</div>
+                                                <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                                                        <div class="centeredimage">${item.courseName}</div>
+                                                                        <div class="bottomimage">${item.title}</div>
 
-                                        </div>
+                                                </div>
 
-                                </li>`;
+                                        </li>`;
                         }
                     });
 
