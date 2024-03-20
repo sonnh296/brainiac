@@ -19,7 +19,6 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        [Authorize(Roles = "Student")]
         [HttpGet("CourseDetail/{id}")]
         public async Task<IActionResult> GetCourseDetailAsync(int id)
         {
@@ -130,7 +129,7 @@ namespace Backend.Controllers
             return Ok(listCourse);
         }
 
-        //[Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student")]
         [HttpPost("EnrollCourse")]
         public async Task<IActionResult> EnrollCourseAsync(UserCourseDTO userCourseDTO)
         {
@@ -164,7 +163,7 @@ namespace Backend.Controllers
             
         }
 
-        //[Authorize(Roles = "Student")]
+        [Authorize(Roles = "Student")]
         [HttpGet("MyCourses")]
         public async Task<IActionResult> GetMyCoursesAsync()
         {

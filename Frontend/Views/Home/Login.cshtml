@@ -780,7 +780,7 @@
 					document.cookie = `web-rt=${data.refreshToken}; path=/`;
 					document.cookie = `user-id=${data.userid}; path=/`;
 					if (data.role == "Student") {
-						window.location.href = "/home2";
+						window.location.href = "/homepage";
 						return;
 					}
 					window.location.href = "/" + data.role + '/dashboard';
