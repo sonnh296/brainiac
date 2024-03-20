@@ -146,46 +146,85 @@
 			</thead>
 			<tbody>
 			</tbody>
+			
 		</table>
+		<div id="pagination-buttons" class="text-center">
+			<button id="prevPageBtn" class="btn btn-primary">Previous</button>
+
+			<!-- Nút Next -->
+			<button id="nextPageBtn" class="btn btn-primary">Next</button>
+		</div><!--/.main-->
 		
 	</div>	<!--/.main-->
 	<script>
 		// Wait for the document to be ready
 		$(document).ready(function () {
+			var currentPage = 1;
+			var rowsPerPage = 5;
+			var repcmtData;
 			// Make an AJAX request to your API endpoint
+			function displayRepOnCurrentPage() {
+				var startIndex = (currentPage - 1) * rowsPerPage;
+
+				var endIndex = startIndex + rowsPerPage;
+				var paginatedUsers = repcmtData.slice(startIndex, endIndex);
+
+				$('#repcmtTable tbody').empty(); // Xóa nội dung trong tbody trước khi thêm dữ liệu mới
+
+				$.each(paginatedUsers, function (index, repcmt) {
+					var status = repcmt.isActive == 1 ? "Active" : "Unactive";
+					console.log(endIndex);
+					var row = '<tr>' +
+						'<td>' + repcmt.reportedCommentId + '</td>' +
+						'<td>' + repcmt.reasonReport + '</td>' +
+						'<td>' + repcmt.userName + '</td>' +
+						'<td>' + repcmt.dateTime + '</td>' +
+						'<td> ' + (repcmt.status == 1 ? "normal" : (repcmt.status == 0 ? "reported" : repcmt.status)) + '</td>' +
+
+						'<td><a href="detailcourse" class="detailLink" data-repcmtid="' + repcmt.reportedCommentId + '">Detail</a></td>' +
+						'</tr>';
+					// Append the row to the tbody
+					$('#repcmtTable tbody').append(row);
+				});
+
+				$('.detailLink').on('click', function (event) {
+					event.preventDefault();
+					var repcmtid = $(this).data('repcmtid');
+					// Redirect to the detailaccount page with the user ID as a parameter
+					window.location.href = 'detailcourse?repcmtid=' + courseid;
+				});
+			}
+			
 			$.ajax({
 				url: 'http://localhost:5020/Admin/ReportedComment/GetAllReportedComment',
 				method: 'GET',
 				dataType: 'json',
 				success: function (data) {
-					// Iterate through the returned data and populate the table
-					$.each(data, function (index, repcmt) {
-						console.log("Hello, this is a message in the console!", index);
-						var row = '<tr>' +
-							'<td>' + repcmt.reportedCommentId + '</td>' +
-							'<td>' + repcmt.reasonReport + '</td>' +
-							'<td>' + repcmt.userName + '</td>' +
-							'<td>' + repcmt.dateTime + '</td>' +
-							'<td> ' + (repcmt.status == 1 ? "normal" : (repcmt.status == 0 ? "reported" : repcmt.status)) + '</td>' +
-
-							'<td><a href="detailcourse" class="detailLink" data-repcmtid="' + repcmt.reportedCommentId + '">Detail</a></td>' +
-							'</tr>';
-						// Append the row to the tbody
-						$('#repcmtTable tbody').append(row);
-					});
-
-					$('.detailLink').on('click', function (event) {
-						event.preventDefault();
-						var repcmtid = $(this).data('repcmtid');
-						// Redirect to the detailaccount page with the user ID as a parameter
-						window.location.href = 'detailcourse?repcmtid=' + courseid;
-					});
+					repcmtData = data;
+					displayRepOnCurrentPage(); // Hiển thị dữ liệu người dùng ban đầu
 				},
 				error: function () {
-					// Handle errors if needed
 					console.error('Error fetching data from the API');
 				}
 
+
+			});
+
+			// Previous page button click event
+			$('#prevPageBtn').click(function () {
+				if (currentPage > 1) {
+					currentPage--;
+					displayRepOnCurrentPage();
+				}
+			});
+
+			// Next page button click event
+			$('#nextPageBtn').click(function () {
+				var totalPages = Math.ceil(repcmtData.length / rowsPerPage);
+				if (currentPage < totalPages) {
+					currentPage++;
+					displayRepOnCurrentPage();
+				}
 			});
 		});
 	</script>
