@@ -12,7 +12,7 @@ namespace Frontend.Controllers
         {
             return View();
         }
-        public IActionResult DashBoard()
+        public IActionResult Dashboard()
         {
             return View();
         }

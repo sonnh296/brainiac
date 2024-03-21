@@ -22,6 +22,7 @@ namespace Backend.Repositories
         public async Task<List<Course>> GetCourseListByTeacherAsync(int teacherId)
         {
             var courses = await context.Courses
+                                       .Where(c => c.Status != "0")
                                        .Where(c => c.UserCourses.Any(uc => uc.UserId == teacherId && uc.IsStudent == false))
                                        .Include(c => c.Resources)
                                        .Include(c => c.CategoryCourses)
@@ -108,5 +109,22 @@ namespace Backend.Repositories
             await context.SaveChangesAsync();
             return res;
         }
+
+        // edit course
+        public async Task<Course> UpdateCourse(int courseId, CourseDTO course)
+        {
+            Course courseUpdate = new Course()
+            {
+                CourseId = courseId,
+                CourseName = course.CourseName,
+                Title = course.Title, //description
+                Price = course.Price,
+                Status = course.Status
+            };
+            context.Courses.Update(courseUpdate);
+            //await context.SaveChangesAsync();
+            return courseUpdate;
+        }
+
     }
 }

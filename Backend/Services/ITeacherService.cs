@@ -9,6 +9,7 @@ namespace Backend.Services
         public Task<List<Course>> GetCourseListByTeacherAsync(int id);
         public Task<Course> GetSingleCourseByIdAsync(int teacherid, int courseid);
         public Task<Course> CreateCourseDraft(int teacherid, CourseCreateDTO course);
+        public Task<Course> UpdateCourseAsync(int courseId, CourseDTO course);
         public Task<Resource> CreateResource(int courseId, ResourceCreateDTO resource);
     }
 }

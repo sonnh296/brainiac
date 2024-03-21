@@ -57,5 +57,10 @@ namespace Backend.Services.Implement
             }
             return repository.CreateResourceDraft(courseId, resource);
         }
+
+        public Task<Course> UpdateCourseAsync(int courseId, CourseDTO course)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

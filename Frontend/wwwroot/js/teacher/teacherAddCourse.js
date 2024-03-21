@@ -6,6 +6,7 @@ $(document).ready(function () {
 
 function SaveDraftCourse() {
     $("#btn-save-draft").click(function () {
+        const id = getUserId()
         var catesSeltected = getCategoryChecked();
         const teacherId = 16;
         let course = GetCourseInfo();

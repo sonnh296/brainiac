@@ -23,26 +23,19 @@ function GetCourseDetails() {
         success: function (result) {
             //console.log(result);
             let biggest = "";
-            for (let i = 0; i < result.resources.length; i++) {
+            for (let i = 0; i < result.categories.length; i++) {
                 const a = `
-                    <div class="single-lesson">
-                    <button class="accordion">Lesson ${i+1}</button>
-                    <div class="panel">
-                        <p>${result.resources[i].description}</p>
-                        <div class="edit-lesson">
-                            <button>Edit</button>
-                        </div>
-                    </div>
-                </div>`;
+                    <div class="category-chip">
+                        <p>${result.categories[i].categoryName}</p>
+                    </div>`;
                 biggest += a;
             }
+            $('.category-list').html(biggest);
             $('#course-title-name').val(result.courseName);
             $('#course-description').val(result.title);
             $('#price').val(result.price + " vnd");
-            $('.lessons').html(biggest);
         },
         error: function (error) {
-            console.log(this.url);
             console.log(error);
         }
     });

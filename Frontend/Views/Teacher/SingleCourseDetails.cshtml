@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "/Views/Teacher/_Layout.cshtml";
+    Layout = null;
 }
 
 <head>
@@ -24,6 +24,14 @@
                 <div class="course-title">
                     <label for="course-title-name">Course name:</label>
                     <input type="text" id="course-title-name" name="course-title-name" disable="true" />
+                </div>
+                <div class="categories">
+                    <label for="course-title-name">Categories: </label>
+                    <div class="category-list">
+                        <div class="category-chip">
+                            <p>Networking</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="course-description">
                     <label for="course-description">Description:</label>
@@ -70,10 +78,8 @@
 
     <script>
         var acc = document.getElementsByClassName("accordion");
-        console.log(acc);
         for (var i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function () {
-                console.log("Clicked aaa");
                 this.classList.toggle("active");
                 var panel = this.nextElementSibling;
                 if (panel.style.display === "block") {

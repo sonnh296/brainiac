@@ -61,13 +61,28 @@ namespace Backend.Controllers
             }
         }
 
+        // edit a course info
+        [HttpPut("editCourse/{courseId}")]
+        public async Task<ActionResult<CourseDTO>> EditCourse(CourseDTO courseUpdate, int courseId)
+        {
+            try
+            {
+                await service.UpdateCourseAsync(courseId, courseUpdate);
+                return Ok(courseUpdate);
+            }
+            catch(Exception)
+            {
+                return BadRequest("Course name has already existed");
+            }
+        }
+
         // add a new resource to a course
         [HttpPost("Resource/AddResource/{courseId}")]
         public async Task<ActionResult<ResourceDTO>> CreateResourceDraft(int courseId, ResourceCreateDTO resource)
         {
             try
             {
-                var res = service.CreateResource(courseId, resource);
+                var res = await service.CreateResource(courseId, resource);
                 return Ok(resource);
             }
             catch (ArgumentNullException)
@@ -78,7 +93,6 @@ namespace Backend.Controllers
             {
                 return BadRequest("Resource name has already existed");
             }
-            
         }
     }
 }
