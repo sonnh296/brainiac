@@ -257,6 +257,8 @@
                             $('#course_price').text(courseData.price);
                             var status = (courseData.status == 1 ? "approved" : (courseData.status == 0 ? "rejected" : courseData.status))
                             $('#status').text(status);
+                            $('#created_by').text(courseData.userName);
+                            console.log("courseData.userName : " + courseData.userName);
                         },
                         error: function () {
                             console.error('Error fetching detailed user information');

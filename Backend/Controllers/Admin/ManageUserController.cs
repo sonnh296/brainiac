@@ -48,17 +48,12 @@ namespace Backend.Controllers.Admin
         }
         // GET: Admin/ManageUser/GetAllUsers
         [HttpGet("GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(string? searchText)
         {
             // Lấy danh sách người dùng
-            var allUsers = await _context.Users
-                .Include(u => u.Role) // Kết hợp thông tin từ bảng Role
-                .ToListAsync();
-
-            if (allUsers != null && allUsers.Any())
-            {
-                // Tạo một danh sách mới chứa thông tin người dùng và vai trò (nếu có)
-                var result = allUsers.Select(u => new
+            var query =  _context.Users
+                .Include(u => u.Role)
+                .Select(u => new
                 {
                     u.UserId,
                     u.UserName,
@@ -67,18 +62,30 @@ namespace Backend.Controllers.Admin
                     u.Balance,
                     Role = new
                     {
-                        u.Role?.RoleId,
-                        u.Role?.RoleName
+                        u.Role.RoleId,
+                        u.Role.RoleName
                     }
                     // Thêm các thuộc tính khác từ bảng User và Role nếu cần
-                });
-
-                return Ok(result);
+                });  // Kết hợp thông tin từ bảng Role
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                query = query.Where(x => x.UserName.Contains(searchText) || x.Email.Contains(searchText));
+            }
+            var AllUsers = await query.ToListAsync();
+            if(AllUsers !=null && AllUsers.Any())
+            {
+                return Ok(AllUsers);
             }
             else
             {
                 return NotFound("No users found");
             }
+
+
+            // Tạo một danh sách mới chứa thông tin người dùng và vai trò (nếu có)
+
+
+
         }
 
         // GET: Admin/ManageUser/GetUsersByRole/{roleId}

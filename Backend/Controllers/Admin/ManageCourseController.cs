@@ -3,6 +3,7 @@ using Backend.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Backend.Controllers.Admin
 {
@@ -26,12 +27,9 @@ namespace Backend.Controllers.Admin
         }
 
         [HttpGet("GetAllCourses")]
-        public async Task<IActionResult> GetAllCourses()
+        public async Task<IActionResult> GetAllCourses(string? searchText)
         {
-            var allCourses = await _context.Courses.ToListAsync();
-            if (allCourses != null && allCourses.Any())
-            {
-                var result = allCourses.Select(x => new
+                var query = _context.Courses.Select(x => new
                 {
                     x.CourseId,
                     x.CourseName,
@@ -39,26 +37,54 @@ namespace Backend.Controllers.Admin
                     x.Price,
                     x.Status
                 });
-                return Ok(result);
+                   if (!string.IsNullOrEmpty(searchText))
+                   {
+                       query = query.Where(x => x.CourseName.Contains(searchText) || x.Title.Contains(searchText) );
+                   }
+            var coursesWithUsers = await query.ToListAsync();
+            if (coursesWithUsers != null && coursesWithUsers.Any())
+            {
+                return Ok(coursesWithUsers);
             }
             else
             {
-                return NotFound("No users found");
+                return NotFound("No courses found");
             }
 
         }
         [HttpGet("GetCourse/{id}")]
         public async Task<IActionResult> GetCourseById(int id)
         {
-            Course course = await _courseRepository.GetByIdAsync(id);
+            var courseWithUsers = await _context.Courses
+         .Where(c => c.CourseId == id)
+         .Join(_context.UserCourses,
+             course => course.CourseId,
+             userCourse => userCourse.CourseId,
+             (course, userCourse) => new { Course = course, UserCourse = userCourse })
+         .Join(_context.Users,
+             combined => combined.UserCourse.UserId,
+             user => user.UserId,
+             (combined, user) => new
+             {
+                 CourseId = combined.Course.CourseId,
+                 CourseName = combined.Course.CourseName,
+                 Title = combined.Course.Title,
+                 Price = combined.Course.Price,
+                 Status = combined.Course.Status,
+                 UserId = user.UserId,
+                 UserName = user.UserName,
+                 Email = user.Email,
+                 Role = user.Role
+             })
+         .FirstOrDefaultAsync();
 
-            if (course != null)
+            if (courseWithUsers != null)
             {
-                return Ok(course);
+                return Ok(courseWithUsers);
             }
             else
             {
-                return NotFound();
+                return NotFound("Course not found");
             }
         }
         [HttpGet("GetTestsByCourse/{courseId}")]

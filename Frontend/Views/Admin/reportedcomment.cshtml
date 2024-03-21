@@ -112,11 +112,7 @@
 			<div class="clear"></div>
 		</div>
 		<div class="divider"></div>
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-		</form>
+		
 		<ul class="nav menu">
 			<li><a style="font-size:small" href="/admin/manageaccount"><img src="/imgs/admin-img/acc.png" width="20" height="20" alt="acc Icon">&nbsp; Manage Account </a></li>
 			<li><a style="font-size:small" href="/admin/managecourse"><img src="/imgs/admin-img/course.png" width="20" height="20" alt="course Icon">&nbsp; Manage Courses </a></li>
@@ -126,18 +122,26 @@
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-		<div>
-
-			<form role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-			</form>
+		<div class="col-sm-6" style="width:40%;padding-top: 20px;">
+			<div class="form-group">
+				<form role="search">
+					<div class="form-group">
+						<input type="text" id="searchText" class="form-control" placeholder="Search">
+					</div>
+					<button type="button" id="searchButton" class="btn btn-primary">Search</button>
+				</form>
+			</div>
 		</div>
-		<table class="table" id="repcmtTable">
+		<div style="color:red;font-weight: bold;padding-top: 20px;" id="notification" style="display: none;">
+
+		</div>
+	<div  class="col-sm-12">
+			<table class="table" id="repcmtTable">
 			<thead>
 				<tr>
 					<th>Reported Comment ID</th>
+					<th> Comment ID</th>
+					<th>Comment Content</th>
 					<th>Reason Reported</th>
 					<th>Reported By</th>
 					<th>Date Reported</th>
@@ -154,13 +158,15 @@
 			<!-- Nút Next -->
 			<button id="nextPageBtn" class="btn btn-primary">Next</button>
 		</div><!--/.main-->
+	</div>
+		
 		
 	</div>	<!--/.main-->
 	<script>
 		// Wait for the document to be ready
 		$(document).ready(function () {
 			var currentPage = 1;
-			var rowsPerPage = 5;
+			var rowsPerPage = 10;
 			var repcmtData;
 			// Make an AJAX request to your API endpoint
 			function displayRepOnCurrentPage() {
@@ -172,16 +178,22 @@
 				$('#repcmtTable tbody').empty(); // Xóa nội dung trong tbody trước khi thêm dữ liệu mới
 
 				$.each(paginatedUsers, function (index, repcmt) {
-					var status = repcmt.isActive == 1 ? "Active" : "Unactive";
+					
 					console.log(endIndex);
 					var row = '<tr>' +
 						'<td>' + repcmt.reportedCommentId + '</td>' +
+						'<td>' + repcmt.commentId + '</td>' +
+						'<td>' + repcmt.content + '</td>' +
 						'<td>' + repcmt.reasonReport + '</td>' +
 						'<td>' + repcmt.userName + '</td>' +
 						'<td>' + repcmt.dateTime + '</td>' +
-						'<td> ' + (repcmt.status == 1 ? "normal" : (repcmt.status == 0 ? "reported" : repcmt.status)) + '</td>' +
+						'<td>' +
+						'<select class="statusSelect" data-repcmtid="' + repcmt.commentId + '">' +
+						'<option value="1"' + (repcmt.status == 1 ? " selected" : "") + '>Normal</option>' +
+						'<option style="color:red;" value="0"' + (repcmt.status == 0 ? " selected" : "") + '><b>Hide</b></option>' +
+						'</select>' +
+						'</td>' +
 
-						'<td><a href="detailcourse" class="detailLink" data-repcmtid="' + repcmt.reportedCommentId + '">Detail</a></td>' +
 						'</tr>';
 					// Append the row to the tbody
 					$('#repcmtTable tbody').append(row);
@@ -226,6 +238,31 @@
 					displayRepOnCurrentPage();
 				}
 			});
+			$(document).on('change', '.statusSelect', function () {
+			var repcmtId = $(this).data('repcmtid');
+			var newStatus = $(this).val();
+			console.log(newStatus);
+
+			// AJAX request to update comment status
+			$.ajax({
+				url: 'http://localhost:5020/Admin/ReportedComment/UpdateCommnentStatus/' + repcmtId,
+				method: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(newStatus),
+				success: function (response) {
+					console.log('Trạng thái đã được cập nhật thành công.');
+					if (newStatus == 0) {
+						var message = 'Comment with ID ' + repcmtId + ' has been hidden.';
+							$('#notification').text(message).fadeIn().delay(5000).fadeOut(); // Hiển thị thông báo trong 3 giây
+					}
+						
+				},
+				error: function (xhr, status, error) {
+					console.error('Lỗi khi cập nhật trạng thái:', error);
+				}
+			});
+		});
+			
 		});
 	</script>
 
