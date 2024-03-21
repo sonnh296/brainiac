@@ -43,9 +43,16 @@ namespace Frontend.Controllers.Student
             }, HttpContext, urlSuccess);
             return Redirect(url);
         }
-        public IActionResult SuccessPayment(int userId, int? courseId, decimal amount)
+        public IActionResult SuccessPayment(int userId, int? courseId, decimal amount, string? vnp_ResponseCode, string? vnp_TransactionStatus)
         {
-            return View();
+            if (vnp_ResponseCode == "00" && vnp_TransactionStatus == "00")
+            {
+                return View();
+            }
+            else
+            {
+                return View("FailPayment");
+            }
         }
         public IActionResult HistoryPay(int userId)
         {
