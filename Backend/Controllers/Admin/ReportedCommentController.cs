@@ -11,11 +11,12 @@ namespace Backend.Controllers.Admin
     public class ReportedCommentController : ControllerBase
     {
         private readonly PRN231_V2Context _context;
-
+        private readonly IGenericRepository<Comment> _commentRepository;
 
         public ReportedCommentController(PRN231_V2Context context)
         {
             _context = context;
+            _commentRepository = new GenericRepository<Comment>(_context);
 
         }
         [HttpGet("GetAllReportedComment")]
@@ -28,6 +29,7 @@ namespace Backend.Controllers.Admin
                 {
                     x.ReportedCommentId,
                     x.CommentId,
+                    x.Comment.Content,
                     x.UserCommentId,
                     x.UserReportId,
                     x.DateTime,
@@ -45,6 +47,41 @@ namespace Backend.Controllers.Admin
                 return NotFound("No users found");
             }
 
+        }
+        [HttpPut("UpdateCommnentStatus/{id}")]
+        public async Task<IActionResult> UpdateCommentStatus(int id, [FromBody] string status)
+        {
+          
+
+            if (ModelState.IsValid)
+            {
+                // Check if the course with the given ID exists
+                Comment existingcomment = await _commentRepository.GetByIdAsync(id);
+
+                if (existingcomment == null)
+                {
+                    return NotFound("Course not found");
+                }
+
+                // Update the course's status
+                existingcomment.Status = status;
+
+                try
+                {
+                    // Save changes to the database
+                    await _context.SaveChangesAsync();
+                    return Ok(existingcomment);
+                }
+                catch (DbUpdateException ex)
+                {
+                    // Handle exceptions if any
+                    return StatusCode(500, $"Failed to update course status: {ex.Message}");
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
     }
 }

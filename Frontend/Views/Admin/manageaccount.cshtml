@@ -113,12 +113,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="divider"></div>
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-		</form>
+		<div class="divider"></div>		
 		<ul class="nav menu">
 			<li><a style="font-size:small" href="/admin/manageaccount"><img src="/imgs/admin-img/acc.png" width="20" height="20" alt="acc Icon">&nbsp; Manage Account </a></li>
 			<li><a style="font-size:small" href="/admin/managecourse"><img src="/imgs/admin-img/course.png" width="20" height="20" alt="course Icon">&nbsp; Manage Courses </a></li>
@@ -128,27 +123,40 @@
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-		<table class="table" id="userTable">
-			<thead>
-				<tr>
-					<th>User ID</th>
-					<th>User Name</th>
-					<th>Email</th>
-					<th>Role</th>
-					<th>Status</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				
-			</tbody>
-		</table>
-		<div id="pagination-buttons" class="text-center">
-			<button id="prevPageBtn" class="btn btn-primary">Previous</button>
+		<div class="col-sm-6" style="width:40%;padding-top: 20px;">
+			<div class="form-group">
+				<form role="search">
+					<div class="form-group">
+						<input type="text" id="searchText" class="form-control" placeholder="Search">
+					</div>
+					<button type="button" id="searchButton" class="btn btn-primary">Search</button>
+				</form>
+			</div>
 
-			<!-- Nút Next -->
-			<button id="nextPageBtn" class="btn btn-primary">Next</button>
-		</div><!--/.main-->
+		</div>
+		<div class="col-sm-12">
+			<table class="table" id="userTable">
+				<thead>
+					<tr>
+						<th>User ID</th>
+						<th>User Name</th>
+						<th>Email</th>
+						<th>Role</th>
+						<th>Status</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<div id="pagination-buttons" class="text-center">
+				<button id="prevPageBtn" class="btn btn-primary">Previous</button>
+
+				<!-- Nút Next -->
+				<button id="nextPageBtn" class="btn btn-primary">Next</button>
+			</div><!--/.main-->
+		</div>
+		
 	</div>
 	
 	<script>
@@ -218,6 +226,23 @@
 					currentPage++;
 					displayUsersOnCurrentPage();
 				}
+			});
+			$('#searchButton').click(function () {
+				var searchText = $('#searchText').val(); // Lấy giá trị từ ô nhập liệu tìm kiếm
+				// Gửi yêu cầu AJAX đến API với giá trị tìm kiếm
+				$.ajax({
+					url: 'http://localhost:5020/Admin/ManageUser/GetAllUsers?searchText=' + searchText,
+					method: 'GET',
+					dataType: 'json',
+					success: function (data) {
+						usersData = data;
+						displayUsersOnCurrentPage(); // Hiển thị dữ liệu khóa học tìm kiếm
+					},
+					error: function () {
+						location.reload();
+						console.error('Error fetching data from the API');
+					}
+				});
 			});
 		});
     </script>
