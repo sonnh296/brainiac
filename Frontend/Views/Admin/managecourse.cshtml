@@ -141,46 +141,88 @@
 			<tbody>
 			</tbody>
 		</table>
+		<div id="pagination-buttons" class="text-center">
+			<button id="prevPageBtn" class="btn btn-primary">Previous</button>
+
+			<!-- Nút Next -->
+			<button id="nextPageBtn" class="btn btn-primary">Next</button>
+		</div><!--/.main-->
 
 	</div>
 	<script>
 		// Wait for the document to be ready
 		$(document).ready(function () { 
-			// Make an AJAX request to your API endpoint
+			var currentPage = 1;
+			var rowsPerPage = 10;
+			var courseData; // Biến để lưu trữ dữ liệu người dùng
+
+			// Hàm hiển thị người dùng trên trang hiện tại
+			function displayCourseOnCurrentPage() {
+				var startIndex = (currentPage - 1) * rowsPerPage;
+
+				var endIndex = startIndex + rowsPerPage;
+				var paginatedUsers = courseData.slice(startIndex, endIndex);
+
+				$('#courseTable tbody').empty(); // Xóa nội dung trong tbody trước khi thêm dữ liệu mới
+
+				$.each(paginatedUsers, function (index, course) {
+					
+					console.log(endIndex);
+					var row = '<tr>' +
+						'<td>' + course.courseId + '</td>' +
+						'<td>' + course.courseName + '</td>' +
+						'<td>' + course.title + '</td>' +
+						'<td>' + course.price + '</td>' +
+						'<td> ' + (course.status == 1 ? "approved" : (course.status == 0 ? "rejected" : course.status)) + '</td>' +
+
+						'<td><a href="detailcourse" class="detailLink" data-courseid="' + course.courseId + '">Detail</a></td>' +
+						'</tr>';
+					// Append the row to the tbody
+					$('#courseTable tbody').append(row);
+				});
+
+				$('.detailLink').on('click', function (event) {
+					event.preventDefault();
+					var courseid = $(this).data('courseid');
+					// Redirect to the detailaccount page with the user ID as a parameter
+					window.location.href = 'detailcourse?courseid=' + courseid;
+				});
+			}
+
+			// AJAX request để lấy dữ liệu người dùng
 			$.ajax({
 				url: 'http://localhost:5020/Admin/ManageCourse/GetAllCourses',
 				method: 'GET',
 				dataType: 'json',
 				success: function (data) {
-					// Iterate through the returned data and populate the table
-					$.each(data, function (index, course) {
-						console.log("Hello, this is a message in the console!", index);
-						var row = '<tr>' +
-							'<td>' + course.courseId + '</td>' +
-							'<td>' + course.courseName + '</td>' +
-							'<td>' + course.title + '</td>' +
-							'<td>' + course.price + '</td>' +
-                            '<td> ' + (course.status == 1 ? "approved" : (course.status == 0 ? "rejected" : course.status)) + '</td>'+
-
-							'<td><a href="detailcourse" class="detailLink" data-courseid="' + course.courseId + '">Detail</a></td>' +
-							'</tr>';
-						// Append the row to the tbody
-						$('#courseTable tbody').append(row);
-					});
-
-					$('.detailLink').on('click', function (event) {
-						event.preventDefault();
-						var courseid = $(this).data('courseid');
-						// Redirect to the detailaccount page with the user ID as a parameter
-						window.location.href = 'detailcourse?courseid=' + courseid;
-					});
+					courseData = data;
+					displayCourseOnCurrentPage(); // Hiển thị dữ liệu người dùng ban đầu
 				},
 				error: function () {
-					// Handle errors if needed
 					console.error('Error fetching data from the API');
 				}
 
+
 			});
+
+			// Previous page button click event
+			$('#prevPageBtn').click(function () {
+				if (currentPage > 1) {
+					currentPage--;
+					displayCourseOnCurrentPage();
+				}
+			});
+
+			// Next page button click event
+			$('#nextPageBtn').click(function () {
+				var totalPages = Math.ceil(courseData.length / rowsPerPage);
+				if (currentPage < totalPages) {
+					currentPage++;
+					displayCourseOnCurrentPage();
+				}
+			});
+			// Make an AJAX request to your API endpoint
+			
 		});
 	</script>
 

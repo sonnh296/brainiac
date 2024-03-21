@@ -40,6 +40,6 @@ namespace Backend.Models
         public virtual ICollection<ResourceUser> ResourceUsers { get; set; }
         public virtual ICollection<UserCourse> UserCourses { get; set; }
         public virtual ICollection<UserTest> UserTests { get; set; }
-        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }   
     }
 }

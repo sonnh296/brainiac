@@ -23,10 +23,22 @@ namespace Backend.Controllers.Admin
         [HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            User user = await _userRepository.GetByIdAsync(id);
+            var user = await _context.Users
+                .Where(x => x.UserId == id)
+                .Select(x => new
+                {
+                    x.UserId,
+                    x.UserName,
+                    x.Email,
+                    x.Balance,
+                    x.Role.RoleName,
+                    x.IsActive
 
+                })
+              .FirstOrDefaultAsync();
             if (user != null)
             {
+
                 return Ok(user);
             }
             else

@@ -7,12 +7,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-          rel="stylesheet" />
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/stylecoursedetail.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Education Course Detail</title>
 
     <style>
@@ -141,6 +139,45 @@
             border-radius: 5px;
         }
 
+        .options-menu {
+            position: relative;
+            display: inline-block;
+            float: right; /* Di chuyển menu tùy chọn và dấu ba chấm sang bên phải */
+        }
+
+        .menu-trigger {
+            cursor: pointer;
+        }
+
+        .options-list {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 5px 0;
+            min-width: 120px;
+            z-index: 1;
+            right: 0; /* Đảm bảo danh sách tùy chọn nằm ở phía bên phải */
+        }
+
+            .options-list.visible {
+                display: block;
+            }
+
+            .options-list li {
+                list-style: none;
+            }
+
+                .options-list li a {
+                    display: block;
+                    color: #333;
+                    text-decoration: none;
+                    padding: 8px 10px;
+                }
+
+                    .options-list li a:hover {
+                        background-color: #f4f4f4;
+                    }
         /*
          *  Pure CSS star rating that works without reversing order
          *  of inputs
@@ -1155,6 +1192,46 @@
         .btn-primary {
             margin-top: 10px;
         }
+
+        .options-menu {
+            position: relative;
+            display: inline-block;
+            float: right; /* Di chuyển menu tùy chọn và dấu ba chấm sang bên phải */
+        }
+
+        .menu-trigger {
+            cursor: pointer;
+        }
+
+        .options-list {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 5px 0;
+            min-width: 120px;
+            z-index: 1;
+            right: 0; /* Đảm bảo danh sách tùy chọn nằm ở phía bên phải */
+        }
+
+            .options-list.visible {
+                display: block;
+            }
+
+            .options-list li {
+                list-style: none;
+            }
+
+                .options-list li a {
+                    display: block;
+                    color: #333;
+                    text-decoration: none;
+                    padding: 8px 10px;
+                }
+
+                    .options-list li a:hover {
+                        background-color: #f4f4f4;
+                    }
     </style>
 </head>
 <body>
@@ -1338,8 +1415,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js"></script>
     <script>
         var token = getAccessToken();
-
+      
         $(window).load(function () {
+
+
+            $('.menu-trigger').click(function () {
+                var optionsList = $(this).siblings('.options-list');
+                optionsList.toggleClass('visible');
+            });
+
+            $(document).click(function (event) {
+                if (!$(event.target).closest('.options-menu').length) {
+                    $('.options-list').removeClass('visible');
+                }
+            });
             $("#carousel").flexslider({
                 animation: "slide",
                 controlNav: false,
@@ -1361,12 +1450,20 @@
                 },
             });
         });
+        $('.menu-trigger').click(function () {
+            var optionsList = $(this).siblings('.options-list');
+            optionsList.toggleClass('visible');
+        });
 
+        $(document).click(function (event) {
+            if (!$(event.target).closest('.options-menu').length) {
+                $('.options-list').removeClass('visible');
+            }
+        });
         const urlParam = new URLSearchParams(window.location.search);
         const courseId = urlParam.get("courseId");
         var isEnrolled = false;
         var userId = -1;
-
         document.addEventListener("DOMContentLoaded", function () {
             courseDetail();
             setTimeout(function () {
@@ -1375,6 +1472,20 @@
             ratingDetail();
             relatedCourses();
         });
+        function openreport() {
+            $('.menu-trigger').click(function () {
+                $('.options-list').removeClass('visible');
+
+                var optionsList = $(this).siblings('.options-list');
+                optionsList.toggleClass('visible');
+            });
+
+            $(document).click(function (event) {
+                if (!$(event.target).closest('.options-menu').length) {
+                    $('.options-list').removeClass('visible');
+                }
+            });
+        }
         function courseDetail() {
             fetch(`http://localhost:5020/api/Course/CourseDetail/${courseId}`, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -1451,14 +1562,21 @@
         }
         function commentList() {
             var writeCmt = document.querySelector(".write-cmt");
-            var formReport =
-                "<form class='report-comment'>" +
-                "<p>Reason report</p>" +
-                "<input type='hidden' id='cmtId' value='cmtId'>" +
-                "<input type='hidden' id='userCmtId' value='userId'>" +
-                "<input type='text' id='message' placeholder='Write a reason report' />" +
-                "<div class ='report'><button type='submit'>Report</button>" +
-                "</form>";
+            var formReport = `  <div class='options-menu' style='height: 100px;'>
+                <ul class='options-list'>
+                    <li> <form class='report-comment'>
+
+             <p>Reason report</p>
+             <input type='hidden' id='cmtId' value='cmtId'>
+             <input type='hidden' id='userCmtId' value='userId'>
+             <input type='text' id='message' placeholder='Write a reason report'/>
+             <div class='report'>
+                 <button type='submit'>Report</button>
+                <div/>
+         </form></li>
+                </ul>
+                                        <div class='menu-trigger' onclick="openreport()"><i class="fa fa-exclamation-triangle" style="font-size:48px;color:red"></i></div>
+            </div>`;
             if (isEnrolled == false) {
                 writeCmt.style.display = "none";
                 formReport = "";
@@ -1549,6 +1667,16 @@
                         });
                     });
                 });
+            $('.menu-trigger').click(function () {
+                var optionsList = $(this).siblings('.options-list');
+                optionsList.toggleClass('visible');
+            });
+
+            $(document).click(function (event) {
+                if (!$(event.target).closest('.options-menu').length) {
+                    $('.options-list').removeClass('visible');
+                }
+            });
         }
 
         function ratingDetail() {
