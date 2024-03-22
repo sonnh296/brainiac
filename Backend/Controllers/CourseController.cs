@@ -19,7 +19,8 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        [HttpGet("CourseDetail/{id}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("CourseDetail/{id}")]
         public async Task<IActionResult> GetCourseDetailAsync(int id)
         {
             bool isEnrolled = _context.UserCourses.Any(x => x.CourseId == id && x.UserId == UserID && x.IsStudent == true);
@@ -58,7 +59,8 @@ namespace Backend.Controllers
             return Ok(obj);
         }
 
-        [HttpGet("Related/{id}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("Related/{id}")]
         public async Task<IActionResult> GetRelatedCoursesAsync(int id)
         {
             var course = _context.Courses.FirstOrDefault(x => x.CourseId == id);
@@ -82,7 +84,8 @@ namespace Backend.Controllers
             return Ok(listCourse);
         }
 
-        [HttpGet("CourseByTeacher/{teacherId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("CourseByTeacher/{teacherId}")]
         public async Task<IActionResult> GetCourseByTeacherAsync(int teacherId)
         {
             var teacher = _context.Users.FirstOrDefault(x => x.UserId == teacherId);
@@ -106,7 +109,8 @@ namespace Backend.Controllers
             return Ok(listCourse);
         }
 
-        [HttpGet("CourseByCategory/{categoryId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("CourseByCategory/{categoryId}")]
         public async Task<IActionResult> GetCourseByCategoryAsync(int categoryId)
         {
             var category = _context.Categories.FirstOrDefault(x => x.CategoryId == categoryId);

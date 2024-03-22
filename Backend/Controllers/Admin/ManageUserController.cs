@@ -1,7 +1,9 @@
 ﻿using Backend.Models;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Backend.Controllers.Admin
 {
@@ -17,10 +19,10 @@ namespace Backend.Controllers.Admin
             _context = context;
             _userRepository = new GenericRepository<User>(_context);
             _roleRepository = new GenericRepository<Role>(_context);
-            
-        }
-        // GET: Admin/ManageUser/{id}
-        [HttpGet("GetUser/{id}")]
+		}
+		// GET: Admin/ManageUser/{id}
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _context.Users
@@ -46,8 +48,9 @@ namespace Backend.Controllers.Admin
                 return NotFound();
             }
         }
-        // GET: Admin/ManageUser/GetAllUsers
-        [HttpGet("GetAllUsers")]
+		// GET: Admin/ManageUser/GetAllUsers
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers(string? searchText)
         {
             // Lấy danh sách người dùng
@@ -88,8 +91,9 @@ namespace Backend.Controllers.Admin
 
         }
 
-        // GET: Admin/ManageUser/GetUsersByRole/{roleId}
-        [HttpGet("GetUsersByRole/{roleId}")]
+		// GET: Admin/ManageUser/GetUsersByRole/{roleId}
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetUsersByRole/{roleId}")]
         public async Task<IActionResult> GetUsersByRole(int roleId)
         {
             Role role = await _roleRepository.GetByIdAsync(roleId);
@@ -106,8 +110,9 @@ namespace Backend.Controllers.Admin
             }
         }
 
-        // POST: Admin/ManageUser/AddUser
-        [HttpPost("AddUser")]
+		// POST: Admin/ManageUser/AddUser
+		[Authorize(Roles = "Admin")]
+		[HttpPost("AddUser")]
         public async Task<IActionResult> AddUser([FromBody] User newUser)
         {
             if (ModelState.IsValid)
@@ -130,8 +135,9 @@ namespace Backend.Controllers.Admin
             }
         }
 
-        // PUT: Admin/ManageUser/UpdateUser/{id}
-        [HttpPut("UpdateUser/{id}")]
+		// PUT: Admin/ManageUser/UpdateUser/{id}
+		[Authorize(Roles = "Admin")]
+		[HttpPut("UpdateUser/{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
         {
             if (id != updatedUser.UserId)
@@ -159,8 +165,9 @@ namespace Backend.Controllers.Admin
             }
         }
 
-        // DELETE: Admin/ManageUser/DeleteUser/{id}
-        [HttpDelete("DeleteUser/{id}")]
+		// DELETE: Admin/ManageUser/DeleteUser/{id}
+		[Authorize(Roles = "Admin")]
+		[HttpDelete("DeleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             User user = await _userRepository.GetByIdAsync(id);
@@ -176,7 +183,9 @@ namespace Backend.Controllers.Admin
                 return NotFound("User not found");
             }
         }
-        [HttpPut("UpdateUserStatus/{id}")]
+
+		[Authorize(Roles = "Admin")]
+		[HttpPut("UpdateUserStatus/{id}")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] int status)
         {
            

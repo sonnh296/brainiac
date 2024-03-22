@@ -1,7 +1,9 @@
 ﻿using Backend.DTOs;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Security.Claims;
 
 namespace Backend.Controllers
@@ -12,11 +14,12 @@ namespace Backend.Controllers
     {
         private readonly PRN231_V2Context _context;
         public TestController(PRN231_V2Context context)
-        {
+		{
             _context = context;
         }
 
-        [HttpGet("Course/{courseId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("Course/{courseId}")]
         public async Task<IActionResult> GetTestOfCourseAsync(int courseId)
         {
             var tests = _context.Tests.Where(x => x.CourseId == courseId)
@@ -33,7 +36,8 @@ namespace Backend.Controllers
             return Ok(tests);
         }
 
-        [HttpGet("HistoryTest/{testId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("HistoryTest/{testId}")]
         public async Task<IActionResult> HistoryTestlAsync(int testId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -63,7 +67,8 @@ namespace Backend.Controllers
             return Ok(test);
         }
 
-        [HttpGet("TestDetail/{testId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("TestDetail/{testId}")]
         public async Task<IActionResult> GetTestDetailAsync(int testId)
         {
             var test = _context.Tests
@@ -85,7 +90,8 @@ namespace Backend.Controllers
             return Ok(test);
         }
 
-        [HttpGet("Question/{testId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("Question/{testId}")]
         public async Task<IActionResult> GetQuestionOfTestAsync(int testId)
         {
             var questions = _context.Questions
@@ -109,7 +115,8 @@ namespace Backend.Controllers
             return Ok(questions);
         }
 
-        [HttpPost("SubmitTest")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpPost("SubmitTest")]
         public async Task<IActionResult> SubmitTestAsync([FromBody] ResultDTO result)
         {
             DateTime testDate = result.TestDate;

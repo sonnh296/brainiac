@@ -4,6 +4,7 @@ using Backend.DTOs.Course;
 using Backend.DTOs.Resource;
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class TeacherController : ControllerBase
+    public class TeacherController : BaseApiController
     {
         private readonly ITeacherService service;
         private readonly IMapper mapper;

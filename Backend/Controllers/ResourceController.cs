@@ -20,7 +20,8 @@ namespace Backend.Controllers
         }
 
         [HttpGet("Course/{courseId}")]
-        public async Task<IActionResult> GetResourcesOfCourseAsync(int courseId)
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		public async Task<IActionResult> GetResourcesOfCourseAsync(int courseId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
             int userID = UserID;
@@ -51,7 +52,8 @@ namespace Backend.Controllers
             return Ok(resources);
         }
 
-        [HttpGet("Resource/{resourceId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("Resource/{resourceId}")]
         public async Task<IActionResult> GetResourceDetailAsync(int resourceId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -83,7 +85,8 @@ namespace Backend.Controllers
             return Ok(resource);
         }
 
-        [HttpPost("CompleteResource/{resourceId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpPost("CompleteResource/{resourceId}")]
         public async Task<IActionResult> CompleteResourceAsync(int resourceId)
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;

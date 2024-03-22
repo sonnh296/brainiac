@@ -1,8 +1,10 @@
 ﻿using Backend.Models;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Backend.Controllers.Admin
 {
@@ -19,7 +21,9 @@ namespace Backend.Controllers.Admin
             _commentRepository = new GenericRepository<Comment>(_context);
 
         }
-        [HttpGet("GetAllReportedComment")]
+
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetAllReportedComment")]
         public async Task<IActionResult> GetAllReportedComments()
         {
             var allRepComment = await _context.ReportedComments.Include(x=>x.UserReport).Include(x => x.UserComment).Include(x => x.Comment).ToListAsync();
@@ -48,7 +52,9 @@ namespace Backend.Controllers.Admin
             }
 
         }
-        [HttpPut("UpdateCommnentStatus/{id}")]
+
+		[Authorize(Roles = "Admin")]
+		[HttpPut("UpdateCommnentStatus/{id}")]
         public async Task<IActionResult> UpdateCommentStatus(int id, [FromBody] string status)
         {
           

@@ -1,8 +1,10 @@
 ﻿using Backend.Models;
 using Backend.Services;
 using Backend.Services.Implement;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Security.Claims;
 
 namespace Backend.Controllers
@@ -13,10 +15,12 @@ namespace Backend.Controllers
     {
         private readonly PRN231_V2Context _context;
         public UserController(PRN231_V2Context context)
-        {
+		{
             _context = context;
         }
-        [HttpGet("CurrentUser")]
+
+		[Authorize(Roles = "Student, Admin, Teacher")]
+		[HttpGet("CurrentUser")]
         public async Task<IActionResult> GetCurrentUserAsyn()
         {
             //var identity = HttpContext.User.Identity as ClaimsIdentity;
