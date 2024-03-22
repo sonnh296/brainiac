@@ -132,16 +132,12 @@ namespace Backend.Repositories
             return listToAdd;
         }
 
-        public List<Resource> GetResourceListInACourse(int courseId)
-        {
-            var resources = context.Resources.Where(r => r.CourseId == courseId).ToList();
-            return resources;
-        }
-
-        public async Task<Resource> CreateResourceDraft(int courseid, ResourceCreateDTO rsCreate)
+        public async Task<Resource> CreateResourceDraft(int courseid, Resource latestResource, ResourceCreateDTO rsCreate)
         {
             Resource res = mapper.Map<Resource>(rsCreate);
             res.CourseId = courseid;
+            res.OrdinalNumber = latestResource.OrdinalNumber + 1;
+            res.Status = ResourceConstants.RESOURCE_DRAFT;
             context.Resources.Add(res);
             await context.SaveChangesAsync();
             return res;
@@ -170,6 +166,12 @@ namespace Backend.Repositories
             context.Entry(courseToUpdate).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return courseToUpdate;
+        }
+
+        // add test to course
+        public async Task<Test?> AddTestToCourseAsync(int courseId, Test test)
+        {
+            return null;
         }
 
     }

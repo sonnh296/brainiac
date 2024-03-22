@@ -33,10 +33,10 @@ namespace Backend.Controllers
 
         // get a single course by a teacher
         [HttpGet("course/single/{teacherId}/{courseId}")]
-        public async Task<ActionResult<CourseDTO>> GetSinglgeCourseByIdAsync(int teacherId,  int courseId)
+        public async Task<ActionResult<CourseDTO>> GetSinglgeCourseByIdAsync(int teacherId, int courseId)
         {
             var course = await service.GetSingleCourseByIdAsync(teacherId, courseId);
-            if(course == null)
+            if (course == null)
             {
                 return NotFound("No course available");
             }
@@ -68,16 +68,16 @@ namespace Backend.Controllers
         public async Task<ActionResult<CourseDTO>> EditCourse(CourseUpdateDTO courseUpdate, int courseId, int teacherid)
         {
             Course courseToUpdate = await service.GetSingleCourseByIdAsync(teacherid, courseId);
-            if(courseToUpdate == null)
+            if (courseToUpdate == null)
             {
                 return NotFound();
             }
             Course course = await service.UpdateCourseAsync(courseId, courseUpdate);
-            if(course == null)
+            if (course == null)
             {
                 return NotFound();
             }
-            var dto = mapper.Map<CourseDTO> (course);
+            var dto = mapper.Map<CourseDTO>(course);
             return Ok(dto);
         }
 
@@ -86,7 +86,7 @@ namespace Backend.Controllers
         public async Task<ActionResult<CourseDTO>> DeleteCourse(int teacherId, int courseId)
         {
             var course = await service.DeleteCourseAsync(teacherId, courseId);
-            if(course == null)
+            if (course == null)
             {
                 return BadRequest();
             }
@@ -121,6 +121,18 @@ namespace Backend.Controllers
             }
         }
 
+        // edit a resource in a course(change status)
+        [HttpPut("/resource/update/{resourceId}")]
+        public async Task<ActionResult<ResourceDisplayDTO>> UpdateResourceInCourse(int resourceId, ResourceUpdateDTO resource)
+        {
+            var course = await service.UpdateResourceAsync(resourceId, resource);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+
         // search a course by name
         [HttpGet("course/search/{teacherId}/{keyword}")]
         public async Task<ActionResult<List<CourseDTO>>> SearchCourseByName(int teacherId, string keyword)
@@ -132,6 +144,13 @@ namespace Backend.Controllers
             }
             var dtos = mapper.Map<List<CourseDTO>>(courses);
             return Ok(dtos);
+        }
+
+        // add a test to course
+        [HttpPost("test/add/{courseId}")]
+        public async Task<ActionResult<List<Test>>> AddTestToCourse(int courseId, Test test)
+        {
+            return Ok();
         }
     }
 }
