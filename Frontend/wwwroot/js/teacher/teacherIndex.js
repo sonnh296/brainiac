@@ -13,7 +13,7 @@ function getParameter(param) {
 }
 function GetAllCoursesOfTeacher() {
     let teacherId = getUserId();
-    //console.log(teacherId);
+    console.log(teacherId);
     $.ajax({
         headers: {
             'Accept': '*/*',
