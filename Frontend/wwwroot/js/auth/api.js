@@ -1,4 +1,11 @@
 ﻿function getAccessToken() {
+
+    if (getUserId() == null || getUserId() == undefined) {
+        document.cookie = `web-at=;max-age=0; path=/`;
+        document.cookie = `web-rt=; max-age=0;path=/`;
+        document.cookie = `user-id=; max-age=0;path=/`;
+        window.location.href = "/";
+    }
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
@@ -23,8 +30,7 @@
             .then((data) => {
                 if (data.accessToken != null && data.accessToken != undefined) {
                     document.cookie = `web-at=${data.accessToken};max-age=900; path=/`;
-                    document.cookie = `web-rt=${data.refreshtoken}; path=/`;
-                    document.cookie = `user-id=${data.userid}; path=/`;
+                    document.cookie = `web-rt=${data.refreshtoken}; max-age=864000;path=/`;
                     getAccessToken()
                 } else {
                     window.location.href = "/";
@@ -35,6 +41,7 @@
     } else {
         window.location.href = "/";
     }
+
     return null;
 }
 
@@ -43,6 +50,8 @@ function getRefreshToken() {
     for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
         if (cookie.startsWith("web-rt=")) {
+            if (cookie.substring(7) == undefined)
+                return null;
             return cookie.substring(7);
         }
     }
