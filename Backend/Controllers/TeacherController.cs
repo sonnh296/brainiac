@@ -23,27 +23,29 @@ namespace Backend.Controllers
         }
 
         // get course list by a teacher
-        //[HttpGet("GetAllCourses/{teacherid}")]
-        [HttpGet("GetAllCourses/")]
-        public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync()
+        [HttpGet("GetAllCourses/{teacherid}")]
+        public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync(int teacherid)
         {
-            var teacherId = 2;
-            var courses = await service.GetCourseListByTeacherAsync(teacherId);
+            var courses = await service.GetCourseListByTeacherAsync(teacherid);
             var dtos = mapper.Map<List<CourseDTO>>(courses);
             return Ok(dtos);
         }
 
         // get a single course by a teacher
-        [HttpGet("GetSingleCourse")]
-        public async Task<ActionResult<CourseDTO>> GetSinglgeCourseByIdAsync([FromQuery] int teacherId, [FromQuery] int courseId)
+        [HttpGet("course/single/{teacherId}/{courseId}")]
+        public async Task<ActionResult<CourseDTO>> GetSinglgeCourseByIdAsync(int teacherId,  int courseId)
         {
             var course = await service.GetSingleCourseByIdAsync(teacherId, courseId);
+            if(course == null)
+            {
+                return NotFound("No course available");
+            }
             var dto = mapper.Map<CourseDTO>(course);
             return Ok(dto);
         }
 
         // add a new course
-        [HttpPost("addCourse/{teacherId}")]
+        [HttpPost("course/add/{teacherId}")]
         public async Task<ActionResult<CourseDTO>> CreateNewCourseDraft(int teacherId, CourseCreateDTO course)
         {
             try
@@ -61,13 +63,52 @@ namespace Backend.Controllers
             }
         }
 
+        // edit a course info
+        [HttpPut("course/edit/{teacherid}/{courseId}")]
+        public async Task<ActionResult<CourseDTO>> EditCourse(CourseUpdateDTO courseUpdate, int courseId, int teacherid)
+        {
+            Course courseToUpdate = await service.GetSingleCourseByIdAsync(teacherid, courseId);
+            if(courseToUpdate == null)
+            {
+                return NotFound();
+            }
+            Course course = await service.UpdateCourseAsync(courseId, courseUpdate);
+            if(course == null)
+            {
+                return NotFound();
+            }
+            var dto = mapper.Map<CourseDTO> (course);
+            return Ok(dto);
+        }
+
+        // delete a course(change status)
+        [HttpPut("/course/delete/{teacherId}/{courseId}")]
+        public async Task<ActionResult<CourseDTO>> DeleteCourse(int teacherId, int courseId)
+        {
+            var course = await service.DeleteCourseAsync(teacherId, courseId);
+            if(course == null)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
+        // get resource list from a course
+        [HttpGet("course/resource/list/{courseId}")]
+        public async Task<ActionResult<List<ResourceDisplayDTO>>> GetResourceFromACourse(int courseId)
+        {
+            var resources = await service.GetResourceListFromCourseAsync(courseId);
+            var dtos = mapper.Map<List<ResourceDisplayDTO>>(resources);
+            return Ok(dtos);
+        }
+
         // add a new resource to a course
-        [HttpPost("Resource/AddResource/{courseId}")]
+        [HttpPost("resource/add/{courseId}")]
         public async Task<ActionResult<ResourceDTO>> CreateResourceDraft(int courseId, ResourceCreateDTO resource)
         {
             try
             {
-                var res = service.CreateResource(courseId, resource);
+                var res = await service.CreateResource(courseId, resource);
                 return Ok(resource);
             }
             catch (ArgumentNullException)
@@ -78,7 +119,19 @@ namespace Backend.Controllers
             {
                 return BadRequest("Resource name has already existed");
             }
-            
+        }
+
+        // search a course by name
+        [HttpGet("course/search/{teacherId}/{keyword}")]
+        public async Task<ActionResult<List<CourseDTO>>> SearchCourseByName(int teacherId, string keyword)
+        {
+            var courses = await service.SearchCourseByNameAsync(teacherId, keyword);
+            if(courses == null)
+            {
+                return NotFound();
+            }
+            var dtos = mapper.Map<List<CourseDTO>>(courses);
+            return Ok(dtos);
         }
     }
 }

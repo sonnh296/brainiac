@@ -4,6 +4,7 @@
     {
         public const string CourseDeleted = "0";
         public const string CourseDraft = "1";
-        public const string CoursePublished = "2";
+        public const string CoursePending = "2";
+        public const string CoursePublished = "3";
     }
 }

@@ -6,13 +6,13 @@ namespace Frontend.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View("/Views/Teacher/DashBoard.cshtml");
         }
         public IActionResult AddCourse()
         {
             return View();
         }
-        public IActionResult DashBoard()
+        public IActionResult Dashboard()
         {
             return View();
         }

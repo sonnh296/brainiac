@@ -22,5 +22,11 @@ namespace Backend.Repositories
                             .FirstOrDefaultAsync();
             return resource;
         }
+
+        public async Task<List<Resource>> GetResourceListFromCourseAsync(int courseId)
+        {
+            var resources = await context.Resources.Where(r => r.CourseId == courseId).ToListAsync();
+            return resources;
+        }
     }
 }
