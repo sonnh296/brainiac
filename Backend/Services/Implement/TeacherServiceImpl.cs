@@ -9,10 +9,12 @@ namespace Backend.Services.Implement
     public class TeacherServiceImpl : ITeacherService
     {
         private readonly TeacherRepository repository;
+        private readonly ResourceRepository resourceRepository;
 
-        public TeacherServiceImpl(TeacherRepository repo)
+        public TeacherServiceImpl(TeacherRepository repo, ResourceRepository resourceRepository)
         {
             repository = repo;
+            this.resourceRepository = resourceRepository;
         }
 
         public async Task<List<Course>> GetCourseListByTeacherAsync(int id)
@@ -58,9 +60,28 @@ namespace Backend.Services.Implement
             return repository.CreateResourceDraft(courseId, resource);
         }
 
-        public Task<Course> UpdateCourseAsync(int courseId, CourseDTO course)
+        public Task<Course?> UpdateCourseAsync(int courseId, CourseUpdateDTO course)
         {
-            throw new NotImplementedException();
+            if(string.IsNullOrEmpty(course.CourseName) || string.IsNullOrEmpty(course.Title))
+            {
+                throw new ArgumentNullException();
+            }
+            return repository.UpdateCourse(courseId, course);
+        }
+
+        public Task<List<Course>> SearchCourseByNameAsync(int teacherId, string keyword)
+        {
+            return repository.SearchCoursesOfTeacherByNameAsync(teacherId, keyword);
+        }
+
+        public Task<Course> FindCourseByIdAsync(int courseid)
+        {
+            return repository.FindCourseByIdAsync(courseid);
+        }
+
+        public Task<List<Resource>> GetResourceListFromCourseAsync(int courseId)
+        {
+            return resourceRepository.GetResourceListFromCourseAsync(courseId);
         }
     }
 }

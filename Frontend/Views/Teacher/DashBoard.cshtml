@@ -12,6 +12,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="~/js/auth/api.js"></script>
     <script src="~/js/teacher/teacherIndex.js"></script>
     <link rel="stylesheet" href="~/css/teacher/style.css" />
 </head>
@@ -19,15 +20,24 @@
 <body>
     <main>
         <div class="search-form">
-            <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2"
+                   type="search"
+                   placeholder="Search"
+                   aria-label="Search"
+                   id="txt-search" />
+            <button class="btn btn-outline-success my-2 my-sm-0" id="btn-search">
+                Search
+            </button>
+            @* <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2"
                        type="search"
                        placeholder="Search"
-                       aria-label="Search" />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                       aria-label="Search" 
+                       id="txt-search"/>
+                <button class="btn btn-outline-success my-2 my-sm-0" id="btn-search">
                     Search
                 </button>
-            </form>
+            </form> *@
         </div>
         <div class="add-course">
             <a class="btn btn-outline-success my-2 my-sm-0" href="@Url.Action("AddCourse", "Teacher")">Add course</a>
@@ -43,18 +53,10 @@
                     <div class="category-chip">
                         <p>Networking</p>
                     </div>
-                    <div class="category-chip">
-                        <p>Software</p>
-                    </div>
-                    <div class="category-chip">
-                        <p>IT</p>
-                    </div>
                 </div>
                 <div>
                     <p class="course-description">
                         Brainport Eindhoven is Europe's most innovative technology region.
-                        Over 5000 high tech and IT companies work together in a unique
-                        ecosystem.
                     </p>
                 </div>
                 <div>

@@ -1,6 +1,8 @@
 ﻿// get a single course details of a teacher by course id
 $(document).ready(function () {
     GetCourseDetails();
+    getCourseLessons();
+    saveChanges();
 });
 
 function getParameter(param) {
@@ -11,7 +13,7 @@ function getParameter(param) {
     }
 }
 function GetCourseDetails() {
-    let teacherId = 2;
+    let teacherId = getUserId();
     let courseId = getParameter("courseId");
     $.ajax({
         headers: {
@@ -19,7 +21,7 @@ function GetCourseDetails() {
             'Content-Type': 'application/json'
         },
         type: "GET",
-        url: "http://localhost:5020/Teacher/GetSingleCourse?teacherId=" + teacherId + "&courseId=" + courseId,
+        url: "http://localhost:5020/Teacher/course/single/" + teacherId + "/" + courseId,
         success: function (result) {
             //console.log(result);
             let biggest = "";
@@ -33,7 +35,77 @@ function GetCourseDetails() {
             $('.category-list').html(biggest);
             $('#course-title-name').val(result.courseName);
             $('#course-description').val(result.title);
-            $('#price').val(result.price + " vnd");
+            $('#price').val(result.price);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+
+function saveChanges() {
+    $("#save-button").click(function () {
+        let teacherId = getUserId();
+        let courseId = getParameter("courseId");
+        let name = $("#course-title-name").val();
+        let description = $("#course-description").val();
+        let price = $("#price").val();
+        if (!name || !description || !price) {
+            alert("Course info cannot be empty");
+            return;
+        }
+        const course = {
+            courseName: name,
+            title: description,
+            price: price
+        };
+        $.ajax({
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            type: "PUT",
+            data: JSON.stringify(course),
+            url: "http://localhost:5020/Teacher/course/edit/" + teacherId + "/" + courseId,
+            success: function (result) {
+                console.log(result);
+                saveButton.disabled = true;
+                editButton.textContent = "Edit";
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+}
+
+function getCourseLessons() {
+    let courseId = getParameter("courseId");
+    $.ajax({
+        headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:5020/Teacher/course/resource/list/" + courseId,
+        success: function (result) {
+            //console.log(result);
+            let biggest = "";
+            for (let i = 0; i < result.length; i++) {
+                const a = `
+                    <div class="single-lesson">
+                        <button class="accordion">${result[i].name}</button>
+                        <div class="panel">
+                            <p>${result[i].description}</p>
+                            <div class="edit-lesson">
+                                <button>Edit</button>
+                            </div>
+                        </div>
+                    </div>`;
+                biggest += a;
+            }
+            console.log(biggest);
+            $('.lesson').html(biggest);
         },
         error: function (error) {
             console.log(error);
