@@ -82,12 +82,10 @@
                                         <a href="/student/historypay"><i class="fa fa-user" aria-hidden="true"></i> <span>Payment History</span></a>
                                     </div>
                                     <div class="login ">
-                                    <button type="submit" style="font-weight: bold;" class="logoutbtn">
+                                    <button onclick="Logout()" type="submit" style="font-weight: bold;" class="logoutbtn">
                                         Đăng xuất
                                     </button>
                                     </div>
-                                
-                              
                                     <div class="notlog" >
                                     <a href="/">  Login/Register</span></a>
                                     
@@ -219,7 +217,6 @@
     </footer>
     <script src="~/Assets/HomePage/js/active.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script src="~/js/auth/api.js"></script>
     <script>
         const token2 = getUserId();
         if (token2 == null) {
@@ -229,12 +226,54 @@
             console.log(2);
             $('.notlog').hide(); // Hide elements with class "notlog"
         }
-        $(".logoutbtn").on("click",function(){
-            alert("logged out!");
-            window.location ="/"
+        //$(".logoutbtn").on("click",function(){
+        //    alert("logged out!");
+        //    window.location ="/"
                 
-        });
-        </script>
+        //});
+    </script>
+    <script>
+        function Logout(){
+            var AC_exist = false;
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith("web-at=")) {
+                    AC_exist = true;
+                    var tk = cookie.substring(7);
+                    callLogout(tk)
+                }
+            }
+            if (!AC_exist) {
+                getAccessToken();
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith("web-at=")) {
+                        AC_exist = true;
+                        var tk = cookie.substring(7);
+                        callLogout(tk)
+                    }
+                }
+            }
+        }
+
+        function callLogout(tk){
+            fetch("http://localhost:5020/api/logout", {
+                headers: { Authorization: `Bearer ${tk}` },
+            })
+                .then(() => {
+                    document.cookie = `web-at=; max-age=0; path=/`;
+                    document.cookie = `web-rt=;max-age=0;  path=/`;
+                    document.cookie = `user-id=;max-age=0;  path=/`;
+                });
+        }
+    </script>
+    <script src="~/js/auth/api.js"></script>
+@*    <script>
+        if (!checkCUrrentRole("Student")) {
+            window.location.href = "/";
+        }
+    </script>*@
 </body>
 
 </html>

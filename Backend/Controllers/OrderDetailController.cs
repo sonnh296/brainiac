@@ -1,8 +1,10 @@
 ﻿using Backend.Models;
 using Backend.Services;
 using Backend.Services.Implement;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Backend.Controllers
 {
@@ -16,7 +18,8 @@ namespace Backend.Controllers
             _context = context;
         }
 
-        [HttpPost("Payment")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpPost("Payment")]
         public async Task<IActionResult> PaymentAsync([FromBody] OrderDetail orderDetail)
         {
             try
@@ -50,11 +53,12 @@ namespace Backend.Controllers
             }
             catch (Exception)
             {
-                return BadRequest();
-            }
+				return BadRequest();
+			}
         }
 
-        [HttpGet("History/{userId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("History/{userId}")]
         public async Task<IActionResult> GetHistoryAsync(int userId)
         {
             var orderDetails = _context.OrderDetails

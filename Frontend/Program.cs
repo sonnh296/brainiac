@@ -13,7 +13,10 @@ if (!app.Environment.IsDevelopment()) {
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
-
+app.MapFallback(context => {
+	context.Response.Redirect("/");
+	return Task.CompletedTask;
+});
 app.UseRouting();
 
 app.UseAuthorization();

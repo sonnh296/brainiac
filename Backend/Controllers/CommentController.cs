@@ -1,7 +1,9 @@
 ﻿using Backend.DTOs;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Backend.Controllers
 {
@@ -11,11 +13,12 @@ namespace Backend.Controllers
     {
         private readonly PRN231_V2Context _context;
         public CommentController(PRN231_V2Context context)
-        {
-            _context = context;
+		{
+			_context = context;
         }
 
-        [HttpGet("Course/{courseId}")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpGet("Course/{courseId}")]
         public async Task<IActionResult> GetCommentsOfCourseAsync(int courseId)
         {
             var comments = _context.Comments.Where(x => x.CourseId == courseId && x.Status == "1")
@@ -28,7 +31,8 @@ namespace Backend.Controllers
             return Ok(comments);
         }
 
-        [HttpPost("ReportComment")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpPost("ReportComment")]
         public async Task<IActionResult> ReportCommentAsync(CommentDTO comment)
         {
             try
@@ -51,7 +55,8 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPost("PostComment")]
+		[Authorize(Roles = "Teacher, Student, Admin")]
+		[HttpPost("PostComment")]
         public async Task<IActionResult> PostCommentAsync(CommentDTO comment)
         {
             try

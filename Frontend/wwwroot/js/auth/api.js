@@ -22,7 +22,7 @@
             .then((response) => response.json())
             .then((data) => {
                 if (data.accessToken != null && data.accessToken != undefined) {
-                    document.cookie = `web-at=${data.accessToken}; path=/`;
+                    document.cookie = `web-at=${data.accessToken};max-age=900; path=/`;
                     document.cookie = `web-rt=${data.refreshtoken}; path=/`;
                     document.cookie = `user-id=${data.userid}; path=/`;
                     getAccessToken()
@@ -36,7 +36,7 @@
         window.location.href = "/";
     }
     return null;
-}` `
+}
 
 function getRefreshToken() {
     const cookies = document.cookie.split(';');
@@ -58,6 +58,49 @@ function getUserId() {
         }
     }
     return null;
+}
+
+function checkCUrrentRole(roleCheck) {
+    var AC_exist = false;
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("web-at=")) {
+            AC_exist = true;
+            var tk = cookie.substring(7);
+            fetch("http://localhost:5020/api/User/CurrentUser", {
+                headers: { Authorization: `Bearer ${tk}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    role = data.role;
+                    if (role != null && role != undefined) {
+                        return roleCheck == role
+                    }
+                });
+        }
+    }
+    if (!AC_exist) {
+        getAccessToken();
+    }
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("web-at=")) {
+            AC_exist = true;
+            var tk = cookie.substring(7);
+            fetch("http://localhost:5020/api/User/CurrentUser", {
+                headers: { Authorization: `Bearer ${tk}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    role = data.role;
+                    if (role != null && role != undefined) {
+                        return roleCheck == role
+                    }
+                });
+        }
+    }
+    return false;
 }
 
 function setCookie(name, value, days) {
@@ -115,5 +158,38 @@ async function callAPI(endpoint, method, data) {
     } catch (error) {
         console.error('Error:', error);
         throw error; // Handle error appropriately in your application
+    }
+}
+
+function checkIsLoginFilter() {
+    var AC_exist = false;
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("web-at=")) {
+            AC_exist = true;
+            var tk = cookie.substring(7);
+            fetch("http://localhost:5020/api/User/CurrentUser", {
+                headers: { Authorization: `Bearer ${tk}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    role = data.role;
+                    if (role != null && role != undefined) {
+                        if (role == "Student") {
+                            window.location.href = "/homepage";
+                        }
+                        if (role == "Admin") {
+                            window.location.href = "/admin/manageaccount";
+                        }
+                        if (role == "Teacher") {
+                            window.location.href = "/teacher/dashboard";
+                        }
+                    }
+                });
+        }
+    }
+    if (!AC_exist) {
+        getAccessToken();
     }
 }

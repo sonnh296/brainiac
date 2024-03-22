@@ -3,6 +3,8 @@ using Backend.Services;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Backend.DTOs.Course;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Backend.Controllers
 {
@@ -17,10 +19,11 @@ namespace Backend.Controllers
         {
             this.service = service;
             this.mapper = mapper;
-        }
+		}
 
-        // get all courses that a student has enrolled
-        [HttpGet("GetEnrolledCourses/{studentId}")]
+		// get all courses that a student has enrolled
+		[Authorize(Roles = "Student, Admin")]
+		[HttpGet("GetEnrolledCourses/{studentId}")]
         public async Task<ActionResult<List<CourseDTO>>> GetCoursesOfStudent(int studentId)
         {
             var courses = await service.GetCoursesOfStudentAsync(studentId);

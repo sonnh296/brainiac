@@ -1,8 +1,10 @@
 ﻿using Backend.Models;
 using Backend.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Backend.Controllers.Admin
@@ -25,8 +27,8 @@ namespace Backend.Controllers.Admin
             _resourceRepository = resourceRepository;
            
         }
-
-        [HttpGet("GetAllCourses")]
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetAllCourses")]
         public async Task<IActionResult> GetAllCourses(string? searchText)
         {
                 var query = _context.Courses.Select(x => new
@@ -52,7 +54,10 @@ namespace Backend.Controllers.Admin
             }
 
         }
-        [HttpGet("GetCourse/{id}")]
+
+
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetCourse/{id}")]
         public async Task<IActionResult> GetCourseById(int id)
         {
             var courseWithUsers = await _context.Courses
@@ -87,7 +92,9 @@ namespace Backend.Controllers.Admin
                 return NotFound("Course not found");
             }
         }
-        [HttpGet("GetTestsByCourse/{courseId}")]
+
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetTestsByCourse/{courseId}")]
         public IActionResult GetTestsByCourse(int courseId)
         {
             try
@@ -104,7 +111,9 @@ namespace Backend.Controllers.Admin
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [HttpGet("GetResourcesByCourse/{courseId}")]
+
+		[Authorize(Roles = "Admin")]
+		[HttpGet("GetResourcesByCourse/{courseId}")]
         public IActionResult GetResourcesByCourseId(int courseId)
         {
             try
@@ -122,7 +131,8 @@ namespace Backend.Controllers.Admin
             }
         }
 
-        [HttpPut("UpdateCourseStatus/{id}")]
+		[Authorize(Roles = "Admin")]
+		[HttpPut("UpdateCourseStatus/{id}")]
         public async Task<IActionResult> UpdateCourseStatus(int id, [FromBody] string status)
         {
             if (!IsValidStatus(status))

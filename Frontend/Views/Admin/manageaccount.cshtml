@@ -258,7 +258,55 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
 
+	<script src="~/js/auth/api.js"></script>
+	<script>
 
+		function checkCUrrentRoleDm(roleCheck) {
+			var AC_exist = false;
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.startsWith("web-at=")) {
+					AC_exist = true;
+					var tk = cookie.substring(7);
+					fetch("http://localhost:5020/api/User/CurrentUser", {
+						headers: { Authorization: `Bearer ${tk}` },
+					})
+						.then((response) => response.json())
+						.then((data) => {
+							role = data.role;
+							if (role != null && role != undefined) {
+								return roleCheck == role
+							}
+						});
+				}
+			}
+			if (!AC_exist) {
+				getAccessToken();
+			}
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.startsWith("web-at=")) {
+					AC_exist = true;
+					var tk = cookie.substring(7);
+					fetch("http://localhost:5020/api/User/CurrentUser", {
+						headers: { Authorization: `Bearer ${tk}` },
+					})
+						.then((response) => response.json())
+						.then((data) => {
+							role = data.role;
+							if (role != null && role != undefined) {
+								return roleCheck == role
+							}
+						});
+				}
+			}
+			return false;
+		}
+		if (!checkCUrrentRoleDm("Admin")) {
+			window.location.href = "/";
+		}
+	</script>
 
 
 </body>

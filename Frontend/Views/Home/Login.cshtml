@@ -707,7 +707,50 @@
 		</div>
 	</div>
 	<!-- partial -->
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="~/js/auth/api.js"></script>
+
 <script>
+	function checkIsLogin() {
+		var AC_exist = false;
+		const cookies = document.cookie.split(';');
+		for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].trim();
+			if (cookie.startsWith("web-at=")) {
+				AC_exist = true;
+				var tk = cookie.substring(7);
+				fetch("http://localhost:5020/api/User/CurrentUser", {
+					headers: { Authorization: `Bearer ${tk}` },
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						role = data.role;
+						if (role != null && role != undefined) {
+							if (role == "Student") {
+								window.location.href = "/homepage";
+							}
+							if (role == "Admin") {
+								window.location.href = "/admin/manageaccount";
+							}
+							if (role == "Teacher") {
+								window.location.href = "/teacher/dashboard";
+							}
+						}
+					});
+			}
+		}
+		if (!AC_exist){
+			if (getRefreshToken() != null){
+				getAccessToken();
+			}
+		}
+	}
+	checkIsLogin()
+
 	const signUpButton = document.getElementById('signUp');
 	const signInButton = document.getElementById('signIn');
 	const container = document.getElementById('container');
@@ -721,22 +764,22 @@
 		console.log("changed");
 		var u = document.getElementById("username-login").value;
 		var p = document.getElementById("password-login").value;
-		if (u.length > 0 && p.length > 0){
+		if (u.length > 0 && p.length > 0) {
 			document.getElementById("signin-button").disabled = false;
 		}
-		else{
+		else {
 			document.getElementById("signin-button").disabled = true;
 		}
 	}
 
-		const formSignup = document.getElementById('signup-form');
-
-		formSignup.addEventListener('submit', (event) => {
+	/////Sign up
+	const formSignup = document.getElementById('signup-form');
+	formSignup.addEventListener('submit', (event) => {
 		event.preventDefault();
-			var name = document.getElementById("signup-name").value;
-			var email = document.getElementById("signup-email").value;
-			var password = document.getElementById("signup-password").value;
-			var roleid = document.getElementById('signup-student').checked ? 1 : 2;
+		var name = document.getElementById("signup-name").value;
+		var email = document.getElementById("signup-email").value;
+		var password = document.getElementById("signup-password").value;
+		var roleid = document.getElementById('signup-student').checked ? 1 : 2;
 		fetch("http://localhost:5020/api/signup", {
 			method: "POST",
 			headers: {
@@ -756,45 +799,46 @@
 		}).catch(e => console.log("error::", e));
 	});
 
-		const form = document.getElementById('login-form');
+	const form = document.getElementById('login-form');
 
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			var u = document.getElementById("username-login").value;
-			var p = document.getElementById("password-login").value;
-			fetch("http://localhost:5020/api/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					"Accept": "application/json",
-				},
-				body: JSON.stringify({
-					email: u,
-					password: p,
-				})
+	/////Login
+	form.addEventListener('submit', (event) => {
+		event.preventDefault();
+		var u = document.getElementById("username-login").value;
+		var p = document.getElementById("password-login").value;
+		fetch("http://localhost:5020/api/login", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json",
+			},
+			body: JSON.stringify({
+				email: u,
+				password: p,
 			})
-				.then((response) => response.json())
+		})
+			.then((response) => response.json())
 			.then((data) => {
 				if (data.role != null && data.role != undefined) {
-					document.cookie = `web-at=${data.accessToken}; path=/`;
-					document.cookie = `web-rt=${data.refreshToken}; path=/`;
-					document.cookie = `user-id=${data.userid}; path=/`;
+					document.cookie = `web-at=${data.accessToken}; max-age=900; path=/`;
+					document.cookie = `web-rt=${data.refreshToken};max-age=864000;  path=/`;
+					document.cookie = `user-id=${data.userid};max-age=864000;  path=/`;
 					if (data.role == "Student") {
 						window.location.href = "/homepage";
 						return;
-						}
-						if (data.role == "Admin") {
-							window.location.href = "/admin/manageaccount";
-							return;
-						}
+					}
+					if (data.role == "Admin") {
+						window.location.href = "/admin/manageaccount";
+						return;
+					}
 					window.location.href = "/" + data.role + '/dashboard';
-				}else{
-						document.getElementById('login-message').innerHTML = "Wrong email or password";
+				} else {
+					document.getElementById('login-message').innerHTML = "Wrong email or password";
 				}
 			}).catch(e => {
 				document.getElementById('login-message').innerHTML();
 			});
-		});
+	});
 
 	signUpButton.addEventListener('click', () => {
 		container.classList.add("right-panel-active");
@@ -805,11 +849,9 @@
 	});
 
 	var btnForgot = document.getElementById('forGot');
-btnForgot.addEventListener('click', function () {
-        window.location.href = "/Home/Forgot";
-    });
+	btnForgot.addEventListener('click', function () {
+		window.location.href = "/Home/Forgot";
+	});
 
 </script>
-
-</body>
 </html>

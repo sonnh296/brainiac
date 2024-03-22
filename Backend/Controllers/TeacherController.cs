@@ -4,6 +4,7 @@ using Backend.DTOs.Course;
 using Backend.DTOs.Resource;
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace Backend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class TeacherController : ControllerBase
+    public class TeacherController : BaseApiController
     {
         private readonly ITeacherService service;
         private readonly IMapper mapper;
@@ -25,17 +26,18 @@ namespace Backend.Controllers
         // get course list by a teacher
         //[HttpGet("GetAllCourses/{teacherid}")]
         [HttpGet("GetAllCourses/")]
-        public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync()
+		[Authorize(Roles = "Teacher")]
+		public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync()
         {
-            var teacherId = 2;
-            var courses = await service.GetCourseListByTeacherAsync(teacherId);
+            var courses = await service.GetCourseListByTeacherAsync(UserID);
             var dtos = mapper.Map<List<CourseDTO>>(courses);
             return Ok(dtos);
         }
 
         // get a single course by a teacher
         [HttpGet("GetSingleCourse")]
-        public async Task<ActionResult<CourseDTO>> GetSinglgeCourseByIdAsync([FromQuery] int teacherId, [FromQuery] int courseId)
+		[Authorize(Roles = "Teacher")]
+		public async Task<ActionResult<CourseDTO>> GetSinglgeCourseByIdAsync([FromQuery] int teacherId, [FromQuery] int courseId)
         {
             var course = await service.GetSingleCourseByIdAsync(teacherId, courseId);
             var dto = mapper.Map<CourseDTO>(course);
@@ -44,7 +46,8 @@ namespace Backend.Controllers
 
         // add a new course
         [HttpPost("addCourse/{teacherId}")]
-        public async Task<ActionResult<CourseDTO>> CreateNewCourseDraft(int teacherId, CourseCreateDTO course)
+		[Authorize(Roles = "Teacher")]
+		public async Task<ActionResult<CourseDTO>> CreateNewCourseDraft(int teacherId, CourseCreateDTO course)
         {
             try
             {
@@ -63,7 +66,8 @@ namespace Backend.Controllers
 
         // add a new resource to a course
         [HttpPost("Resource/AddResource/{courseId}")]
-        public async Task<ActionResult<ResourceDTO>> CreateResourceDraft(int courseId, ResourceCreateDTO resource)
+		[Authorize(Roles = "Teacher")]
+		public async Task<ActionResult<ResourceDTO>> CreateResourceDraft(int courseId, ResourceCreateDTO resource)
         {
             try
             {
