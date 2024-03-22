@@ -17,7 +17,6 @@ namespace Backend.App.Extensions
             services.AddScoped<IStudentService, StudentServiceImpl>();
             services.AddScoped<StudentRepository>();
 
-            services.AddScoped<IResourceService, ResourceServiceImpl>();
             services.AddScoped<ResourceRepository>();
         }
     }

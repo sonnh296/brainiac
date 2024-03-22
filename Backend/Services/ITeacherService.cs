@@ -15,5 +15,7 @@ namespace Backend.Services
         public Task<List<Course>> SearchCourseByNameAsync(int teacherId, string keyword);
         public Task<List<Resource>> GetResourceListFromCourseAsync(int courseId);
         public Task<Resource> CreateResource(int courseId, ResourceCreateDTO resource);
+        public Task<Resource?> UpdateResourceAsync(int resourceId, ResourceUpdateDTO resource);
+        public Task<Test?> AddTestToCourse(int course, Test test);
     }
 }

@@ -5,6 +5,7 @@ $(document).ready(function () {
     getCourseLessons();
     saveChanges();
     deleteCourse();
+    redirect();
 });
 
 function getParameter(param) {
@@ -80,7 +81,14 @@ function saveChanges() {
         });
     });
 }
-
+function redirect() {
+    $('#btn-add').click(function () {
+        let courseId = getParameter("courseId");
+        var baseUrl = $(this).data('url');
+        var url = baseUrl + '?courseId=' + courseId;
+        window.location.href = url;
+    });
+}
 function deleteCourse() {
     $("#btn-delete").click(function () {
         let teacherId = getUserId();

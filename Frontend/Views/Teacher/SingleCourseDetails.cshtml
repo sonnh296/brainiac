@@ -59,7 +59,12 @@
                     <button id="save-button" disabled>Save</button>
                 </div>
             </div>
-
+            <div class="add-lesson">
+                <button id="btn-add" 
+                        data-url='@Url.Action("AddResource", "Teacher")'>
+                        Add lesson
+                </button>
+            </div>
             <div>
                 <h2>Lessons</h2>
             </div>
@@ -81,5 +86,11 @@
     </main>
 
     <script type="text/javascript" src="~/js/teacher/detailcourse/script.js"></script>
+    <script>
+        function redirectToAnotherPage() {
+            var url = '@Url.Action("AddResource", "Teacher", new { courseId = "parameterValue" })';
+            window.location.href = url;
+        }
+    </script>
 </body>
 

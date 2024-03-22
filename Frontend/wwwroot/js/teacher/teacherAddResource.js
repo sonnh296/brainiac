@@ -1,7 +1,6 @@
 ﻿// add a resouce in a course
 $(document).ready(function () {
     GetCourseInfo();
-    //GetHighestOrdinalResource();
     AddResourceToCourse();
 });
 
@@ -24,7 +23,7 @@ function AddResourceToCourse() {
             alert("Resource type is not selected");
             return;
         }
-        var courseId = getParameter("courseid");
+        var courseId = getParameter("courseId");
         console.log(resource);
         $.ajax({
             headers: {
@@ -91,29 +90,9 @@ function GetResourceToAdd() {
         name : name,
         isFree : isFree,
         type : type,
-        status: status, 
-        ordinalNumber : 1
+        status: status
     }
 
     return resource;
 }
-
-//function GetHighestOrdinalResource() {
-//    let courseid = getParameter("courseid");
-//    $.ajax({
-//        headers: {
-//            'Accept': '*/*',
-//            'Content-Type': 'application/json'
-//        },
-//        type: "GET",
-//        url: "http://localhost:5020/Resource/GetLargestOrdinal/" + courseid,
-//        success: function (result) {
-            
-//        },
-//        error: function (error) {
-//            console.log(error);
-//        }
-//    });
-
-//}
 
