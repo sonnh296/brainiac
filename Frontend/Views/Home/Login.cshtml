@@ -782,7 +782,11 @@
 					if (data.role == "Student") {
 						window.location.href = "/homepage";
 						return;
-					}
+						}
+						if (data.role == "Admin") {
+							window.location.href = "/admin/manageaccount";
+							return;
+						}
 					window.location.href = "/" + data.role + '/dashboard';
 				}else{
 						document.getElementById('login-message').innerHTML = "Wrong email or password";
