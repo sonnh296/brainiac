@@ -7,14 +7,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="	https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
     <style>
         .detail {
             display: none;
         }
-
+        button{
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 20px;
+            background-color: #eeeee4;
+        }
+        button:hover{
+                background-color: #52a832
+        }
         .youtube-container {
             overflow: hidden;
-            width: 50%;
+            width: 100%;
             /* Keep it the right aspect-ratio */
             aspect-ratio: 16/9;
             position: relative;
@@ -56,10 +66,9 @@
             }
 
         .popup {
-            width: 80%;
-            height: 80%;
-            min-height: 480px;
-            max-height: 480px;
+            width: 100%;
+            height: 100%;
+           
             border-radius: 48px;
             box-sizing: border-box;
             border: 16px solid #ebf0f4;
@@ -192,7 +201,30 @@
    
 
     <script>
+      
+        const token = getAccessToken();
+        const urlParam = new URLSearchParams(window.location.search);
+        const courseId = urlParam.get("courseId");
+        let lessonIndex = 0;
+        let lessons = [];
+        $(window).load(function () {
+            // Initially update marker transitions
+            updateMarkerTransitions();
+          
+          
+            setTimeout(loadListLessons(), 2000);
+            document
+                .querySelector(".prev-lesson-btn")
+                .addEventListener("click", navigateToPreviousLesson);
+            document
+                .querySelector(".next-lesson-btn")
+                .addEventListener("click", navigateToNextLesson);
+        });
+      
+        
+        
         function addTab(resourceId, name, isComplete) {
+            console.log(isComplete);
             const tabsContainer = document.getElementById('tabsContainer');
             const newTabNumber = tabsContainer.children.length / 2 + 1;
 
@@ -212,6 +244,9 @@
 
             // Update marker transitions
             updateMarkerTransitions();
+            if (isComplete == true) {
+                newLabel.style.color = 'green';
+            }
         }
         function addTabTest(resourceId, name) {
             const tabsContainer = document.getElementById('tabsContainer');
@@ -228,7 +263,7 @@
 
             const newLabel = document.createElement('label');
             newLabel.htmlFor = 'tab' + newTabNumber;
-            newLabel.textContent =  "Test"+name;
+            newLabel.textContent = "Test" + name;
             tabsContainer.appendChild(newLabel);
 
             // Update marker transitions
@@ -246,7 +281,6 @@
             // Update marker transitions
             updateMarkerTransitions();
         }
-
         function updateMarkerTransitions() {
             const tabs = document.querySelectorAll('.tabs input[type="radio"]');
             const marker = document.querySelector('.marker');
@@ -262,20 +296,8 @@
                 });
             });
         }
-
-        // Initially update marker transitions
-        updateMarkerTransitions();
-    </script>
-   <script>
-        const token = getAccessToken();
-        const urlParam = new URLSearchParams(window.location.search);
-        const courseId = urlParam.get("courseId");
-        let lessonIndex = 0;
-        let lessons = [];
-        loadListTests();
-        loadListLessons();
-      
         function loadListLessons() {
+           
             fetch(`http://localhost:5020/api/Resource/Course/${courseId}`, {
                 method: "GET",
                 headers: {
@@ -296,24 +318,23 @@
                     // Attach event listeners after loading lessons
                     attachLessonEventListeners();
                     updateLessonNavigation();
+                    fetch(`http://localhost:5020/api/Test/Course/${courseId}`, {
+                        method: "GET",
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            const listTests = document.querySelector(".list-tests");
+                            data.forEach((test) => {
+
+                                addTabTest(test.testId, test.testName);
+                            });
+                            attachTestEventListeners();
+                        });
                 });
-        }
-        function loadListTests() {
-            fetch(`http://localhost:5020/api/Test/Course/${courseId}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    const listTests = document.querySelector(".list-tests");
-                    data.forEach((test) => {
-                        
-                        addTabTest(test.testId, test.testName);
-                    });
-                    attachTestEventListeners();
-                });
+         
         }
         function attachLessonEventListeners() {
             // Add event listeners to lesson links
@@ -368,12 +389,7 @@
                 });
             });
         }
-        document
-            .querySelector(".prev-lesson-btn")
-            .addEventListener("click", navigateToPreviousLesson);
-        document
-            .querySelector(".next-lesson-btn")
-            .addEventListener("click", navigateToNextLesson);
+
         function loadLessonDetail(lessonId) {
             // Hide other detail sections
             document.querySelectorAll(".detail").forEach((detail) => {
@@ -391,26 +407,60 @@
                     const lessonContent = lessonDetail.querySelector(".lesson-content");
                     if (data.type === "Reading") {
                         lessonContent.innerHTML = `
-                                  <h3>${data.name}</h3>
-                                  <p><strong>Description:</strong> ${data.description
-                            }</p>
-                                  <p><strong>Type:</strong> ${data.type}</p>
-                                  <p><strong>Content:</strong> ${data.content}</p>
-                                  <p><strong>Complete:</strong> ${data.isComplete ? "Yes" : "No"
-                            }</p>
-                              `;
+           <div class="container">
+            <div class="col-lg-12 border p-3 main-section bg-white">
+                <div class="row m-0">
+                    <div class="col-lg-12">
+                        <div class="right-side-pro-detail border p-3 m-0">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                            <span>Resouce Name: ${data.name}</span>
+                                                    <p class="m-0 p-0">Description: ${data.description}</p>
+                                </div>
+                                <div class="col-lg-12">
+                                            <p class="m-0 p-0 price-pro">Type: ${data.type}</p>
+                                    <hr class="p-0 m-0">
+                                </div>
+                                        <div class="col-lg-12 pt-2" style="min-height: 650px;">
+                                    <h5>Lesson Detail</h5>
+                                            <span>${data.content}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>`;
                     } else if (data.type === "Video") {
                         lessonContent.innerHTML = `
-                                  <h3>${data.name}</h3>
-                                  <p><strong>Description:</strong> ${data.description
-                            }</p>
-                                  <div class="youtube-container">
-                                      <iframe class="youtube-video" src="${data.content
-                            }?autoplay=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                                  </div>
-                                  <p><strong>Complete:</strong> ${data.isComplete ? "Yes" : "No"
-                            }</p>
-                              `;
+                         <div class="container">
+            <div class="col-lg-12 border p-3 main-section bg-white">
+                <div class="row m-0">
+                    <div class="col-lg-12">
+                        <div class="right-side-pro-detail border p-3 m-0">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                            <span> Name: ${data.name}</span>
+                                                    <p class="m-0 p-0">Description: ${data.description}</p>
+                                </div>
+                                <div class="col-lg-12">
+                                            <p class="m-0 p-0 price-pro">Type: ${data.type}</p>
+                                    <hr class="p-0 m-0">
+                                </div>
+                                        <div class="col-lg-12 pt-2" style="min-height: 650px;">
+                                    <h5>Lesson Detail</h5>
+                                                    <div class="youtube-container">
+                                              <iframe class="youtube-video" src="${data.content}?autoplay=1&loop=1&color=white&controls=0&modestbranding=1&playsinline=1&rel=0&enablejsapi=1" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                                          </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>`;
                     }
                     if (data.isComplete) {
                         lessonDetail.querySelector(".mark-complete-btn").style.display =

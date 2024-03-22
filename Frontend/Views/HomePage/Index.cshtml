@@ -33,6 +33,25 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
     <style>
+        .logoutbtn {
+            background: none !important;
+            border: none;
+            padding: 2 !important;
+            /*optional*/
+            font-family: arial, sans-serif;
+            /*input has OS specific font-family*/
+            color: greenyellow;
+            cursor: pointer;
+        }
+
+        .logoutbtn-text {
+            position: absolute;
+            bottom: 0%;
+        }
+
+        .logoutbtn:hover {
+            color: red; /* New text color on hover */
+        }
         .hero-post1 {
             background-image: url("./img/bg-img/1.jpg");
         }
@@ -88,21 +107,33 @@
                             </div>
 
                             <!-- Top Header Content -->
+                            <!-- Top Header Content -->
                             <div class="top-header-meta d-flex">
+                                <!-- If the user is logged in, display welcome message & logout button -->
 
-                                <!-- Login -->
-                                <div class="login">
-                                    <a href="./student/Mycourses"><i class="fa fa-user" aria-hidden="true"></i> <span>Your Course</span></a>
-                                </div>
-                                <div class="login">
-                                    <a href="./student/profile"><i class="fa fa-user" aria-hidden="true"></i> <span>Your Profile</span></a>
-                                </div>
-                                <div class="login">
-                                    <a href="./student/historypay"><i class="fa fa-user" aria-hidden="true"></i> <span>Payment History</span></a>
+                                <div class="welcome">
+                                    <a asp-action="Index" asp-controller="Farm"><i class="" aria-hidden="true"></i> <span style="color:white; padding-left: 1px"></span></a>
                                 </div>
 
-                                <div class="login">
-                                    <a href="#" onclick="openPopup()"><i class="fa fa-user" aria-hidden="true"></i> <span>Your Profile</span></a>
+                                <div class="login ">
+                                    <a href="/student/Mycourses"><i class="fa fa-user" aria-hidden="true"></i> <span>Your Course</span></a>
+                                </div>
+                                <div class="login ">
+                                    <a href="/student/profile"><i class="fa fa-user" aria-hidden="true"></i> <span>Your Profile</span></a>
+                                </div>
+                                <div class="login ">
+                                    <a href="/student/historypay"><i class="fa fa-user" aria-hidden="true"></i> <span>Payment History</span></a>
+                                </div>
+                                <div class="login ">
+                                    <button type="submit" style="  font-weight: bold;" class="logoutbtn">
+                                        Đăng xuất
+                                    </button>
+                                </div>
+
+
+                                <div class="notlog">
+                                    <a href="/">  Login/Register</span></a>
+
                                 </div>
                             </div>
                         </div>
@@ -199,7 +230,7 @@
                             <!-- Navbar Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="/home2">Home</a></li>
+                                    <li><a href="/homepage">Home</a></li>
                                     <li><a href="./home/search">Course</a></li>
                                     <li><a href="index.html">Contact</a></li>
                                     <li><a href="about.html">About us</a></li>
@@ -675,8 +706,23 @@
     <script src="./js/active.js"></script>
     <script src="./js/slider.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
+    <script src="~/js/auth/api.js"></script>
     <script>
+        const token2 = getUserId();
         $(window).load(function () {
+           
+            if (token2 == null) {
+                console.log(1);
+                $('.login').hide(); // Hide elements with class "loged"
+            } else {
+                console.log(2);
+                $('.notlog').hide(); // Hide elements with class "notlog"
+            }
+            $(".logoutbtn").on("click", function () {
+                alert("logged out!");
+                window.location = "/"
+
+            });
             $(".imagecontainer").on("click", function (event) {
                 var resId = event.target.closest("li").id;
                 console.log(resId);
