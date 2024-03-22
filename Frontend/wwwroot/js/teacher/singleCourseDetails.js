@@ -8,6 +8,17 @@ $(document).ready(function () {
     redirect();
 });
 
+function getUserIdTeaDetail() {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("user-id=")) {
+            return cookie.substring(8);
+        }
+    }
+    return null;
+}
+
 function getParameter(param) {
     var urlVar = window.location.search.substring(1);
     var urlParam = urlVar.split('=');
@@ -16,7 +27,7 @@ function getParameter(param) {
     }
 }
 function GetCourseDetails() {
-    let teacherId = getUserId();
+    let teacherId = getUserIdTeaDetail();
     let courseId = getParameter("courseId");
     $.ajax({
         headers: {
@@ -48,7 +59,7 @@ function GetCourseDetails() {
 
 function saveChanges() {
     $("#save-button").click(function () {
-        let teacherId = getUserId();
+        let teacherId = getUserIdTeaDetail();
         let courseId = getParameter("courseId");
         let name = $("#course-title-name").val();
         let description = $("#course-description").val();
@@ -91,7 +102,7 @@ function redirect() {
 }
 function deleteCourse() {
     $("#btn-delete").click(function () {
-        let teacherId = getUserId();
+        let teacherId = getUserIdTeaDetail();
         let courseId = getParameter("courseId");
         $.ajax({
             headers: {

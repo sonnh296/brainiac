@@ -4,6 +4,54 @@ $(document).ready(function () {
     AddResourceToCourse();
 });
 
+function getAccessTokenAdd() {
+
+    if (getUserId() == null || getUserId() == undefined) {
+        document.cookie = `web-at=;max-age=0; path=/`;
+        document.cookie = `web-rt=; max-age=0;path=/`;
+        document.cookie = `user-id=; max-age=0;path=/`;
+        window.location.href = "/";
+    }
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("web-at=")) {
+            return cookie.substring(7);
+        }
+    }
+    var rt = getRefreshToken();
+    if (rt != null && rt != undefined) {
+        fetch("http://localhost:5020/api/refresh_token", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+
+            },
+            body: JSON.stringify({
+                userId: parseInt(getUserId()),
+                refreshToken: rt,
+            })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.accessToken != null && data.accessToken != undefined) {
+                    document.cookie = `web-at=${data.accessToken};max-age=900; path=/`;
+                    document.cookie = `web-rt=${data.refreshtoken}; max-age=864000;path=/`;
+                    getAccessToken()
+                } else {
+                    window.location.href = "/";
+                }
+            }).catch(e => {
+                window.location.href = "/";
+            });
+    } else {
+        window.location.href = "/";
+    }
+
+    return null;
+}
+
 function getParameter(param) {
     var urlVar = window.location.search.substring(1);
     var urlParam = urlVar.split('=');
@@ -64,6 +112,7 @@ function GetCourseInfo() {
             'Content-Type': 'application/json'
         },
         type: "GET",
+        const tk = getAccessTokenTea()
         url: "http://localhost:5020/Teacher/course/single/" + teacherid + "/" + courseid,
         success: function (result) {
             //console.log(result);

@@ -24,6 +24,7 @@ namespace Backend.Controllers
         }
 
         // get course list by a teacher
+        [Authorize(Roles = "Teacher, Student, Admin")]
         [HttpGet("GetAllCourses/{teacherid}")]
         public async Task<ActionResult<List<CourseDTO>>> GetCourseListFromTeacherAsync(int teacherid)
         {

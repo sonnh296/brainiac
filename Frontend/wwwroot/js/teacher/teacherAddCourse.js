@@ -7,7 +7,7 @@ $(document).ready(function () {
 function SaveDraftCourse() {
     $("#btn-save-draft").click(function () {
         var catesSeltected = getCategoryChecked();
-        let teacherId = getUserId();
+        let teacherId = getUserIdTea();
         let course = GetCourseInfo();
 
         if (!course.title || !course.courseName || !course.price || catesSeltected.length < 1) {
@@ -56,6 +56,17 @@ function GetCourseInfo() {
     }
 
     return course;
+}
+
+function getUserIdTea() {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith("user-id=")) {
+            return cookie.substring(8);
+        }
+    }
+    return null;
 }
 
 function GetCategories() {
