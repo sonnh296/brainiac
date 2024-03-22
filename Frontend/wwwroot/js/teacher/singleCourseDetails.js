@@ -129,7 +129,6 @@ function getCourseLessons() {
                     </div>`;
                 biggest += a;
             }
-            console.log(biggest);
             $('.lessons').html(biggest);
             var acc = document.getElementsByClassName("accordion");
             for (var i = 0; i < acc.length; i++) {
