@@ -1376,36 +1376,18 @@
 
                         <h3 class="total-comment">4 Comments</h3>
                         <div class="comments"></div>
+                        <button id="prebtn">Previuos</button>
+                        <button id="nextbtn">Next</button>
                     </div>
                 </div>
             </div>
         </section>
         <section class="slider" style="width: 100%">
             <div id="carousel" class="flexslider thumbe-slider">
-                <ul style="width: 100%" class="slides" id="slidessss">
-                    @*
-                    <li>
-                    <div class="imagecontainer">
-                    <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                    <div class="centeredimage">Font-End High Level</div>
-                    <div class="bottomimage">Work with React</div>
-                    </div>
-                    </li>
-                    <li>
-                    <div class="imagecontainer">
-                    <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                    <div class="centeredimage">Back-End C Sharp</div>
-                    <div class="bottomimage">Project Razor</div>
-                    </div>
-                    </li>
-                    <li>
-                    <div class="imagecontainer">
-                    <img src="https://fakeimg.pl/1920x930/" class="img-fluid" />
-                    <div class="centeredimage">Font-End Normal</div>
-                    <div class="bottomimage">Start with JavaScript</div>
-                    </div>
-                    </li>
-                    *@ asdfgh
+                <ul style="width: 100%" class="slides" id="slider">
+                    <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">JavaScript Tutorial</div><div class="bottomimage">Basic Java </div></div></li>
+                    <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Google course</div><div class="bottomimage">google</div></div></li>
+                    <li><div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid"><div class="centeredimage">Google course</div><div class="bottomimage">google</div></div></li>
                 </ul>
             </div>
         </section>
@@ -1415,9 +1397,33 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js"></script>
     <script>
         var token = getAccessToken();
-      
+        var stringArray = [];
+        var currentpage = 1;
         $(window).load(function () {
+            $('#nextbtn').click(function(){
+                currentpage++;
+                var commentList = document.querySelector(".comments");
+                var lists = getElementsByPage(currentpage);
+                if(lists ==0){
+                    commentList.innerHTML = getElementsByPage(currentpage);
+                }else{
+                    commentList.innerHTML = getElementsByPage(currentpage);
+                }
+               
+            
+            });
+            $('#prebtn').click(function () {
+                currentpage--;
+                if (currentpage == 0) {
+                    alert("No more records available ");
+                    currentpage = 1;
+                }
+                var commentList = document.querySelector(".comments");
+              
+                    commentList.innerHTML = getElementsByPage(currentpage);
+               
 
+            });
 
             $('.menu-trigger').click(function () {
                 var optionsList = $(this).siblings('.options-list');
@@ -1472,6 +1478,22 @@
             ratingDetail();
             relatedCourses();
         });
+        function getElementsByPage(page) {
+            // Calculate the start index based on the page number
+            var startIndex = (page - 1) * 2;
+
+            // Check if startIndex is valid
+            if (startIndex < stringArray.length) {
+                // If startIndex is valid, retrieve the elements
+                var endIndex = Math.min(startIndex + 2, stringArray.length);
+                return stringArray.slice(startIndex, endIndex);
+            } else {
+                // If startIndex is invalid, show an alert
+                alert("No more records available ");
+                currentpage--;
+                return 0; // Return an empty array
+            }
+        }
         function openreport() {
             $('.menu-trigger').click(function () {
                 $('.options-list').removeClass('visible');
@@ -1584,6 +1606,8 @@
             fetch(`http://localhost:5020/api/Comment/Course/${courseId}`)
                 .then((response) => response.json())
                 .then((data) => {
+                    var count = 0;
+                   
                     var commentList = document.querySelector(".comments");
                     var comment = "";
                     var totalComment = document.querySelector(".total-comment");
@@ -1608,7 +1632,7 @@
                             userComment = `<h4 class='media-heading'>${element.user.userName}</h4>`;
                         }
 
-                        comment +=
+                        comment =
                             "<div class='media'>" +
                             "<a class='pull-left' href='#'><img class='media-object' src='data:image/png;base64,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' alt=''></a>" +
                             "<div class='media-body'>" +
@@ -1622,8 +1646,21 @@
                             "</ul>" +
                             "</div>" +
                             "</div> ";
+                        stringArray.push(comment);
+
                     });
-                    commentList.innerHTML = comment;
+                    $('.total-comment').innerHTML = stringArray.length+" comments";
+                    if (stringArray.length == 0){
+
+                    }
+                    else if (stringArray.length == 1) {
+                        // If there are less than two elements, take the first one
+                        commentList.innerHTML = stringArray[0];
+                       
+                    } else if (stringArray.length > 2) {
+                        commentList.innerHTML = stringArray[0] + stringArray[1];
+                    }
+                   
 
                     // Add event listeners for each form submission
                     document.querySelectorAll(".report-comment").forEach((form) => {
@@ -1757,26 +1794,34 @@
             fetch(`http://localhost:5020/api/Course/Related/${courseId}`)
                 .then((response) => response.json())
                 .then((data) => {
-                    var relatedCourseList = document.querySelector("#slidessss");
+                    var count = 0;
+                    var relatedCourseList = document.querySelector("#slider");
                     var relatedCourse = "";
                     data.forEach((element) => {
-                        relatedCourse +=
-                            "<li>" +
-                            "<div class='imagecontainer'>" +
-                            "<img  src='https://fakeimg.pl/1920x930/' class='img-fluid'/>" +
-                            "<div class='centeredimage'>" +
-                            element.name +
-                            "</div>" +
-                            "<div class='bottomimage'>" +
-                            element.description +
-                            "</div>" +
-                            "</div>" +
-                            "</li>";
+                        if(count ==0){
+                            relatedCourse +=
+                                ` <li class="flex-active-slide" style="width: 210px; margin-right: 5px; float: left; display: block;">
+                                <div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                                        <div class="centeredimage">${element.name}l</div>
+                                        <div class="bottomimage">${element.description} </div>
+                                </div>
+                                </li>`;
+                            count++;
+                        }else{
+                            relatedCourse +=
+                                ` <li style="width: 210px; margin-right: 5px; float: left; display: block;">
+                                <div class="imagecontainer"><img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                                         <div class="centeredimage">${element.name}l</div>
+                                                <div class="bottomimage">${element.description} </div>
+                                </div>
+                                </li>`;
+                        }
+
+
+                        
                     });
-                    console.log(relatedCourseList.innerHTML);
-                    console.log("reesssss"+relatedCourse);
+                   
                     relatedCourseList.innerHTML = relatedCourse;
-                    console.log(relatedCourseList.innerHTML);
                 });
         }
 
