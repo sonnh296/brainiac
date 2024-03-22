@@ -22,7 +22,7 @@ namespace Backend.Repositories
         public async Task<List<Course>> GetCourseListByTeacherAsync(int teacherId)
         {
             var courses = await context.Courses
-                                       .Where(c => c.Status != "0")
+                                       .Where(c => c.Status != CourseConstants.CourseDeleted)
                                        .Where(c => c.UserCourses.Any(uc => uc.UserId == teacherId && uc.IsStudent == false))
                                        .Include(c => c.Resources)
                                        .Include(c => c.CategoryCourses)
@@ -48,6 +48,25 @@ namespace Backend.Repositories
             .ThenInclude(cc => cc.Category)
             .FirstOrDefaultAsync();
 
+            return course;
+        }
+
+        public async Task<Course?> DeleteCourseByIdAsync(int teacherid, int courseId)
+        {
+            Course course = await FindCourseByIdAsync(courseId);
+            if(course == null)
+            {
+                return null;
+            }
+            UserCourse uc = await context.UserCourses.Where(uc => uc.UserId == teacherid && uc.CourseId == courseId).FirstOrDefaultAsync();
+
+            course.Status = CourseConstants.CourseDeleted;
+            context.Entry(course).State = EntityState.Modified;
+
+            uc.Status = CourseConstants.CourseDeleted;
+            context.Entry(uc).State = EntityState.Modified;
+
+            await context.SaveChangesAsync();
             return course;
         }
         public async Task<Course> FindCourseByIdAsync(int courseid)

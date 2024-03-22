@@ -81,6 +81,18 @@ namespace Backend.Controllers
             return Ok(dto);
         }
 
+        // delete a course(change status)
+        [HttpPut("/course/delete/{teacherId}/{courseId}")]
+        public async Task<ActionResult<CourseDTO>> DeleteCourse(int teacherId, int courseId)
+        {
+            var course = await service.DeleteCourseAsync(teacherId, courseId);
+            if(course == null)
+            {
+                return BadRequest();
+            }
+            return Ok();
+        }
+
         // get resource list from a course
         [HttpGet("course/resource/list/{courseId}")]
         public async Task<ActionResult<List<ResourceDisplayDTO>>> GetResourceFromACourse(int courseId)

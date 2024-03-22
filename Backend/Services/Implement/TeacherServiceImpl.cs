@@ -83,5 +83,10 @@ namespace Backend.Services.Implement
         {
             return resourceRepository.GetResourceListFromCourseAsync(courseId);
         }
+
+        public async Task<Course?> DeleteCourseAsync(int teacherId, int courseId)
+        {
+            return await repository.DeleteCourseByIdAsync(teacherId, courseId);
+        }
     }
 }

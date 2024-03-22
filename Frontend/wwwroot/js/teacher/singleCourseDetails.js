@@ -1,8 +1,10 @@
-﻿// get a single course details of a teacher by course id
+﻿
+// get a single course details of a teacher by course id
 $(document).ready(function () {
     GetCourseDetails();
     getCourseLessons();
     saveChanges();
+    deleteCourse();
 });
 
 function getParameter(param) {
@@ -79,6 +81,29 @@ function saveChanges() {
     });
 }
 
+function deleteCourse() {
+    $("#btn-delete").click(function () {
+        let teacherId = getUserId();
+        let courseId = getParameter("courseId");
+        $.ajax({
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            type: "PUT",
+            url: "http://localhost:5020/course/delete/" + teacherId + "/" + courseId,
+            success: function (result) {
+                console.log(result);
+                alert("Deleted successfully");
+                location.href = '/teacher';
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+}
+
 function getCourseLessons() {
     let courseId = getParameter("courseId");
     $.ajax({
@@ -104,7 +129,6 @@ function getCourseLessons() {
                     </div>`;
                 biggest += a;
             }
-            console.log(biggest);
             $('.lesson').html(biggest);
         },
         error: function (error) {
