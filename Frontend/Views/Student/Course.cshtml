@@ -76,7 +76,9 @@
             overflow: hidden;
             box-shadow: 16px 16px 48px #2e364330;
         }
-
+        .atest:hover{
+            background-color:blue;
+        }
         .tabs {
             width: 100%;
             max-width: 240px;
@@ -188,8 +190,8 @@
                 </div>
 
                 <div class="test-detail detail">
-                    <div class="test-history"></div>
-                    <div class="test-info"></div>
+                    <div class="test-history" style="overflow-y: auto; height: 300px; padding: 10px; background-color: #f7f7f7;     border: 4px solid #deeb34;border-radius: 20px;"></div>
+                    <div class="test-info" style="overflow-y: auto; height: 270px; padding: 10px; background-color: #f7f7f7;     border: 4px solid #deeb34; border-radius: 20px;"></div>
                 </div>
 
             </div>
@@ -540,7 +542,7 @@
                         historyItem.innerHTML = `
                                   <p>Test Date: ${history.testDate}</p>
                                   <p>Points: ${history.point}</p>
-                                  <p>Time Spent: ${history.timeDoTest} minutes</p>-------
+                                  <p>Time Spent: ${history.timeDoTest} minutes</p>----------------------------------------------------------------------------------------
                               `;
                         testHistoryDiv.appendChild(historyItem);
                     });
@@ -564,7 +566,7 @@
                                   <p>Time Limit: ${detail.time} minutes</p>
                                   <p>Percent Point: ${detail.percentPoint}%</p>
                                   <p>Number of Questions: ${detail.numberQuestion}</p>
-                                  <a href="/Student/DoTest?testId=${detail.testId}">Do Test</a>
+                                          <a class="atest" style='    background-color: lightblue; padding: 10px 63px; border-radius: 15px;' href="/Student/DoTest?testId=${detail.testId}">Do Test</a>
                               `;
                     testInfoDiv.appendChild(detailItem);
                 })
