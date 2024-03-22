@@ -1395,6 +1395,7 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="~/js/auth/api.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js"></script>
+    <script src="~/js/randomImage.js"></script>
     <script>
         var token = getAccessToken();
         var stringArray = [];
@@ -1597,7 +1598,7 @@
                 <div/>
          </form></li>
                 </ul>
-                                        <div class='menu-trigger' onclick="openreport()"><i class="fa fa-exclamation-triangle" style="font-size:48px;color:red"></i></div>
+                                        <div class='menu-trigger' onclick="openreport()"><i class="fa fa-exclamation-triangle" style="font-size:30px;color:red"></i></div>
             </div>`;
             if (isEnrolled == false) {
                 writeCmt.style.display = "none";
@@ -1619,7 +1620,7 @@
                         //Hiden form report if user is not enrolled
                         if (element.user.userId == userId) {
                             currentFormReport = "";
-                            userComment = `<h4 class='media-heading'>Me</h4>`;
+                            userComment = `<h4 class='media-heading' style="    color: blue; font-weight: bold;">You</h4>`;
                         } else {
                             currentFormReport = currentFormReport.replace(
                                 "value='cmtId'",
@@ -1649,6 +1650,8 @@
                         stringArray.push(comment);
 
                     });
+                    stringArray.reverse();
+                    stringArray.reverse();
                     $('.total-comment').innerHTML = stringArray.length+" comments";
                     if (stringArray.length == 0){
 
@@ -1690,8 +1693,9 @@
                                     if (res.ok) {
                                         alert(
                                             "Comment reported successfully. We will check it later!"
-                                                    courseDetail();
+                                             
                                         );
+                                        courseDetail();
                                     } else {
                                         alert("Failed to report comment. Please try again.");
                                     }
@@ -1823,6 +1827,14 @@
                     });
                    
                     relatedCourseList.innerHTML = relatedCourse;
+                    var imgElements = document.querySelectorAll('img.img-fluid');
+
+                    // Set src attribute for each img element
+                    imgElements.forEach(function (img) {
+                        img.src = getRandomStringFromArrayforSearch();
+                        img.style.width = '200px'; // Set width
+                        img.style.height = '100px'; // Set height
+                    });
                 });
         }
 

@@ -232,8 +232,8 @@
                                 <ul>
                                     <li><a href="/homepage">Home</a></li>
                                     <li><a href="./home/search">Course</a></li>
-                                    <li><a href="index.html">Contact</a></li>
-                                    <li><a href="about.html">About us</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="#">About us</a></li>
                                 </ul>
 
 
@@ -315,7 +315,7 @@
 
                         <div class="imagecontainer">
 
-                            <img src="https://fakeimg.pl/1920x930/" class="img-fluid" draggable="false">
+                            <img src="./img/randomimage/2 (1).jpg" class="img-fluid" draggable="false">
                             <div class="centeredimage">Software Enginering</div>
                             <div class="bottomimage">The tutorial of developing software</div>
 
@@ -417,9 +417,9 @@
     </section>
     <section class="slider" style="width: 100%">
         <h1>Most popular Course</h1>
-        <div id="carousel" class="flexslider thumbe-slider">
+        <div id="carousel2" class="flexslider thumbe-slider">
             <div class="flex-viewport" style="overflow: hidden; position: relative;">
-                <ul style="width: 1600%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slides" id="slider">
+                <ul style="width: 1600%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slides" id="slider2">
                     <li id="1" class="flex-active-slide" style="width: 210px; margin-right: 5px; float: left; display: block;">
 
                         <div class="imagecontainer">
@@ -707,10 +707,18 @@
     <script src="./js/slider.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider.js'></script>
     <script src="~/js/auth/api.js"></script>
+    <script src="~/js/randomImage.js"></script>
     <script>
         const token2 = getUserId();
         $(window).load(function () {
-           
+            var imgElements = document.querySelectorAll('img.img-fluid');
+
+            // Set src attribute for each img element
+            imgElements.forEach(function (img) {
+                img.src = getRandomStringFromArray();
+                img.style.width = '200px'; // Set width
+                img.style.height = '100px'; // Set height
+            });
             if (token2 == null) {
                 console.log(1);
                 $('.login').hide(); // Hide elements with class "loged"
@@ -741,6 +749,27 @@
             });
 
             $("#slider").flexslider({
+                animation: "fade",
+                controlNav: false,
+                animationLoop: true,
+                slideshow: true,
+                sync: "#carousel",
+                start: function (slider) {
+                    $("body").removeClass("loading");
+                },
+            });
+
+            $("#carousel2").flexslider({
+                animation: "slide",
+                controlNav: false,
+                animationLoop: true,
+                slideshow: false,
+                itemWidth: 210,
+                itemMargin: 5,
+                asNavFor: "#slider2",
+            });
+
+            $("#slider2").flexslider({
                 animation: "fade",
                 controlNav: false,
                 animationLoop: true,

@@ -22,6 +22,7 @@ namespace Backend.Repositories
         public async Task<List<Course>> GetCourseListByTeacherAsync(int teacherId)
         {
             var courses = await context.Courses
+                                       .Where(c => c.Status != CourseConstants.CourseDeleted)
                                        .Where(c => c.UserCourses.Any(uc => uc.UserId == teacherId && uc.IsStudent == false))
                                        .Include(c => c.Resources)
                                        .Include(c => c.CategoryCourses)
@@ -37,7 +38,7 @@ namespace Backend.Repositories
                             .ToList();
             return courses;
         }
-
+        
         public async Task<Course> GetSingleCourseByIdAsync(int teacherid, int courseid)
         {
             var course = await context.Courses
@@ -48,6 +49,43 @@ namespace Backend.Repositories
             .FirstOrDefaultAsync();
 
             return course;
+        }
+
+        public async Task<Course?> DeleteCourseByIdAsync(int teacherid, int courseId)
+        {
+            Course course = await FindCourseByIdAsync(courseId);
+            if(course == null)
+            {
+                return null;
+            }
+            UserCourse uc = await context.UserCourses.Where(uc => uc.UserId == teacherid && uc.CourseId == courseId).FirstOrDefaultAsync();
+
+            course.Status = CourseConstants.CourseDeleted;
+            context.Entry(course).State = EntityState.Modified;
+
+            uc.Status = CourseConstants.CourseDeleted;
+            context.Entry(uc).State = EntityState.Modified;
+
+            await context.SaveChangesAsync();
+            return course;
+        }
+        public async Task<Course> FindCourseByIdAsync(int courseid)
+        {
+            var course = await context.Courses
+            .Where(c => c.CourseId == courseid)
+            .Include(c => c.Resources)
+            .FirstOrDefaultAsync();
+
+            return course;
+        }
+
+        public async Task<List<Course>> SearchCoursesOfTeacherByNameAsync(int teacherid, string keyword)
+        {
+            var courses = await context.Courses
+                                .Where(c => c.UserCourses.Any(uc => uc.UserId == teacherid) 
+                                 && c.CourseName.ToLower().Contains(keyword.ToLower()))
+                                .ToListAsync();
+            return courses;
         }
 
         public async Task<Course> CreateCourse(int teacherid, CourseCreateDTO courseDto)
@@ -94,19 +132,47 @@ namespace Backend.Repositories
             return listToAdd;
         }
 
-        public List<Resource> GetResourceListInACourse(int courseId)
-        {
-            var resources = context.Resources.Where(r => r.CourseId == courseId).ToList();
-            return resources;
-        }
-
-        public async Task<Resource> CreateResourceDraft(int courseid, ResourceCreateDTO rsCreate)
+        public async Task<Resource> CreateResourceDraft(int courseid, Resource latestResource, ResourceCreateDTO rsCreate)
         {
             Resource res = mapper.Map<Resource>(rsCreate);
             res.CourseId = courseid;
+            res.OrdinalNumber = latestResource.OrdinalNumber + 1;
+            res.Status = ResourceConstants.RESOURCE_DRAFT;
             context.Resources.Add(res);
             await context.SaveChangesAsync();
             return res;
         }
+
+        // edit course
+        public async Task<Course?> UpdateCourse(int courseId, CourseUpdateDTO course)
+        {
+            Course? courseToUpdate = context.Courses.Where(c => c.CourseId == courseId).FirstOrDefault();
+            if(courseToUpdate == null)
+            {
+                return null;
+            }
+            if(!string.IsNullOrEmpty(course.CourseName))
+            {
+                courseToUpdate.CourseName = course.CourseName;
+            }
+            if(!string.IsNullOrEmpty(course.Title))
+            {
+                courseToUpdate.Title = course.Title;
+            }
+            if(!string.IsNullOrEmpty(course.Price.ToString()))
+            {
+                courseToUpdate.Price = course.Price;
+            }
+            context.Entry(courseToUpdate).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+            return courseToUpdate;
+        }
+
+        // add test to course
+        public async Task<Test?> AddTestToCourseAsync(int courseId, Test test)
+        {
+            return null;
+        }
+
     }
 }

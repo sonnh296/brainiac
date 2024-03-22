@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "/Views/Teacher/_Layout.cshtml";
+    Layout = null;
 }
 
 <head>
@@ -10,12 +10,16 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="~/js/auth/api.js"></script>
     <script src="~/js/teacher/singleCourseDetails.js"></script>
     <link rel="stylesheet" href="~/css/teacher/coursedetail/style.css" />
 </head>
 
 <body>
     <main>
+        <div>
+            <button id="btn-delete" class="btn btn-danger">Delete course</button>
+        </div>
         <div class="course-detail">
             <div>
                 <h2>Course general information</h2>
@@ -24,6 +28,14 @@
                 <div class="course-title">
                     <label for="course-title-name">Course name:</label>
                     <input type="text" id="course-title-name" name="course-title-name" disable="true" />
+                </div>
+                <div class="categories">
+                    <label for="course-title-name">Categories: </label>
+                    <div class="category-list">
+                        <div class="category-chip">
+                            <p>Networking</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="course-description">
                     <label for="course-description">Description:</label>
@@ -47,7 +59,12 @@
                     <button id="save-button" disabled>Save</button>
                 </div>
             </div>
-
+            <div class="add-lesson">
+                <button id="btn-add" 
+                        data-url='@Url.Action("AddResource", "Teacher")'>
+                        Add lesson
+                </button>
+            </div>
             <div>
                 <h2>Lessons</h2>
             </div>
@@ -68,22 +85,12 @@
         </div>
     </main>
 
+    <script type="text/javascript" src="~/js/teacher/detailcourse/script.js"></script>
     <script>
-        var acc = document.getElementsByClassName("accordion");
-        console.log(acc);
-        for (var i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function () {
-                console.log("Clicked aaa");
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
+        function redirectToAnotherPage() {
+            var url = '@Url.Action("AddResource", "Teacher", new { courseId = "parameterValue" })';
+            window.location.href = url;
         }
     </script>
-    <script type="text/javascript" src="~/js/teacher/detailcourse/script.js"></script>
 </body>
 

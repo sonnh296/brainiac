@@ -101,6 +101,15 @@
             ::-webkit-scrollbar-thumb:window-inactive {
                 background: rgba(255,0,0,0.4);
             }
+
+        dialog::backdrop {
+            background-color: powderblue;
+            opacity: 0.9;
+        }
+
+        form > p {
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
@@ -173,10 +182,9 @@
                         <div class="row" style="margin-top: 15%;     margin-left: 10%;">
                             <div class="" style="text-align: center;     margin-left: 25%;">
                                 <div class="control">
-                              
-                               
-                                <button class="submit btn btn-danger" data-toggle="modal" data-target="#teamviewmodal">Submit</button>
-                                    <button class="closesss btn btn-primary">Close</button>
+
+
+                                    <button id="showDialogBtn" class="submit btn btn-danger" data-toggle="modal" data-target="#teamviewmodal">Submit</button>                                    <button class="closesss btn btn-primary">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -221,12 +229,33 @@
     <div class="progress-bar">
         <div class="progress">0%</div>
     </div>
-    <div class="result" style="display: none">
-        <h1>Result</h1>
-        <div class="correct-answers"></div>
-        <div class="score"></div>
-        <button class="btnBack">Back</button>
-    </div>
+   
+        
+   
+       
+    
+
+
+    <dialog id="favDialog" style="    margin: auto;
+    width: 20%;
+    text-align: center;
+    height: 199px;">
+        <form method="dialog">
+            <div class="result">
+            <h1>Result</h1>
+            <div class="correct-answers"></div>
+            <div class="score"></div>
+            <button class="btnBack" style="    background-color: greenyellow;
+    width: 70%;
+    height: 47px;
+    margin-bottom: 5px;
+    border-radius: 20px;" id="confirmBtn">
+                Back to Course
+            </button>
+            </div>
+        </form>
+    </dialog>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
@@ -240,6 +269,10 @@
         var userId = -1;
         var courseId = -1;
         getUser();
+        const favDialog = document.getElementById("favDialog")
+        const showDialogBtn = document.getElementById("showDialogBtn")
+
+        showDialogBtn.addEventListener("click", () => favDialog.showModal())
         function getUser() {
             fetch("http://localhost:5020/api/User/CurrentUser", {
                 headers: { Authorization: `Bearer ${token}` },

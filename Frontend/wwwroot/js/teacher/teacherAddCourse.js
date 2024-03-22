@@ -7,13 +7,12 @@ $(document).ready(function () {
 function SaveDraftCourse() {
     $("#btn-save-draft").click(function () {
         var catesSeltected = getCategoryChecked();
-        const teacherId = 16;
+        let teacherId = getUserId();
         let course = GetCourseInfo();
 
         if (!course.title || !course.courseName || !course.price || catesSeltected.length < 1) {
             alert("Course infos are missing");
         }
-
         else {
             course.categories = catesSeltected;
             $.ajax({
@@ -23,10 +22,10 @@ function SaveDraftCourse() {
                 },
                 data: JSON.stringify(course),
                 type: "POST",
-                url: "http://localhost:5020/Teacher/addCourse/" + teacherId,
+                url: "http://localhost:5020/Teacher/course/add/" + teacherId,
                 success: function () {
                     alert("Added successfully");
-                    location.href = "/teacher";
+                    location.href = "/teacher/dashboard";
                 },
                 error: function (jqXHR) {
                     if (jqXHR.status === 400) {

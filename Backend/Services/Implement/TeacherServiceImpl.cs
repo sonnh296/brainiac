@@ -8,38 +8,40 @@ namespace Backend.Services.Implement
 {
     public class TeacherServiceImpl : ITeacherService
     {
-        private readonly TeacherRepository repository;
+        private readonly TeacherRepository teacherRepo;
+        private readonly ResourceRepository resourceRepo;
 
-        public TeacherServiceImpl(TeacherRepository repo)
+        public TeacherServiceImpl(TeacherRepository repo, ResourceRepository resourceRepository)
         {
-            repository = repo;
+            teacherRepo = repo;
+            this.resourceRepo = resourceRepository;
         }
 
         public async Task<List<Course>> GetCourseListByTeacherAsync(int id)
         {
-            return await repository.GetCourseListByTeacherAsync(id);
+            return await teacherRepo.GetCourseListByTeacherAsync(id);
         }
 
         public async Task<Course> GetSingleCourseByIdAsync(int teacherid, int courseid)
         {
-            return await repository.GetSingleCourseByIdAsync(teacherid, courseid);
+            return await teacherRepo.GetSingleCourseByIdAsync(teacherid, courseid);
         }
 
         public Task<Course> CreateCourseDraft(int teacherid, CourseCreateDTO course)
         {
             if (string.IsNullOrEmpty(course.CourseName))
             {
-                throw new ArgumentNullException("Course name cannot be empty");
+                throw new ArgumentNullException();
             }
-            var courseExisting = repository.GetCourseListByTeacher(teacherid);
+            var courseExisting = teacherRepo.GetCourseListByTeacher(teacherid);
             foreach (Course c in courseExisting)
             {
                 if (c.CourseName.ToLower().Equals(course.CourseName.ToLower()))
                 {
-                    throw new RepeatedExeption("This course name has already existed");
+                    throw new RepeatedExeption();
                 }
             }
-            return repository.CreateCourse(teacherid, course);
+            return teacherRepo.CreateCourse(teacherid, course);
         }
 
         public Task<Resource> CreateResource(int courseId, ResourceCreateDTO resource)
@@ -48,14 +50,54 @@ namespace Backend.Services.Implement
             {
                 throw new ArgumentNullException();
             }
-            var resources = repository.GetResourceListInACourse(courseId);
+            var resources = resourceRepo.GetResourceListInACourse(courseId);
             foreach (Resource r in resources)
             {
                 if(r.Name.ToLower().Equals(resource.Name.ToLower())) {
                     throw new RepeatedExeption();
                 }
             }
-            return repository.CreateResourceDraft(courseId, resource);
+            Resource latestResourceInCourse = resourceRepo.GetLargestOrdinalResourceInCourse(courseId);
+            return teacherRepo.CreateResourceDraft(courseId, latestResourceInCourse, resource);
+        }
+
+        public Task<Course?> UpdateCourseAsync(int courseId, CourseUpdateDTO course)
+        {
+            if(string.IsNullOrEmpty(course.CourseName) || string.IsNullOrEmpty(course.Title))
+            {
+                throw new ArgumentNullException();
+            }
+            return teacherRepo.UpdateCourse(courseId, course);
+        }
+
+        public Task<List<Course>> SearchCourseByNameAsync(int teacherId, string keyword)
+        {
+            return teacherRepo.SearchCoursesOfTeacherByNameAsync(teacherId, keyword);
+        }
+
+        public Task<Course> FindCourseByIdAsync(int courseid)
+        {
+            return teacherRepo.FindCourseByIdAsync(courseid);
+        }
+
+        public async Task<Course?> DeleteCourseAsync(int teacherId, int courseId)
+        {
+            return await teacherRepo.DeleteCourseByIdAsync(teacherId, courseId);
+        }
+
+        public Task<List<Resource>> GetResourceListFromCourseAsync(int courseId)
+        {
+            return resourceRepo.GetResourceListFromCourseAsync(courseId);
+        }
+
+        public Task<Resource?> UpdateResourceAsync(int resid, ResourceUpdateDTO resource)
+        {
+            return resourceRepo.UpdateResourceFromCourseAsync(resid, resource);
+        }
+
+        public Task<Test?> AddTestToCourse(int course, Test test)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -12,13 +12,13 @@ editButton.addEventListener("click", () => {
     saveButton.disabled = inputField.disabled;
 });
 
-saveButton.addEventListener("click", () => {
-    changeAllInputs(!inputField.disabled);
-    alert("Your changes have been saved");
+//saveButton.addEventListener("click", () => {
+//    changeAllInputs(!inputField.disabled);
+//    alert("Your changes have been saved");
 
-    saveButton.disabled = true;
-    editButton.textContent = "Edit";
-});
+//    saveButton.disabled = true;
+//    editButton.textContent = "Edit";
+//});
 
 const changeAllInputs = (disabled) => {
     inputField.disabled = disabled;

@@ -1,7 +1,6 @@
 ﻿// add a resouce in a course
 $(document).ready(function () {
     GetCourseInfo();
-    //GetHighestOrdinalResource();
     AddResourceToCourse();
 });
 
@@ -24,7 +23,7 @@ function AddResourceToCourse() {
             alert("Resource type is not selected");
             return;
         }
-        var courseId = getParameter("courseid");
+        var courseId = getParameter("courseId");
         console.log(resource);
         $.ajax({
             headers: {
@@ -33,7 +32,7 @@ function AddResourceToCourse() {
             },
             type: "POST",
             data: JSON.stringify(resource),
-            url: "http://localhost:5020/Teacher/Resource/AddResource/" + courseId,
+            url: "http://localhost:5020/Teacher/resource/add/" + courseId,
             success: function () {
                 //console.log(result);
                 alert("Added successfully");
@@ -57,7 +56,7 @@ function AddResourceToCourse() {
 }
 
 function GetCourseInfo() {
-    let teacherid = 2;
+    let teacherid = getUserId();
     let courseid = getParameter("courseid");
     $.ajax({
         headers: {
@@ -65,7 +64,7 @@ function GetCourseInfo() {
             'Content-Type': 'application/json'
         },
         type: "GET",
-        url: "http://localhost:5020/Teacher/GetSingleCourse?teacherId=" + encodeURIComponent(teacherid) + "&courseId=" + courseid,
+        url: "http://localhost:5020/Teacher/course/single/" + teacherid + "/" + courseid,
         success: function (result) {
             //console.log(result);
             $('title').text(result.courseName);
@@ -91,29 +90,9 @@ function GetResourceToAdd() {
         name : name,
         isFree : isFree,
         type : type,
-        status: status, 
-        ordinalNumber : 1
+        status: status
     }
 
     return resource;
 }
-
-//function GetHighestOrdinalResource() {
-//    let courseid = getParameter("courseid");
-//    $.ajax({
-//        headers: {
-//            'Accept': '*/*',
-//            'Content-Type': 'application/json'
-//        },
-//        type: "GET",
-//        url: "http://localhost:5020/Resource/GetLargestOrdinal/" + courseid,
-//        success: function (result) {
-            
-//        },
-//        error: function (error) {
-//            console.log(error);
-//        }
-//    });
-
-//}
 
