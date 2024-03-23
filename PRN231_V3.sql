@@ -1,4 +1,4 @@
-/****** Object:  Database [PRN231_V2]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Database [PRN231_V2]    Script Date: 3/23/2024 1:03:45 PM ******/
 CREATE DATABASE [PRN231_V2]  (EDITION = 'Standard', SERVICE_OBJECTIVE = 'S0', MAXSIZE = 2 GB) WITH CATALOG_COLLATION = SQL_Latin1_General_CP1_CI_AS, LEDGER = OFF;
 GO
 ALTER DATABASE [PRN231_V2] SET COMPATIBILITY_LEVEL = 150
@@ -47,7 +47,7 @@ GO
 GO
 -- ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 8;
 GO
-/****** Object:  Table [dbo].[Answer]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Answer]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -63,7 +63,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Category]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Category]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -78,7 +78,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CategoryCourse]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[CategoryCourse]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,7 +93,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Comment]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Comment]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -111,7 +111,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Course]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Course]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,7 +128,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderDetail]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[OrderDetail]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -145,7 +145,7 @@ CREATE TABLE [dbo].[OrderDetail](
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Question]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Question]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -160,7 +160,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Rating]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Rating]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -176,7 +176,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[RefreshToken]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[RefreshToken]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,7 +194,7 @@ CREATE TABLE [dbo].[RefreshToken](
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ReportedComment]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[ReportedComment]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -212,7 +212,7 @@ CREATE TABLE [dbo].[ReportedComment](
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Resource]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Resource]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -233,7 +233,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ResourceUser]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[ResourceUser]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -249,7 +249,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Role]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Role]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -263,7 +263,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Test]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[Test]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -281,7 +281,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -301,7 +301,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserCourse]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[UserCourse]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -318,7 +318,7 @@ PRIMARY KEY CLUSTERED
 )WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[UserTest]    Script Date: 3/22/2024 11:50:57 PM ******/
+/****** Object:  Table [dbo].[UserTest]    Script Date: 3/23/2024 1:03:46 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -610,6 +610,7 @@ INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VAL
 INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (15, 4, 18)
 INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (16, 5, 18)
 INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (17, 7, 19)
+INSERT [dbo].[CategoryCourse] ([CategoryCourseId], [CategoryId], [CourseId]) VALUES (18, 2, 20)
 SET IDENTITY_INSERT [dbo].[CategoryCourse] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Comment] ON 
@@ -656,7 +657,7 @@ INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VAL
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (3, N'JavaScript Tutorial', N'Basic Java ', CAST(11.00 AS Decimal(18, 2)), N'1')
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (4, N'Font-End Basic', N'Html, Css Basic', CAST(44.00 AS Decimal(18, 2)), N'1')
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (5, N'Font-End Normal', N'Start with JavaScript', CAST(332.00 AS Decimal(18, 2)), N'0')
-INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (6, N'Font-End High Level', N'Work with React', CAST(1643.00 AS Decimal(18, 2)), N'3')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (6, N'Font-End High Level', N'Work with React 22', CAST(1643.00 AS Decimal(18, 2)), N'3')
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (7, N'Back-End C Sharp', N'Get start with Repository Pattern', CAST(163.00 AS Decimal(18, 2)), N'1')
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (8, N'Back-End C Sharp Version 2', N'Project MVC', CAST(43.00 AS Decimal(18, 2)), N'1')
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (9, N'Back-End C Sharp', N'Project Razor', CAST(132.00 AS Decimal(18, 2)), N'1')
@@ -666,6 +667,7 @@ INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VAL
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (14, N'hoangu', N'full stạck', CAST(1111.00 AS Decimal(18, 2)), N'2')
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (18, N'Test 1', N'test', CAST(1234.00 AS Decimal(18, 2)), N'1')
 INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (19, N'Test 2', N'test', CAST(123456.00 AS Decimal(18, 2)), N'1')
+INSERT [dbo].[Course] ([CourseId], [CourseName], [Title], [Price], [Status]) VALUES (20, N'111', N'111', CAST(111.00 AS Decimal(18, 2)), N'1')
 SET IDENTITY_INSERT [dbo].[Course] OFF
 GO
 SET IDENTITY_INSERT [dbo].[OrderDetail] ON 
@@ -805,8 +807,8 @@ INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [Ex
 INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [ExpiryDate]) VALUES (102, 1, N'1fkTauUSU3lPZFMAddK4kr1wbawORQGmwtIBm52B4fg=', N'jhfTCDsY91nO/5UESmZvjIA8wohl0hs48jwiYdlvBRc=', CAST(N'2024-03-21T21:25:00' AS SmallDateTime), CAST(N'2024-04-20T21:25:00' AS SmallDateTime))
 INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [ExpiryDate]) VALUES (118, 20, N'G+NppdcD7yZZxTsed9O/0Ate2vuEwjthT0ZnNV/vOiQ=', N'HpqDAnydL9SZAa8TfjuxXzkaMWyd/IixCio6uJ//r3o=', CAST(N'2024-03-22T20:49:00' AS SmallDateTime), CAST(N'2024-04-21T20:49:00' AS SmallDateTime))
 INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [ExpiryDate]) VALUES (131, 10, N'jFrwaAtCOW+5QNDUbKJIgveFQNuylZf6rDs2ittedro=', N'tX8hL7BN6ublyUt6dZl+1K4IgXze8K++AuA/cR8SKSA=', CAST(N'2024-03-22T21:45:00' AS SmallDateTime), CAST(N'2024-04-21T21:45:00' AS SmallDateTime))
-INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [ExpiryDate]) VALUES (148, 2, N'IFcVzVpfL4weGL3QHerlFta0yqdM/GG3pq9Uuan+xTw=', N'00dJ3XsODV9aWOjGjqfSy4Mt1E96pMmiGt3WVBxf5PM=', CAST(N'2024-03-22T23:14:00' AS SmallDateTime), CAST(N'2024-04-21T23:14:00' AS SmallDateTime))
-INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [ExpiryDate]) VALUES (151, 23, N'Lp8zz4ZKrmhXA6/gUCx2oBaAnVhqGjnmLM24lS4oMLQ=', N'MXuqyajmB6JVLsxiREcBVYdnUoa+klGNsp15O++Aa1U=', CAST(N'2024-03-22T23:50:00' AS SmallDateTime), CAST(N'2024-04-21T23:50:00' AS SmallDateTime))
+INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [ExpiryDate]) VALUES (181, 23, N'ysdKlBlzEQ1FPDmEZaL8ctlOxiwiTb5LhrvnQ4HDprM=', N'R+G7WADrydpmCXgddXIszaSp7xzVfN8N7/Zf71Igy3I=', CAST(N'2024-03-23T11:46:00' AS SmallDateTime), CAST(N'2024-04-22T11:46:00' AS SmallDateTime))
+INSERT [dbo].[RefreshToken] ([Id], [UserId], [TokenHash], [TokenSalt], [TS], [ExpiryDate]) VALUES (182, 2, N'gzHgDRaXuKve1uGJbHoyh0sMGc8eD9W3J2Azu7iF28s=', N'+HmiLfEik82AWlS72BCTZ0O6ufFxfvMxok3tfylwx08=', CAST(N'2024-03-23T11:56:00' AS SmallDateTime), CAST(N'2024-04-22T11:56:00' AS SmallDateTime))
 SET IDENTITY_INSERT [dbo].[RefreshToken] OFF
 GO
 SET IDENTITY_INSERT [dbo].[ReportedComment] ON 
@@ -845,6 +847,9 @@ INSERT [dbo].[Resource] ([ResourceId], [Content], [Description], [CourseId], [Is
 INSERT [dbo].[Resource] ([ResourceId], [Content], [Description], [CourseId], [IsFree], [OrdinalNumber], [Type], [Name], [Status]) VALUES (22, N'Noi dung 21', N'Des qq', 8, 0, 3, N'Reading', N'Lesson 3', NULL)
 INSERT [dbo].[Resource] ([ResourceId], [Content], [Description], [CourseId], [IsFree], [OrdinalNumber], [Type], [Name], [Status]) VALUES (23, N'Noi dung 22', N'Des qq', 8, 0, 4, N'Reading', N'Lesson 4', NULL)
 INSERT [dbo].[Resource] ([ResourceId], [Content], [Description], [CourseId], [IsFree], [OrdinalNumber], [Type], [Name], [Status]) VALUES (24, N'https://www.youtube.com/embed/OrDB4jpA1g8', N'Des 3', 1, 0, 3, N'Video', N'Lesson 3', 1)
+INSERT [dbo].[Resource] ([ResourceId], [Content], [Description], [CourseId], [IsFree], [OrdinalNumber], [Type], [Name], [Status]) VALUES (26, N'aaa', N'Test', 6, 1, 3, N'Video', N'Test', 1)
+INSERT [dbo].[Resource] ([ResourceId], [Content], [Description], [CourseId], [IsFree], [OrdinalNumber], [Type], [Name], [Status]) VALUES (27, N'Test content', N'aaaa', 6, 0, 4, N'Reading', N'Test 2', 1)
+INSERT [dbo].[Resource] ([ResourceId], [Content], [Description], [CourseId], [IsFree], [OrdinalNumber], [Type], [Name], [Status]) VALUES (28, N'1', N'1', 6, 0, 5, N'Reading', N'test font-end', 1)
 SET IDENTITY_INSERT [dbo].[Resource] OFF
 GO
 SET IDENTITY_INSERT [dbo].[ResourceUser] ON 
@@ -897,7 +902,7 @@ SET IDENTITY_INSERT [dbo].[Test] OFF
 GO
 SET IDENTITY_INSERT [dbo].[User] ON 
 
-INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (1, N'DungND', N'wcjp5/XIsetNjhkoGSTBpZ+Xuy/KjCHNR3v4/PVXiHo=', N'dacdung@gmail.com', 1, 9664.0000, 1, N'1YzAjC0zpy8e2m2tjHb54MEQPcN93LuZCmI0C7dHvAE=')
+INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (1, N'DungND', N'wcjp5/XIsetNjhkoGSTBpZ+Xuy/KjCHNR3v4/PVXiHo=', N'dacdung@gmail.com', 1, 9664.0000, 0, N'1YzAjC0zpy8e2m2tjHb54MEQPcN93LuZCmI0C7dHvAE=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (2, N'HoaTT', N'EabwjG1z8FEiUuNwVbGxZUon7jsjVJozIjHwHAMjRrI=', N'test@gmail.com', 2, 1345.6000, 1, N'Ya1rtSOtSufoAcNuwJI/oUdzuYWN7+tjhBjvDuFmKb8=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (4, N'Dungndhe16', N'123456', N'dungndhe16@fpt.edu.vn', 2, 2699.2000, 0, N'DaKGa9E/juiNM4FNjmtjpewgjUbs9w5ZAomY56tJPRU=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (6, N'userA', N'123456', N'userA@gmail.com', 1, 0.0000, 0, N'DaKGa9E/juiNM4FNjmtjpewgjUbs9w5ZAomY56tJPRU=')
@@ -911,7 +916,7 @@ INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balan
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (18, N'teacher 2', N'1o5GoWubLS9xmnE3nNITvbJQYvxCmvRQ12e/BbXmq68=', N'teacher1@gmail.com', 2, 0.0000, 1, N'LM0eOIP+7IdXG4W72OE9oItm80AgURcQ0uPFocwBKCk=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (19, N'qwer1234#', N'aUae6NvvLdrvvhHOYokhnobgaE7B9irOJzG+XZaCOeE=', N'stu1@gmail.com', 1, 0.0000, 1, N'C89QeKnOpnuPQOS/z/4EpptMKNsvHYrR9tFrFUGrjkE=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (20, N'tronghoa', N'ehWcLKtdp4WWfrcPSnuaJPUruaYD2cJO/Mni0v93Y0c=', N'doibuon777@gmail.com', 1, 0.0000, 1, N'u5AFSNirzhYRFU8BymJ8JmJqsg/Iw1oDhzbgHJ5He8s=')
-INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (21, N'NGUYỄN ĐẮC DŨNG', N'E2cogY/Fwp2YmfapZ6tZobPGM+bFBoVBwrnXE/hg2/w=', N'dacdung0984@gmail.com', 1, 10000.0000, 1, N'5HEwYNveXGA7Yddm5RkjOdMTipePJSg2qy2pJu5bVW0=')
+INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (21, N'NGUYỄN ĐẮC DŨNG', N'SZ1tt6Q/GZsEd7sumoRktw+JqfMfzU1Bixxpw6aUo70=', N'dacdung0984@gmail.com', 1, 10000.0000, 1, N'Fk7zn+5W3PBqK6aBOqOm+I0LkphEhbdO/u+3sy65leY=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (22, N'NGUYỄN ĐẮC DŨNG', N'/ddplPVW7n2IbOkZ8YJj1onyTWW7n9GqkHqG09988xg=', N'dacdung11110984@gmail.com', 1, 100000.0000, 1, N'uy+HMGFNj7hB3nPSsq3Ic3pJnl20I0Co60WGsmp8/Zs=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (23, N'dungnd', N'dT0TzCxKr4Z9eu57Y7cMriaFU2J6ZMffDx88jJiK+Z8=', N'thoiloan@gmail.com', 1, 96692.0000, 0, N'8ydIxJEPo8GBhk6XefRpKO+IWQ26fqSKaBDfOZhOUyM=')
 INSERT [dbo].[User] ([UserId], [UserName], [Password], [Email], [RoleId], [Balance], [IsActive], [PasswordSalt]) VALUES (24, N'2dungnd2', N'TbkZPOlPiVIsjiJGoWdKmjyP4bL2wz6x9282fkHed+Q=', N'2thoiloan2@gmail.com', 1, 100000.0000, 1, N'LRjnUhDlZml3NuIswBuv+eLEaFWVaYKVp6NRTaTzWCM=')
@@ -949,6 +954,7 @@ INSERT [dbo].[UserCourse] ([UserCourseId], [UserId], [CourseId], [IsStudent], [S
 INSERT [dbo].[UserCourse] ([UserCourseId], [UserId], [CourseId], [IsStudent], [Status]) VALUES (48, 23, 2, 1, N'1')
 INSERT [dbo].[UserCourse] ([UserCourseId], [UserId], [CourseId], [IsStudent], [Status]) VALUES (49, 23, 3, 1, N'1')
 INSERT [dbo].[UserCourse] ([UserCourseId], [UserId], [CourseId], [IsStudent], [Status]) VALUES (50, 20, 1, 1, N'1')
+INSERT [dbo].[UserCourse] ([UserCourseId], [UserId], [CourseId], [IsStudent], [Status]) VALUES (51, 2, 20, 0, N'1')
 SET IDENTITY_INSERT [dbo].[UserCourse] OFF
 GO
 SET IDENTITY_INSERT [dbo].[UserTest] ON 
@@ -960,6 +966,13 @@ INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], 
 INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (5, 1, 1, 88.888888888888886, CAST(N'2024-03-19T11:12:51.663' AS DateTime), 0.89)
 INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (6, 1, 1, 100, CAST(N'2024-03-19T11:53:27.700' AS DateTime), 1.1)
 INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (7, 1, 23, 0, CAST(N'2024-03-22T14:50:50.437' AS DateTime), 0.17)
+INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (8, 5, 23, 0, CAST(N'2024-03-22T17:47:05.567' AS DateTime), 0.04)
+INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (9, 5, 23, 0, CAST(N'2024-03-22T18:03:01.740' AS DateTime), 0.04)
+INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (10, 9, 23, 0, CAST(N'2024-03-22T18:21:11.360' AS DateTime), 0.05)
+INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (12, 9, 23, 0, CAST(N'2024-03-22T18:41:34.050' AS DateTime), 0.05)
+INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (13, 9, 23, 0, CAST(N'2024-03-22T18:41:47.993' AS DateTime), 0.06)
+INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (14, 9, 23, 0, CAST(N'2024-03-22T18:42:27.187' AS DateTime), 0.04)
+INSERT [dbo].[UserTest] ([UserTestId], [TestId], [UserId], [Point], [TestDate], [TotalTime]) VALUES (15, 9, 23, 0, CAST(N'2024-03-22T18:42:38.610' AS DateTime), 0.07)
 SET IDENTITY_INSERT [dbo].[UserTest] OFF
 GO
 ALTER TABLE [dbo].[Answer]  WITH CHECK ADD  CONSTRAINT [FK_Answer_Question] FOREIGN KEY([QuestionId])
