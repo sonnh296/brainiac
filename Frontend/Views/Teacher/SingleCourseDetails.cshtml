@@ -17,19 +17,26 @@
 
 <body>
     <main>
-        <div>
-            <button id="btn-delete" class="btn btn-danger">Delete course</button>
-        </div>
+        
+            
+        
         <div class="course-detail">
-            <div>
+            <div style="display:flex;width:100%;">
+                <button style ="margin-right: 20%;" id="btn-delete" class="btn btn-danger">Delete course</button>
                 <h2>Course general information</h2>
             </div>
             <div class="general-info">
-                <div class="course-title">
+      
+
+                <div class="add-course-name course-title form-group">
                     <label for="course-title-name">Course name:</label>
-                    <input type="text" id="course-title-name" name="course-title-name" disable="true" />
+                    <input type="text" id="course-title-name"
+                           name="course-title-name"
+                           value="John Doe"
+                           disabled="true" class="form-control" placeholder="Username" />
                 </div>
-                <div class="categories">
+
+                <div class="categories form-group">
                     <label for="course-title-name">Categories: </label>
                     <div class="category-list">
                         <div class="category-chip">
@@ -37,30 +44,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="course-description">
+              
+
+                <div class="add-course-title course-description form-group">
                     <label for="course-description">Description:</label>
-                    <textarea id="course-description"
-                              name="course-description"
-                              rows="4"
-                              cols="50"
-                              disable="true"
-                    >      
-                    </textarea>
+                    <input type="text" id="course-description"
+                           name="course-description"
+                           rows="4"
+                           cols="50"
+                           disabled="true" class="form-control" placeholder="Username">
                 </div>
-                <div class="course-price">
+
+
+                <div class="add-course-price course-price form-group">
                     <label for="price">Price:</label>
-                    <input type="text"
-                           id="price"
-                           name="price"
-                           disable="true" />
+                    <input type="number" id="price" name="price" class="form-control" 
+                           disabled="true" placeholder="Username">
                 </div>
+
                 <div>
-                    <button id="edit-button">Edit</button>
-                    <button id="save-button" disabled>Save</button>
+                    <button class="btn btn-primary" id="edit-button">Edit info</button>
+                    <button class="btn btn-primary" id="save-button" disabled>Save</button>
                 </div>
+
+
+
             </div>
             <div class="add-lesson">
-                <button id="btn-add" 
+                <button class="btn btn-primary" id="btn-add"
                         data-url='@Url.Action("AddResource", "Teacher")'>
                         Add lesson
                 </button>

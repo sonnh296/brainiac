@@ -17,7 +17,7 @@ namespace Backend.Controllers
 			_context = context;
         }
 
-		[Authorize(Roles = "Teacher, Student, Admin")]
+		
 		[HttpGet("Course/{courseId}")]
         public async Task<IActionResult> GetCommentsOfCourseAsync(int courseId)
         {

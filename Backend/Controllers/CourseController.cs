@@ -59,7 +59,7 @@ namespace Backend.Controllers
             return Ok(obj);
         }
 
-		[Authorize(Roles = "Teacher, Student, Admin")]
+		
 		[HttpGet("Related/{id}")]
         public async Task<IActionResult> GetRelatedCoursesAsync(int id)
         {
