@@ -142,7 +142,7 @@ function getCourseLessons() {
                         <div class="panel">
                             <p>${result[i].description}</p>
                             <div class="edit-lesson">
-                                <button>Edit</button>
+                                <button class="btn btn-primary">Edit</button>
                             </div>
                         </div>
                     </div>`;

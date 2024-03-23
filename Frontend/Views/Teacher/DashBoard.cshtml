@@ -10,24 +10,354 @@
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- js -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&amp;display=swap" rel="stylesheet" />
+ 
+          <!-- js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="~/js/auth/api.js"></script>
     <script src="~/js/teacher/teacherIndex.js"></script>
     <link rel="stylesheet" href="~/css/teacher/style.css" />
+    <style>
+        @@import url("https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css");
+        @@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            --color: rgba(30, 30, 30);
+            --bgColor: rgb(215, 215, 215);
+            min-height: 100vh;
+            display: grid;
+            align-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            font-family: "Oxygen", sans-serif;
+            color: var(--color);
+            background: var(--bgColor);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ol {
+            width: min(60rem, 90%);
+            margin-inline: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            list-style: none;
+            counter-reset: cardnr;
+            justify-content: center;
+        }
+
+        li {
+            --frontColor: white;
+            --width: 10em;
+            --inlineP: 0.5rem;
+            --borderR: 4rem;
+            --arrowW: 2rem;
+            --arrowH: 1.5rem;
+            counter-increment: cardnr;
+            width: calc(var(--width) - var(--inlineP) * 2);
+            display: grid;
+            grid-template:
+                "icon" var(--borderR)
+                "title"
+                "descr" 1fr;
+            margin-inline: var(--inlineP);
+            margin-bottom: calc(var(--borderR));
+            position: relative;
+        }
+
+            li .icon,
+            li .title,
+            li .descr {
+                background: var(--frontColor);
+                padding-inline: 1rem;
+                padding-bottom: 1rem;
+            }
+
+            li .icon,
+            li .title {
+                color: var(--accent-color);
+                text-align: center;
+                padding-bottom: 0.5rem;
+            }
+
+            li .title,
+            li .descr {
+                filter: drop-shadow(0.125rem 0.125rem 0.075rem rgba(0, 0, 0, 0.25));
+            }
+
+            li .icon {
+                grid-area: icon;
+                font-size: 2rem;
+                display: grid;
+                place-items: center;
+                border-radius: var(--borderR) 0 0 0;
+                position: relative;
+            }
+
+            li .title {
+                grid-area: title;
+                font-size: 1.1rem;
+                font-weight: bold;
+            }
+
+            li .descr {
+                grid-area: descr;
+                font-size: 0.85rem;
+                text-align: center;
+            }
+
+                li .descr::before {
+                    content: "";
+                    width: var(--arrowW);
+                    height: var(--arrowH);
+                    position: absolute;
+                    right: 1.5rem;
+                    top: 100%;
+                    background: inherit;
+                    clip-path: polygon(0 0, 100% 0, 50% 100%);
+                }
+
+            li::after {
+                content: counter(cardnr, decimal-leading-zero);
+                position: absolute;
+                z-index: -1;
+                left: calc(var(--inlineP) * -1);
+                right: calc(var(--inlineP) * -1);
+                top: var(--borderR);
+                bottom: calc(var(--borderR) * -1);
+                display: flex;
+                align-items: flex-end;
+                background: var(--accent-color);
+                background-image: linear-gradient( 160deg, rgba(255, 255, 255, 0.25), transparent 25% 75%, rgba(0, 0, 0, 0.25) );
+                border-radius: 0 0 var(--borderR) 0;
+                --pad: 1rem;
+                padding: var(--pad);
+                font-size: calc(var(--borderR) - var(--pad) * 2);
+                color: white;
+            }
+
+            li::before {
+                content: "";
+                position: absolute;
+                height: var(--borderR);
+                top: calc(100% + var(--borderR) - 2px);
+                left: calc(var(--inlineP) * -1);
+                right: calc(var(--inlineP) * -1);
+                border-radius: 0 var(--borderR) 0 0;
+                background-image: linear-gradient(var(--accent-color), transparent 60%);
+                opacity: 0.5;
+                filter: blur(2px);
+            }
+
+        .credits {
+            margin-top: 2rem;
+            text-align: right;
+        }
+
+            .credits a {
+                color: var(--color);
+            }
+
+        * {
+            border: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --hue: 223;
+            --bg: hsl(var(--hue),90%,90%);
+            --fg: hsl(var(--hue),90%,10%);
+            --trans-dur: 0.3s;
+            --trans-timing: cubic-bezier(0.65,0,0.35,1);
+        }
+.search,
+.search__icon,
+.search__input {
+	color: hsl(0,0%,100%);
+}
+.search {
+	margin: auto;
+	width: 12em;
+}
+.search__button,
+.search__input {
+	outline: transparent;
+}
+.search__button {
+	background-color: transparent;
+	cursor: pointer;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0.125em;
+	width: 2.25em;
+	height: 2.25em;
+	-webkit-tap-highlight-color: transparent;
+}
+[dir="rtl"] .search__button {
+	right: auto;
+	left: 0.125em;
+	transform: scaleX(-1);
+}
+.search__icon {
+	display: block;
+	margin: auto;
+	transition: color 0.15s linear;
+	width: 2.25em;
+	height: 2.25em;
+}
+.search__button:focus-visible .search__icon,
+.search__button:hover .search__icon {
+	color: hsl(var(--hue),90%,80%);
+}
+.search__icon-ellipse {
+	transition: ry var(--trans-dur) var(--trans-timing);
+}
+.search__icon-g,
+.search__icon-line2,
+.search__icon-line3  {
+	transition: transform var(--trans-dur) var(--trans-timing);
+}
+.search__icon-g {
+	transform: translate(6px,6px);
+	transform-origin: 12px 12px;
+}
+.search__icon-line2,
+.search__icon-line3 {
+	transform-origin: 21px 21px;
+}
+.search__input {
+	background-color: hsl(var(--hue),90%,60%);
+	border-radius: 0.5em;
+	box-shadow: 0 0.5em 1em hsla(var(--hue),90%,60%,0.4);
+	padding: 0.125em 0.75em;
+	padding-inline-end: 2.375em;
+	transition:
+		background-color var(--trans-dur),
+		box-shadow 0.15s linear;
+	width: 100%;
+	height: 2.25em;
+}
+.search__input::placeholder {
+	color: hsl(var(--hue),90%,80%);
+	transition: color var(--trans-dur);
+}
+.search__input-wrap {
+	position: relative;
+}
+.search__label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+}
+
+/* `:focus` state */
+.search__button:focus .search__icon-ellipse,
+.search__button:hover .search__icon-ellipse,
+.search__input:focus + .search__button .search__icon-ellipse {
+	ry: 0.01px;
+}
+.search__button:focus .search__icon-g,
+.search__button:hover .search__icon-g,
+.search__input:focus + .search__button .search__icon-g {
+	transform: translate(6px,6px) rotate(-45deg);
+}
+.search__button:focus .search__icon-line2,
+.search__button:hover .search__icon-line2,
+.search__input:focus + .search__button .search__icon-line2 {
+	transform: rotate(-45deg);
+}
+.search__button:focus .search__icon-line3,
+.search__button:hover .search__icon-line3,
+.search__input:focus + .search__button .search__icon-line3 {
+	transform: rotate(45deg);
+}
+
+/* “searched” state */
+.search--searched .search__button {
+	animation: search-icon-bounce var(--trans-dur);
+}
+[dir="rtl"] .search--searched .search__button {
+	animation: search-icon-bounce-rtl var(--trans-dur);
+}
+.search--searched .search__icon-ellipse,
+.search--searched .search__icon-g,
+.search--searched .search__icon-line2,
+.search--searched .search__icon-line3  {
+	transition-delay: var(--trans-dur);
+}
+
+/* Dark theme */
+@@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: hsl(var(--hue),90%,10%);
+		--fg: hsl(var(--hue),90%,90%);
+	}
+	.search__input {
+		background-color: hsl(var(--hue),90%,40%);
+		box-shadow: 0 0.5em 1em hsla(var(--hue),90%,40%,0.4);
+	}
+	.search__input::placeholder {
+		color: hsl(var(--hue),90%,70%);
+	}
+}
+
+/* Animations */
+@@keyframes search-icon-bounce {
+	from,
+	to {
+		animation-timing-function: cubic-bezier(0.65,0,1,1);
+		transform: translateX(0);
+	}
+	50% {
+		animation-timing-function: cubic-bezier(0,0,0.35,1);
+		transform: translateX(12.5%);
+	}
+}
+@@keyframes search-icon-bounce-rtl {
+	from,
+	to {
+		animation-timing-function: cubic-bezier(0.65,0,1,1);
+		transform: scaleX(-1) translateX(0);
+	}
+	50% {
+		animation-timing-function: cubic-bezier(0,0,0.35,1);
+		transform: scaleX(-1) translateX(12.5%);
+	}
+}
+    </style>
 </head>
 
 <body>
     <main>
         <div class="search-form">
-            <input class="form-control mr-sm-2"
-                   type="search"
-                   placeholder="Search"
-                   aria-label="Search"
-                   id="txt-search" />
-            <button class="btn btn-outline-success my-2 my-sm-0" id="btn-search">
-                Search
-            </button>
+            <form class="search" onsubmit="return false">
+                <label class="search__label" for="search">Search</label>
+                <div class="search__input-wrap">
+                    <input class="search__input" type="search" id="txt-search" name="search" placeholder="Search…">
+                    <button class="search__button" type="submit" name="search-submit" id="btn-search" aria-label="Search">
+                        <svg class="search__icon" viewBox="0 0 36 36" width="36px" height="36px" aria-hidden="true">
+                            <g class="search__icon-g" stroke="currentcolor" stroke-linecap="round" stroke-width="4" transform="translate(6,6)">
+                                <ellipse class="search__icon-ellipse" fill="none" cx="9" cy="9" rx="7" ry="7" transform="rotate(45,9,9)" />
+                                <line class="search__icon-line1" x1="15" y1="15" x2="21" y2="21" />
+                                <line class="search__icon-line2" x1="21" y1="21" x2="15" y2="15" />
+                                <line class="search__icon-line3" x1="21" y1="21" x2="15" y2="15" />
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+            </form>
             @* <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2"
                        type="search"
@@ -43,8 +373,7 @@
             <a class="btn btn-outline-success my-2 my-sm-0" href="@Url.Action("AddCourse", "Teacher")">Add course</a>
 
         </div>
-
-        <div class="course-list">
+        <ol class="course-list">
             <div class="course-item">
                 <div class="course-title">
                     <strong>Loading.......</strong>
@@ -69,7 +398,33 @@
                     <p>Draft</p>
                 </div>
             </div>
-        </div>
+        </ol>
     </main>
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            const searchBar = new SearchBar("form");
+        });
+
+        class SearchBar {
+            searchedClass = "search--searched";
+
+            constructor(el) {
+                this.form = document.querySelector(el);
+                this.form?.addEventListener("submit", this.search.bind(this));
+            }
+            search() {
+                if (this.form.search.value) {
+                    document.activeElement.blur();
+                    this.form.classList.add(this.searchedClass);
+
+                    clearTimeout(this.searchTimeout);
+                    this.searchTimeout = setTimeout(this.resetAnim.bind(this), 600);
+                }
+            }
+            resetAnim() {
+                this.form.classList.remove(this.searchedClass);
+            }
+        }
+    </script>
 </body>
 </html>
