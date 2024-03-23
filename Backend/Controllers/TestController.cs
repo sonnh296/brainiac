@@ -90,7 +90,6 @@ namespace Backend.Controllers
             return Ok(test);
         }
 
-		[Authorize(Roles = "Teacher, Student, Admin")]
 		[HttpGet("Question/{testId}")]
         public async Task<IActionResult> GetQuestionOfTestAsync(int testId)
         {
