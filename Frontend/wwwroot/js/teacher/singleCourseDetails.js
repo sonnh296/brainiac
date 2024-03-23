@@ -141,9 +141,7 @@ function getCourseLessons() {
                         <button class="accordion">${result[i].name}</button>
                         <div class="panel">
                             <p>${result[i].description}</p>
-                            <div class="edit-lesson">
-                                <button class="btn btn-primary">Edit</button>
-                            </div>
+                            
                         </div>
                     </div>`;
                 biggest += a;
