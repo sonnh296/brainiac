@@ -207,7 +207,6 @@ li::before {
                     var listCourse = document.querySelector(".list-course");
                     data.forEach((course) => {
                         var courseItem = document.createElement("div");
-                        if (count == 0) {
                             courseItem.innerHTML = `
                                             <a href="/Student/CourseDetail?courseId=${course.courseId}" class="course">
                                                         <li style=" height: 200px;width: 130px;--accent-color:#0D6EFD">
@@ -220,64 +219,6 @@ li::before {
                                     </a>
 
                                 `;
-                        }
-                        if (count == 1) {
-                            courseItem.innerHTML = `
-                                                            <a href="/Student/CourseDetail?courseId=${course.courseId}" class="course">
-                                                                                <li style="    height: 200px;width: 130px;--accent-color: #6710F5;">
-                            <div class="icon"><i class="fa-brands fa-codepen"></i></div>
-                                            <div class="title">${course.name}</div>
-                                            <div class="descr">${course.description}</div>
-
-                        </li>
-
-                                            </a>
-
-                                        `;
-                        }
-                        if (count == 2) {
-                            courseItem.innerHTML = `
-                                                    <a href="/Student/CourseDetail?courseId=${course.courseId}" class="course">
-                                                                <li style="  height: 200px;width: 130px;--accent-color:#6F42C1">
-                            <div class="icon"><i class="fa-brands fa-css3"></i></div>
-                                    <div class="title">${course.name}</div>
-                                    <div class="descr">${course.description}</div>
-                        </li>
-                     
-
-                                            </a>
-
-                                        `;
-                        }
-                        if (count == 3) {
-                            courseItem.innerHTML = `
-                                                    <a href="/Student/CourseDetail?courseId=${course.courseId}" class="course">
-                                                                    <li style=" height: 200px;width: 130px;--accent-color:#D63384">
-                                    <div class="icon"><i class="fa-brands fa-js"></i></div>
-                                            <div class="title">${course.name}</div>
-                                            <div class="descr">${course.description}</div>
-                                </li>
-                              
-                                            </a>
-
-                                        `;
-                        }
-                        if (count == 4) {
-                            courseItem.innerHTML = `
-                                                    <a href="/Student/CourseDetail?courseId=${course.courseId}" class="course">
-                                                                        <li style=" height: 200px;width: 130px;--accent-color:#DC3545">
-                                            <div class="icon"><i class="fa-brands fa-github"></i></div>
-                                                    <div class="title">${course.name}</div>
-                                                    <div class="descr">${course.description}</div>
-                                        </li>
-
-
-                                            </a>
-
-                                        `;
-                        }
-                        ;
-                        count++;
                         listCourse.appendChild(courseItem);
                 });
             });

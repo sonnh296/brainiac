@@ -55,7 +55,6 @@ namespace Backend.Controllers
             }
         }
 
-		[Authorize(Roles = "Teacher, Student, Admin")]
 		[HttpPost("PostComment")]
         public async Task<IActionResult> PostCommentAsync(CommentDTO comment)
         {

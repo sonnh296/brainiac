@@ -19,7 +19,7 @@ namespace Backend.Repositories
         public Resource GetLargestOrdinalResourceInCourse(int courseId)
         {
             var resource = context.Resources
-                            .Where(r => r.CourseId == courseId && r.Status != 0
+                            .Where(r => r.CourseId == courseId
                              && r.OrdinalNumber == context.Resources.Where(lc => lc.CourseId == courseId).Max(lc => lc.OrdinalNumber))
                             .FirstOrDefault();
             return resource;

@@ -73,32 +73,12 @@ function GetAllCoursesOfTeacher() {
         success: function (result) {
             //console.log(result);
             let biggest = "";
-            var count = 0;
+           
             var a = "";
             for (let i = 0; i < result.length; i++) {
                 var statusText = getCourseStatus(result[i].status);
                 const actionUrl = "http://localhost:5016/teacher/singleCourseDetails?courseId=" + result[i].courseId;
-                if (count == 0) {
-                     a = `
-                     <a href="${actionUrl}" class="course" style="text-decoration: none;">
-                    <li style="height: 280px;width: 200px;--accent-color:#0D6EFD">
-                        <div class="icon"><i class="fa-brands fa-codepen"></i></div>
-                        <div class="title">${result[i].courseName}</div>
-      
-                        <div class="descr">${result[i].title}
-                          <div style ="margin-left: 30%;     margin-top: 48%;">
-                      <div class="price">Price:  ${result[i].price} VND  </div>
-                      <div class="status">Status: ${statusText}</div>
-                      </div>
-                      </div>
-     
-      
-                    </li>
-                      </a>
-
-                    `;
-                }
-                if (count == 1) {
+            
                      a = `
                      <a href="${actionUrl}" class="course"  style="text-decoration: none;">
                      <li style="    height: 280px;width: 200px;--accent-color: #6710F5;">
@@ -117,70 +97,8 @@ function GetAllCoursesOfTeacher() {
                       </a>
 
                     `;
-                }
-                if (count == 2) {
-                     a = `
-                     <a href="${actionUrl}" class="course"  style="text-decoration: none;">
-                   <li style="  height: 280px;width: 200px;--accent-color:#6F42C1">
-                        <div class="icon"><i class="fa-brands fa-codepen"></i></div>
-                        <div class="title">${result[i].courseName}</div>
-      
-                        <div class="descr">${result[i].title}
-                          <div style ="margin-left: 30%;     margin-top: 48%;">
-                      <div class="price">Price:  ${result[i].price} VND  </div>
-                      <div class="status">Status: ${statusText}</div>
-                      </div>
-                      </div>
-     
-      
-                    </li>
-                      </a>
-
-                    `;
-                }
-                if (count ==3) {
-                     a = `
-                     <a href="${actionUrl}" class="course"  style="text-decoration: none;">
-                       <li style=" height: 280px;width: 200px;--accent-color:#D63384">
-
-                        <div class="icon"><i class="fa-brands fa-codepen"></i></div>
-                        <div class="title">${result[i].courseName}</div>
-      
-                        <div class="descr">${result[i].title}
-                          <div style ="margin-left: 30%;     margin-top: 48%;">
-                      <div class="price">Price:  ${result[i].price} VND  </div>
-                      <div class="status">Status: ${statusText}</div>
-                      </div>
-                      </div>
-     
-      
-                    </li>
-                      </a>
-
-                    `;
-                }
-                if (count == 4) {
-                     a = `
-                     <a href="${actionUrl}" class="course"  style="text-decoration: none;">
-                    <li style=" height: 280px;width: 200px;--accent-color:#DC3545">
-                        <div class="icon"><i class="fa-brands fa-codepen"></i></div>
-                        <div class="title">${result[i].courseName}</div>
-      
-                        <div class="descr">${result[i].title}
-                          <div style ="margin-left: 30%;     margin-top: 48%;">
-                      <div class="price">Price:  ${result[i].price} VND  </div>
-                      <div class="status">Status: ${statusText}</div>
-                      </div>
-                      </div>
-     
-      
-                    </li>
-                      </a>
-
-                    `;
-                }
-               
-                count++;
+                
+              
                 biggest += a;
                
             }
@@ -194,11 +112,11 @@ function GetAllCoursesOfTeacher() {
 
 function getCourseStatus(statusId) {
     switch (statusId) {
-        case "1":
+        case "draft":
             return "Draft";
-        case "2":
+        case "pending":
             return "Pending";
-        case "3":
+        case "1":
             return "Published";
         default:
             return "Deleted";
