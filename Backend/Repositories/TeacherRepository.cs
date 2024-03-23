@@ -92,10 +92,10 @@ namespace Backend.Repositories
         {
             var course = mapper.Map<Course>(courseDto);
             var selectedCategories = courseDto.Categories;
-            course.Status = CourseConstants.CourseDraft;
+            course.Status = "pending";
             context.Courses.Add(course);
             await context.SaveChangesAsync();
-            await ModifyUserCourseInfo(teacherid, course, CourseConstants.CourseDraft);
+            await ModifyUserCourseInfo(teacherid, course, "pending");
             await ModifyCategoryCourseInfo(course, selectedCategories);
             return course;
         }
@@ -136,7 +136,13 @@ namespace Backend.Repositories
         {
             Resource res = mapper.Map<Resource>(rsCreate);
             res.CourseId = courseid;
-            res.OrdinalNumber = latestResource.OrdinalNumber + 1;
+            if(latestResource != null) { 
+                res.OrdinalNumber = latestResource.OrdinalNumber + 1;
+            }
+            else
+            {
+                res.OrdinalNumber = 1;
+            }
             res.Status = ResourceConstants.RESOURCE_DRAFT;
             context.Resources.Add(res);
             await context.SaveChangesAsync();

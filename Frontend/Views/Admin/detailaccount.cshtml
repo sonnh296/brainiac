@@ -114,17 +114,13 @@
 			<div class="clear"></div>
 		</div>
 		<div class="divider"></div>
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-		</form>
 		<ul class="nav menu">
 			<li><a style="font-size:small" href="/admin/manageaccount"><img src="/imgs/admin-img/acc.png" width="20" height="20" alt="acc Icon">&nbsp; Manage Account </a></li>
 			<li><a style="font-size:small" href="/admin/managecourse"><img src="/imgs/admin-img/course.png" width="20" height="20" alt="course Icon">&nbsp; Manage Courses </a></li>
 			<li><a style="font-size:small" href="/admin/reportedcomment"><img src="/imgs/admin-img/reported.png" width="20" height="20" alt="reported Icon">&nbsp;Reported Comments</a></li>
-			<li><a style="font-size:small" href="/admin/login"><img src="/imgs/admin-img/logout.png" width="20" height="20" alt="logout Icon">&nbsp; Logout</a></li>
+			<li><a href="/" style="font-size:small" href="#"><img src="/imgs/admin-img/logout.png" width="20" height="20" alt="logout Icon">&nbsp; Logout</a></li>
 		</ul>
+
 	</div><!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -204,7 +200,42 @@
 
 
 	</div><!--/.main-->
-	
+	<script>
+		function Logout() {
+			var AC_exist = false;
+			const cookies = document.cookie.split(';');
+			for (let i = 0; i < cookies.length; i++) {
+				const cookie = cookies[i].trim();
+				if (cookie.startsWith("web-at=")) {
+					AC_exist = true;
+					var tk = cookie.substring(7);
+					callLogout(tk)
+				}
+			}
+			if (!AC_exist) {
+				getAccessToken();
+				for (let i = 0; i < cookies.length; i++) {
+					const cookie = cookies[i].trim();
+					if (cookie.startsWith("web-at=")) {
+						AC_exist = true;
+						var tk = cookie.substring(7);
+						callLogout(tk)
+					}
+				}
+			}
+		}
+
+		function callLogout(tk) {
+			fetch("http://localhost:5020/api/logout", {
+				headers: { Authorization: `Bearer ${tk}` },
+			})
+				.then(() => {
+					document.cookie = `web-at=; max-age=0; path=/`;
+					document.cookie = `web-rt=;max-age=0;  path=/`;
+					document.cookie = `user-id=;max-age=0;  path=/`;
+				});
+		}
+	</script>
 <script>
 		var urlParams = new URLSearchParams(window.location.search);
 		var userId = urlParams.get('id');

@@ -215,6 +215,7 @@
             </div>
         </div>
     </footer>
+    <script src="~/js/auth/api.js"></script>
     <script src="~/Assets/HomePage/js/active.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
@@ -268,7 +269,7 @@
                 });
         }
     </script>
-    <script src="~/js/auth/api.js"></script>
+   
 @*    <script>
         if (!checkCUrrentRole("Student")) {
             window.location.href = "/";

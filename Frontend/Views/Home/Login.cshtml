@@ -636,7 +636,7 @@
 				@*<span>or use your email for registration</span>*@
 				<input id="signup-name" type="text" placeholder="Name" />
 				<input id="signup-email" placeholder="Email" />
-				<input id="signup-password" placeholder="Password" />
+				<input id="signup-password" type="password" placeholder="Password" />
 				<input type="radio" id="signup-student" name="signup-role" value="1"> Student	
 				<input type="radio" id="signup-teacher" name="signup-role" value="2"> Teacher
 				<button style="background-color:blue">Sign Up</button>
@@ -715,41 +715,41 @@
 <script src="~/js/auth/api.js"></script>
 
 <script>
-	function checkIsLogin() {
-		var AC_exist = false;
-		const cookies = document.cookie.split(';');
-		for (let i = 0; i < cookies.length; i++) {
-			const cookie = cookies[i].trim();
-			if (cookie.startsWith("web-at=")) {
-				AC_exist = true;
-				var tk = cookie.substring(7);
-				fetch("http://localhost:5020/api/User/CurrentUser", {
-					headers: { Authorization: `Bearer ${tk}` },
-				})
-					.then((response) => response.json())
-					.then((data) => {
-						role = data.role;
-						if (role != null && role != undefined) {
-							if (role == "Student") {
-								window.location.href = "/homepage";
-							}
-							if (role == "Admin") {
-								window.location.href = "/admin/manageaccount";
-							}
-							if (role == "Teacher") {
-								window.location.href = "/teacher/dashboard";
-							}
-						}
-					});
-			}
-		}
-		if (!AC_exist){
-			if (getRefreshToken() != null){
-				getAccessToken();
-			}
-		}
-	}
-	checkIsLogin()
+	// function checkIsLogin() {
+	// 	var AC_exist = false;
+	// 	const cookies = document.cookie.split(';');
+	// 	for (let i = 0; i < cookies.length; i++) {
+	// 		const cookie = cookies[i].trim();
+	// 		if (cookie.startsWith("web-at=")) {
+	// 			AC_exist = true;
+	// 			var tk = cookie.substring(7);
+	// 			fetch("http://localhost:5020/api/User/CurrentUser", {
+	// 				headers: { Authorization: `Bearer ${tk}` },
+	// 			})
+	// 				.then((response) => response.json())
+	// 				.then((data) => {
+	// 					role = data.role;
+	// 					if (role != null && role != undefined) {
+	// 						if (role == "Student") {
+	// 							window.location.href = "/homepage";
+	// 						}
+	// 						if (role == "Admin") {
+	// 							window.location.href = "/admin/manageaccount";
+	// 						}
+	// 						if (role == "Teacher") {
+	// 							window.location.href = "/teacher/dashboard";
+	// 						}
+	// 					}
+	// 				});
+	// 		}
+	// 	}
+	// 	if (!AC_exist){
+	// 		if (getRefreshToken() != null){
+	// 			getAccessToken();
+	// 		}
+	// 	}
+	// }
+	// checkIsLogin()
 
 	const signUpButton = document.getElementById('signUp');
 	const signInButton = document.getElementById('signIn');

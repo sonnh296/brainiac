@@ -15,6 +15,7 @@ function SaveDraftCourse() {
         }
         else {
             course.categories = catesSeltected;
+            console.log(course);
             $.ajax({
                 headers: {
                     'Accept': '*/*',

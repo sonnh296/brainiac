@@ -21,7 +21,7 @@ namespace Backend.Controllers.Admin
             _roleRepository = new GenericRepository<Role>(_context);
 		}
 		// GET: Admin/ManageUser/{id}
-		[Authorize(Roles = "Admin")]
+		
 		[HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
@@ -49,7 +49,7 @@ namespace Backend.Controllers.Admin
             }
         }
 		// GET: Admin/ManageUser/GetAllUsers
-		[Authorize(Roles = "Admin")]
+	
 		[HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers(string? searchText)
         {
@@ -92,7 +92,7 @@ namespace Backend.Controllers.Admin
         }
 
 		// GET: Admin/ManageUser/GetUsersByRole/{roleId}
-		[Authorize(Roles = "Admin")]
+	
 		[HttpGet("GetUsersByRole/{roleId}")]
         public async Task<IActionResult> GetUsersByRole(int roleId)
         {
@@ -111,7 +111,7 @@ namespace Backend.Controllers.Admin
         }
 
 		// POST: Admin/ManageUser/AddUser
-		[Authorize(Roles = "Admin")]
+		
 		[HttpPost("AddUser")]
         public async Task<IActionResult> AddUser([FromBody] User newUser)
         {
@@ -136,7 +136,7 @@ namespace Backend.Controllers.Admin
         }
 
 		// PUT: Admin/ManageUser/UpdateUser/{id}
-		[Authorize(Roles = "Admin")]
+		
 		[HttpPut("UpdateUser/{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
         {
@@ -166,7 +166,7 @@ namespace Backend.Controllers.Admin
         }
 
 		// DELETE: Admin/ManageUser/DeleteUser/{id}
-		[Authorize(Roles = "Admin")]
+		
 		[HttpDelete("DeleteUser/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
@@ -184,7 +184,7 @@ namespace Backend.Controllers.Admin
             }
         }
 
-		[Authorize(Roles = "Admin")]
+		
 		[HttpPut("UpdateUserStatus/{id}")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] int status)
         {

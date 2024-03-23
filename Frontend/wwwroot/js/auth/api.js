@@ -4,7 +4,7 @@
         document.cookie = `web-at=;max-age=0; path=/`;
         document.cookie = `web-rt=; max-age=0;path=/`;
         document.cookie = `user-id=; max-age=0;path=/`;
-        window.location.href = "/";
+        //window.location.href = "/";
     }
     const cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i++) {

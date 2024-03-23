@@ -22,7 +22,7 @@ namespace Backend.Controllers.Admin
 
         }
 
-		[Authorize(Roles = "Admin")]
+	
 		[HttpGet("GetAllReportedComment")]
         public async Task<IActionResult> GetAllReportedComments()
         {
@@ -53,7 +53,7 @@ namespace Backend.Controllers.Admin
 
         }
 
-		[Authorize(Roles = "Admin")]
+		
 		[HttpPut("UpdateCommnentStatus/{id}")]
         public async Task<IActionResult> UpdateCommentStatus(int id, [FromBody] string status)
         {

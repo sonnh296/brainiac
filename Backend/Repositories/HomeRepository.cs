@@ -17,7 +17,7 @@ namespace Backend.Repositories
 
         public List<Course> GetAllCourse()
         {
-            return _context.Courses.ToList();
+            return _context.Courses.Where(x => x.Status.Equals("1") || x.Status.Equals("approved")).ToList();
         }
 
         public List<CourseRatingDTO> GetCourseByCate(int cate)

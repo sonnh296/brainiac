@@ -27,7 +27,7 @@ namespace Backend.Controllers.Admin
             _resourceRepository = resourceRepository;
            
         }
-		[Authorize(Roles = "Admin")]
+		
 		[HttpGet("GetAllCourses")]
         public async Task<IActionResult> GetAllCourses(string? searchText)
         {
@@ -56,7 +56,7 @@ namespace Backend.Controllers.Admin
         }
 
 
-		[Authorize(Roles = "Admin")]
+		
 		[HttpGet("GetCourse/{id}")]
         public async Task<IActionResult> GetCourseById(int id)
         {
@@ -93,7 +93,7 @@ namespace Backend.Controllers.Admin
             }
         }
 
-		[Authorize(Roles = "Admin")]
+
 		[HttpGet("GetTestsByCourse/{courseId}")]
         public IActionResult GetTestsByCourse(int courseId)
         {
@@ -112,7 +112,7 @@ namespace Backend.Controllers.Admin
             }
         }
 
-		[Authorize(Roles = "Admin")]
+		
 		[HttpGet("GetResourcesByCourse/{courseId}")]
         public IActionResult GetResourcesByCourseId(int courseId)
         {
@@ -131,7 +131,7 @@ namespace Backend.Controllers.Admin
             }
         }
 
-		[Authorize(Roles = "Admin")]
+		
 		[HttpPut("UpdateCourseStatus/{id}")]
         public async Task<IActionResult> UpdateCourseStatus(int id, [FromBody] string status)
         {

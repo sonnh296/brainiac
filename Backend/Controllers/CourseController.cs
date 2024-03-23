@@ -84,7 +84,7 @@ namespace Backend.Controllers
             return Ok(listCourse);
         }
 
-		[Authorize(Roles = "Teacher, Student, Admin")]
+		
 		[HttpGet("CourseByTeacher/{teacherId}")]
         public async Task<IActionResult> GetCourseByTeacherAsync(int teacherId)
         {
@@ -109,7 +109,7 @@ namespace Backend.Controllers
             return Ok(listCourse);
         }
 
-		[Authorize(Roles = "Teacher, Student, Admin")]
+	
 		[HttpGet("CourseByCategory/{categoryId}")]
         public async Task<IActionResult> GetCourseByCategoryAsync(int categoryId)
         {
